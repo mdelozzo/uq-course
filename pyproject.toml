@@ -1,0 +1,57 @@
+[project]
+name = "uq-course"
+authors = [
+    {name = "Matthias De Lozzo", email = "matthias.delozzo@irt-saintexupery.com"}
+]
+description = "Introduction to uncertainty quantification."
+classifiers = [
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: MacOS",
+    "Operating System :: Microsoft :: Windows",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+]
+dynamic = ["version"]
+requires-python = ">=3.9, <3.12"
+dependencies = ["openturns"]
+
+[project.optional-dependencies]
+test = [
+    "covdefaults",
+    "pytest <8",
+    "pytest-cov",
+    "pytest-xdist",
+]
+doc = [
+    "black",
+    "mkdocs-gallery",
+    "mkdocs-section-index",
+    "mkdocs-literate-nav",
+    "mkdocs-gen-files",
+    "mkdocstrings[python]",
+    "mkdocs-material",
+    "mkdocs-include-markdown-plugin",
+    "mkdocs-bibtex",
+]
+
+[project.urls]
+Homepage = "https://github.com/mdelozzo/uq-course"
+Source = "https://github.com/mdelozzo/uq-course"
+Tracker = "https://github.com/mdelozzo/uq-course/issues"
+
+[project.readme]
+file = "README.md"
+content-type = "text/markdown"
+
+[build-system]
+requires = [
+    "setuptools",
+    "setuptools_scm[toml]",
+]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools_scm]
