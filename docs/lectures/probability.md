@@ -1,11 +1,11 @@
-# Basics of probability
+# 2. Basics of probability and statistics
 
 ## Variable vs. random variable
 
 ### Variable
 
 A variable is the property of an object resulting of an experiment. 
-*e.g.* the size of a person where the object is the medical check-up and the experiment is the patient consultation
+e.g. the size of a person where the object is the medical check-up and the experiment is the patient consultation
 (the patient's shoes are not a variable but a parameter).
 
 !!! warning
@@ -16,23 +16,23 @@ A variable is the property of an object resulting of an experiment.
 
 Quantitative variable:
 
-- Discrete variable - A variable with discrete values, *e.g.* building floor.
-- A continuous variable - A variable with continuous values, *e.g.* building height.
+- Discrete variable - A variable with discrete values, e.g. building floor.
+- A continuous variable - A variable with continuous values, e.g. building height.
  
 Qualitative variable:
 
-- Nominal variable - A variable with nominal values, *e.g.* curry dish.
-- Ordinal variable - A variable with ordinal values, *e.g.* spice level.
+- Nominal variable - A variable with nominal values, e.g. curry dish.
+- Ordinal variable - A variable with ordinal values, e.g. spice level.
 
 ### Random variable
 
 A random variable is the property of an object resulting of a random experiment,
-*e.g.* the size of an adult person among a given population.
+e.g. the size of an adult person among a given population.
 
 ## Random experiment
 
 A random experiment is a real-world process whose state is random,
-*e.g.* obtaining the monthly water requirements per hectare [mwrph] (= the real-world process) 
+e.g. obtaining the monthly water requirements per hectare [mwrph] (= the real-world process) 
 of a field (= the state) 
 in the south-west of France (= randomness). 
 
@@ -40,14 +40,14 @@ A random experiment can be modelled by a probability space $(\Omega,\mathcal{F},
 
 - the population $\Omega$ is the set of all possible outcomes of the experiment,
   a.k.a. sample space or possibility space,
-  *e.g.* the mwrph of all the fields of the SW of France,
+  e.g. the mwrph of all the fields of the SW of France,
 - an element $\omega$, a.k.a. realization $\omega$, is any element of the population $\Omega$,
   e.g. the mwrph of a particular field in the SW of France,
 - an event $A$ is a set of possible elements, subset of the population $\Omega$, 
   the set of all events is noted $\mathcal{F}$,
-  *e.g.* the mwrph of fields of more than 500 hectares in the SW of France,
+  e.g. the mwrph of fields of more than 500 hectares in the SW of France,
 - the probability $\mathbb{P}$ is the measure of the likelihood that an event happens,
-  *e.g.* the mwrph of the field of the Dupont family at Joli-Village-Sur-Garonne exceeds the one of 2020.
+  e.g. the mwrph of the field of the Dupont family at Joli-Village-Sur-Garonne exceeds the one of 2020.
   $\mathbb{P}$ is an application from $\Omega$ to $[0,1]$ 
   such that $\mathbb{P}(\Omega)=1$ and $\mathbb{P}(\cup_{i\geq 1}A_i)=\sum_{i\geq 1}\mathbb{P}(A_i)$ iff $\forall i\neq j, A_i \cap A_j=\emptyset$. 
 
@@ -107,26 +107,62 @@ Properties:
 - $\int_{\mathcal{X}}f_X(x)=1$
 - $\lim_{x\rightarrow \pm \infty} f_X(x)=0$
 
-### Illustration
+!!! Example
 
-Two normal (a.k.a. Gaussian) distributions:
+    Two normal (a.k.a. Gaussian) distributions:
+    
+    | color | mean | standard deviation |
+    |-------|------|--------------------|
+    | blue  | 0    | 0.5                |
+    | red   | 1    | 0.75               |
+    
+    Below the PDF on the left and the CDF on the right. 
+    
+    ![ ](../images/probability_distribution_illustration.png)
+    
+    Below the relation between CDF and PDF.
+    
+    ![ ](../images/probability_distribution_illustration_suite.png)
 
-| color | mean | standard deviation |
-|-------|------|--------------------|
-| blue  | 0    | 0.5                |
-| red   | 1    | 0.75               |
+### Statistical measures (statistics)
 
-Below the PDF on the left and the CDF on the right. 
+#### Expectation
 
-![ ](../images/probability_distribution_illustration.png)
+The expectation is the first moment.
 
-Below the relation between CDF and PDF.
+The expectation is the mean of $X$, *i.e.* its central trend:
 
-![ ](../images/probability_distribution_illustration_suite.png)
+$$\mu=\mathbb{E}[X]$$
 
-## Particular statistics
+$\forall (a,b)\in\mathbb{R}^2,~\mathbb{E}[aX+b]=a\mathbb{E}[X]+b$.
 
-### Moments
+#### Variance
+
+The variance if the second central moment.
+
+The variance is the mean squared dispersion of $X$ w.r.t. its central tendency:
+
+$$\sigma^2=\mathbb{V}[X]=\mathbb{E}\left[\left(X-\mu\right)^2\right]=\mathbb{E}\left[X^2\right]-\mu^2$$
+
+$\forall (a,b)\in\mathbb{R}^2,~\mathbb{V}[aX+b]=a^2\mathbb{V}[X]$.
+
+#### Standard deviation
+
+The standard deviation is the square root of the variance:
+
+$$\sigma=\sqrt{\mathbb{V}[X]}$$
+
+!!! note
+
+    $\sigma\equiv 0 \Leftrightarrow X$ is determinist.
+
+#### Coefficient of variation
+
+The coefficient of variation is the standard deviation normalized by the expectation:
+
+$$\texttt{CoV}=\frac{\sigma}{\mu}$$
+
+#### Moments
 
 $\forall k\in\mathbb{N}^*$,
 
@@ -148,41 +184,61 @@ and $m_{4,s}$ represents its [kurtosis](https://en.wikipedia.org/wiki/Kurtosis),
 
 Expectation and variance are the most popular moments.
 
-### Expectation
+## Monte Carlo sampling
 
-The expectation is the first moment.
+### Introduction
 
-The expectation is the mean of $X$, *i.e.* its central trend:
+Statistics are integral of quantify of interest.
+For example, the expectation of the model output can be written as  
 
-$$\mu=\mathbb{E}[X]$$
+$$I=\mathbb{E}[f(X)]=\int_{\mathcal{X}}f(x)f_X(x)dx$$
 
-$\forall (a,b)\in\mathbb{R}^2,~\mathbb{E}[aX+b]=a\mathbb{E}[X]+b$.
+Computing $I$ analytically is often impossible 
+and a brute force approach is Monte Carlo (MC) sampling:
 
-### Variance
+$$\hat{I}_N=\frac{1}{N}\sum_{i=1}^Nh\left(x^{(i)}\right)$$
 
-The variance if the second central moment.
+where $x^{(1)},\ldots,x^{(N)}$ are $N$ independent realizations of $X$. 
 
-The variance is the mean squared dispersion of $X$ w.r.t. its central tendency:
+### Properties
 
-$$\sigma^2=\mathbb{V}[X]=\mathbb{E}\left[\left(X-\mu\right)^2\right]=\mathbb{E}\left[X^2\right]-\mu^2$$
+$\hat{I}_N$ tends to $I$ when $N$ tends to $\infty$
+but with a slow convergence in the order of $1/\sqrt{N}$.
+In other words,
+dividing the error by $M$ implies to multiply the number of samples by $M^2$.
+To be 10 times more precise, 100 times more evaluations are needed.
 
-$\forall (a,b)\in\mathbb{R}^2,~\mathbb{V}[aX+b]=a^2\mathbb{V}[X]$.
+The convergence rate is independent of the dimension of $X$.
+The only limitation to the use of a Monte Carlo estimator is the evaluation cost of $f$ 
+not allowing a sufficient number of evaluations $N$ to achieve the desired accuracy of the MC estimator.
 
-### Standard deviation
+### Examples
 
-The standard deviation is the square root of the variance:
+Mean:
 
-$$\sigma=\sqrt{\mathbb{V}[X]}$$
+$$\mathbb{E}[h(X)]\approx\frac{1}{N}\sum_{i=1}^Nh\left(X^{(i)}\right)$$
 
-!!! note
+Variance:
 
-    $\sigma\equiv 0 \Leftrightarrow X$ is determinist.
+$$\mathbb{V}[h(X)]\approx\frac{1}{N}\sum_{i=1}^N\left(f\left(X^{(i)}\right)-\frac{1}{N}\sum_{j=1}^Nh\left(X^{(j)}\right)\right)^2$$
 
-### Coefficient of variation
+CDF
 
-The coefficient of variation is the standard deviation normalized by the expectation:
+$$F_{f(X)}(y)\approx\frac{1}{N}\sum_{i=1}^N\mathrm{1}_{f\left(X^{(i)}\right)\leq y}=:\hat{F}_N(y)$$
 
-$$\texttt{CoV}=\frac{\sigma}{\mu}$$
+Quantile
+
+$$y_{\alpha}=\inf \left\{z:\hat{F}_N(y)\geq \alpha\right\}$$
+
+Probability
+
+$$\mathbb{P}[X\in\mathcal{D}]=\mathbb{E}[\mathrm{1}_{X\in\mathcal{D}}]\approx\frac{1}{N}\sum_{i=1}^N\mathrm{1}_{X^{(i)}\in\mathcal{D}}$$
+
+!!! warning
+
+    MC techniques for probabilities and quantiles are very costly,
+    requiring $N=10^{r+2m}$ evaluations for a probability of $10^{-r}$ with a CoV of $10^{-m}$,
+    e.g. $N=10^5$ evaluations for a probability of 99.9% with a CoV of 10%.
 
 ## Visualizing one 1D variable
 
@@ -245,56 +301,3 @@ Also known as parallel coordinates.
 
 ![ ](../images/cobwebplot.png)
 
-## Monte Carlo sampling
-
-### Introduction
-
-Statistics are integral of quantify of interest.
-For example, the expectation of the model output can be written as  
-
-$$I=\mathbb{E}[f(X)]=\int_{\mathcal{X}}f(x)f_X(x)dx$$
-
-Computing $I$ analytically is often impossible 
-and a brute force approach is Monte Carlo (MC) sampling:
-
-$$\hat{I}_N=\frac{1}{N}\sum_{i=1}^Nh\left(x^{(i)}\right).$$
-
-### Properties
-
-$\hat{I}_N$ tends to $I$ when $N$ tends to $\infty$
-but with a slow convergence in the order of $1/\sqrt{N}$.
-In other words,
-dividing the error by $M$ implies to multiply the number of samples by $M^2$.
-To be 10 times more precise, 100 times more evaluations are needed.
-
-The convergence rate is independent of the dimension of $X$.
-The only limitation to the use of a Monte Carlo estimator is the evaluation cost of $f$ 
-not allowing a sufficient number of evaluations $N$ to achieve the desired accuracy of the MC estimator.
-
-### Examples
-
-Mean:
-
-$$\mathbb{E}[h(X)]\approx\frac{1}{N}\sum_{i=1}^Nh\left(X^{(i)}\right)$$
-
-Variance:
-
-$$\mathbb{V}[h(X)]\approx\frac{1}{N}\sum_{i=1}^N\left(f\left(X^{(i)}\right)-\frac{1}{N}\sum_{j=1}^Nh\left(X^{(j)}\right)\right)^2$$
-
-CDF
-
-$$F_{f(X)}(y)\approx\frac{1}{N}\sum_{i=1}^N\mathrm{1}_{f\left(X^{(i)}\right)\leq y}=:\hat{F}_N(y)$$
-
-Quantile
-
-$$y_{\alpha}=\inf \left\{z:\hat{F}_N(y)\geq \alpha\right\}$$
-
-Probability
-
-$$\mathbb{P}[X\in\mathcal{D}]=\mathbb{E}[\mathrm{1}_{X\in\mathcal{D}}]\approx\frac{1}{N}\sum_{i=1}^N\mathrm{1}_{X^{(i)}\in\mathcal{D}}$$
-
-!!! warning
-
-    MC techniques for probabilities and quantiles are very costly,
-    requiring $N=10^{r+2m}$ evaluations for a probability of $10^{-r}$ with a CoV of $10^{-m}$,
-    *e.g.* $N=10^5$ evaluations for a probability of 99.9% with a CoV of 10%.

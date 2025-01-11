@@ -1,4 +1,4 @@
-# Uncertainty quantification
+# 3. Uncertainty quantification
 
 ## Probability distributions
 
@@ -398,8 +398,8 @@ A statistical hypothesis is a hypothesis that is testable by means of observatio
 
 A statistical hypothesis test starts from a statistical hypothesis, called *null hypothesis*, that is done about:
 
-- either the relationship of two datasets in terms of distributions (*e.g.* same distribution) or statistical properties (*e.g.* same mean),
-- or the relationship of a dataset and a reference probability law in terms of distributions (*e.g.* Gaussian variable).
+- either the relationship of two datasets in terms of distributions (e.g. same distribution) or statistical properties (e.g. same mean),
+- or the relationship of a dataset and a reference probability law in terms of distributions (e.g. Gaussian variable).
 
 A statistical hypothesis test of **significance level** $\alpha$
 

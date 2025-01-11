@@ -1,4 +1,4 @@
-# Surrogate models
+# 6. Surrogate models
 
 ## What, why and how
     
@@ -36,7 +36,7 @@ So, uncertainty quantification is costly:
 - When the input $x$ is uncertain,
   the output $y:=f\left(x;u\right)$ is also uncertain.
   Sampling $f$ over $\mathcal{X}\ni x$ to quantify the output uncertainty
-  (*e.g.*, mean, the standard deviation, the probability of exceeding a threshold, quantile, ...) 
+  (e.g., mean, the standard deviation, the probability of exceeding a threshold, quantile, ...) 
   requires at least hundreds or thousands of evaluations of $f$ over the uncertain variable space.
 
 So, visualization is costly:
@@ -60,7 +60,7 @@ can be extended to the multiple output case.
 A classical approach consists of reducing the output dimension:
 
 1. Decompose the multiple output on an orthogonal basis,
-   *e.g.* principal component analysis (PCA): 
+   e.g. principal component analysis (PCA): 
    $f(x)=\sum_{i=1}^{\text{dim}(y)}\alpha_i(x)\varphi_i$ with $\varphi_i\in\mathcal{Y}$.
 2. Keep the more significant modes of the basis: $f_{\text{PCA}}(x)=\sum_{i=1}^{p\ll\text{dim}(y)}\alpha_i(x)\varphi_i$.
 3. For each significant mode, create a surrogate model $\hat{\alpha}_i$ of $\alpha_i$ (see how in the following sections).
@@ -97,7 +97,7 @@ Training dataset:
 
 The learning stage consists of searching the hyperparameters $\hat{\alpha}$ 
 minimizing a learning error over $\mathcal{A}$, 
-*e.g.* the mean squared error $\text{MSE}(\mathcal{L}_{N})=N^{-1}\sum_{i=1}^N\left(y^{(i)}-\hat{f}_\hat{\alpha}\left(x^{(i)}\right)\right)^2$.
+e.g. the mean squared error $\text{MSE}(\mathcal{L}_{N})=N^{-1}\sum_{i=1}^N\left(y^{(i)}-\hat{f}_\hat{\alpha}\left(x^{(i)}\right)\right)^2$.
 
 !!! example "Toy model - Learning and test samples"
 
@@ -418,7 +418,7 @@ $$\hat{f}_\alpha(x)=\alpha_0+\sum_{i=1}^{p-1}\alpha_i\Psi_i(x)=\alpha_0+\sum_{i=
 The choice of the function $\tau=(\tau_1,\ldots,\tau_d)$ is an enumerating strategy 
 and $\tau_j(i)$ is the degree of $\Psi_{\tau_j(i),j}$. 
 
-#### PCE degree $P$
+#### PCE degree
 
 A PCE is defined by its degree, $P\in\mathbb{N}_+$.
 
@@ -482,7 +482,7 @@ Be careful: configurations are not optimized!
 Different families of surrogate models: linear regression, radial basis
 function, Gaussian process regression, polynomial chaos expansion, ...
 
-1. We train surrogate models of different architectures (*e.g*, covariance kernel) taken from different families (*e.g.*, GP models),
+1. We train surrogate models of different architectures (*e.g*, covariance kernel) taken from different families (e.g., GP models),
    by minimizing a learning error.
 2. Among each family, 
    we select the surrogate model whose architecture minimizes a test error or a cross-validation error.

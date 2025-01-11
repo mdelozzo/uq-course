@@ -1,57 +1,68 @@
-# Introduction
+# 1. Introduction
 
 This course is about uncertainty quantification (UQ) in numerical simulation.
 
+## Model and uncertainties
+
 The two actors in the play are the *models* and the *uncertainties*. 
 
-## Uncertainties and models
-
-A first question arises:
+### Models
 
 ??? question "What is a model?"
 
     In this course,
-    a model is a function $f$:
+    a model is a **function** $f$:
 
     - representing a causal phenomenon,
     - with input variables $x\in\mathcal{X}$,
     - with output variables $y:=f\left(x\right)\in\mathcal{Y}$.
 
-    These input and output variables can be 
+    These **input and output variables** can be 
     
-    - either monodimensional, 
-      *e.g.* the temperature at given location and time,
-    - or multidimensional, 
-      e.g. the temperature at various points along a line, 
-      the temperature at various nodes of a spatial mesh,
-      the temperature at a given location every minut,
-      etc. 
+    - either monodimensional, e.g. 
 
-    Among the outputs, some may interest us more than others: these are the quantities of interest.
+        * the temperature at given location and time,
+
+    - or multidimensional, e.g. 
+      
+        * the temperature at various points along a line, 
+        * the temperature at various nodes of a spatial mesh,
+        * the temperature at a given location every minute.
+
+    Among the output variables, some may interest us more than others; we call the **variables of interest**.
 
     ??? example "Examples of models"
 
-        - An analytical expression such as $f(x)=\pi x^2$ to compute the area enclosed by a circle of radius $x$,
-        - a numerical simulator such as the Simulink-Matlab model of an electromagnetic interference (EMI) filter, 
-        - a measurement process such as a test campaign based on an experimental design of experiments (DOE), 
+        - An analytical expression, e.g. 
+
+            * $f(x)=\pi x^2$ to compute the area enclosed by a circle of radius $x$,
+
+        - a numerical simulator, e.g. 
+
+            * a computational fluid dynamics (CFD) model for the airflow over an aircraft wing,
+
         - ...
 
-    Advantages:
+    Models have many advantages, such as
 
-    - Explainable because it is based on physical theories or measurements.
-    - Good accuracy level w.r.t. the modelled phenomenon.
+    - explainability, because a model is based on physical theories.
+    - accuracy with respect to the modelled phenomenon.
 
     !!! example "Applications"
 
-        - Design optimization, 
-        - trade-off studies, 
-        - reliability, 
-        - understanding of complex phenomena, 
-        - ... 
-        
-        More generally, computer experimentation (*in silico* vs. *in situ*).
+        Models can be used to
 
-followed by a second one:
+        - compare several designs (trade-off study),
+        - improve a design, or even look for a totally disruptive one,
+        - ensure that a design meets certain requirements (reliability), 
+        - analyse and (hope to) understand complex phenomena, 
+        - etc.
+        
+        More generally, 
+        models can be used instead of experiments (*in silico* vs. *in situ*).
+        This is computer experimentation.
+
+### Uncertainties
 
 ??? question "What is uncertainty? What are uncertainties?"
 
@@ -78,14 +89,21 @@ A model faces uncertainties on all sides.
 - Uncertain parameters (dimensions, physical properties, ...).
 
 Subject to these uncertainties, 
-the model generates an output that is in turn uncertain.
+**the model generates an output that is in turn uncertain**.
+
+!!! example
+
+    Let us consider a model $f$ calculating the temperature difference between today and the dayf after tomorrow). 
+    Its input variable $x_1$ defining the temperature now can be considered as correct as measured with a thermometer,
+    but the input variable $x_2$ defining the temperature at the same time the day after tomorrow is uncertain,
+    because it comes from a weather forecast. Then, the output $y:=f(x_1,x_2)$ is uncertain.
 
 ## Types of uncertainties
 
-### Epistemic vs. aleatory
-
 Because these uncertainties have different types,
 we may want to classify them in order to propose specific analyses.
+
+### Epistemic vs. aleatory
 
 We often consider two types of uncertainties: aleatory and epistemic.
 
@@ -105,17 +123,16 @@ We often consider two types of uncertainties: aleatory and epistemic.
     - Their modelling can rely on different uncertainty theories (possibility, credibility, probability, ...) 
       but mainly based on probability theory for simplicity.
 
-### Probability & epistemic?
+### Probability theory & epistemic variables?
 
 !!! example "Cycling race"
 
     - $N$ cyclists.
     - Who is going to win the race?
     - A first person says "They have the same level!".
-    - A second person says "No idea!", 
-      which means that "The $i^{\text{th}}$ cyclist with probability $\frac{1}{N}$.".
+    - A second person says "No idea!".
 
-    ??? question "What is the probability that the $i^{\text{th}}$ cyclist wins?"
+    ??? question "For each statement, what is the probability that the $i^{\text{th}}$ cyclist wins?"
 
         $\frac{1}{N}$ in both cases! 
         For the first one, it's obvious 
@@ -133,11 +150,19 @@ We often consider two types of uncertainties: aleatory and epistemic.
 
         1. This probability can be written as $\mathbb{P}[n_b\leq \frac{3}{2}n_r]$.
         2. Points 1 and 2 can be translated as $n_b\geq n_r$ and $n_b\leq 2n_r$ respectively.
-        3. The principle of insufficient reason applied to $n_b$ supposes that $n_b$ is a uniform variable between $n_r$ and $2n_r$.
-           So, $\mathbb{P}[n_b\leq \frac{3}{2}n_r]=\frac{\frac{3}{2}-1}{2-1}=\frac{1}{2}$.
-           But this principle applied to $n_r$ supposes also that $n_r$ is a uniform variable between $\frac{1}{2}n_b$ and $n_b$
-           So, $\mathbb{P}[n_b\leq \frac{3}{2}n_r]=\mathbb{P}[n_r\geq \frac{2}{3}n_b]=\frac{1-\frac{2}{3}}{1-\frac{1}{2}}=\frac{2}{3}$.
+        3. The principle of insufficient reason applied to $n_b$: 
+
+            * $n_b$ is a uniform variable between $n_r$ and $2n_r$.
+            * So, $\mathbb{P}[n_b\leq \frac{3}{2}n_r]=\frac{\frac{3}{2}-1}{2-1}=\frac{1}{2}$.
+
+        4. The principle of insufficient reason applied to $n_r$:
+
+            * $n_r$ is a uniform variable between $\frac{1}{2}n_b$ and $n_b$
+            * So, $\mathbb{P}[n_b\leq \frac{3}{2}n_r]=\mathbb{P}[n_r\geq \frac{2}{3}n_b]=\frac{1-\frac{2}{3}}{1-\frac{1}{2}}=\frac{2}{3}$.
+           
            The probability is equal to both $\frac{1}{2}$ and $\frac{2}{3}$, which makes no sense.
+
+Probability theory isn't necessarily a good approach for epistemic variables, as you can see.
 
 ### Uncertainty modelling
 [Frequentist probability theory](https://en.wikipedia.org/wiki/Frequentist_probability) is mainly used to model aleatory uncertainties.
@@ -164,6 +189,7 @@ In the case of evidence theory,
 In practice, 
 
 - epistemic uncertainties are often treated with the frequentist probability theory,
+  unless it doesn't make sense at all, as with the problems of cyclists and balls,
 - the distinction between epistemic and random uncertainties is not always easy to make or engraved in stone...
 
 ## Why study the effect of uncertainties?
@@ -175,16 +201,18 @@ Let's consider a model $f$:
 - depending on input variables $x=(x_1,\ldots,x_d)$,
 - returning an output variable $y=f(x)$.
 
-In the deterministic world, $y$ is a variable of interest.
+In the deterministic world, $y$ is a **variable of interest**.
 
 In a uncertain world, 
 when the value of $x$ is uncertain, 
 we can
 
 1. replace $x$ by a random variable $X$,
-   *e.g.*, $X_1$ distributed as a [Gaussian variable](https://en.wikipedia.org/wiki/Normal_distribution), 
+   e.g., $X_1$ distributed as a [Gaussian variable](https://en.wikipedia.org/wiki/Normal_distribution), 
    $X_2$ distributed as a [uniform variable](https://en.wikipedia.org/wiki/Continuous_uniform_distribution), ...
 2. quantify the impact of $X_1,\ldots,X_d$ on the model output $Y=f(X)$ which is in turn random.
+
+$Y$ is not referred to as a variable of interest, unlike $y$.
 
 ### Which impact on the model output?
 
@@ -197,12 +225,19 @@ and potentially far from the classic probability distributions
 [log-normal](https://en.wikipedia.org/wiki/Log-normal_distribution), 
 [uniform](https://en.wikipedia.org/wiki/Continuous_uniform_distribution), ...).
 
-In practice, we want to summarize the output uncertainty with a quantity of interest:
+In practice, we want to summarize the output uncertainty with a **quantity of interest**:
 
-- a central statistics of $Y$, *e.g.* its [mean](https://en.wikipedia.org/wiki/Expected_value), 
-  its [median](https://en.wikipedia.org/wiki/Median), 
-  its [standard deviation](https://en.wikipedia.org/wiki/Standard_deviation), ...
-- a reliability measure of $Y$, *e.g.* the probability that it exceeds a critical threshold, the quantile associated to some critical level, ...
+- a central statistics of $Y$, e.g. 
+
+    * its [mean](https://en.wikipedia.org/wiki/Expected_value), 
+    * its [median](https://en.wikipedia.org/wiki/Median)
+    * its [standard deviation](https://en.wikipedia.org/wiki/Standard_deviation),
+    
+- a reliability measure of $Y$, e.g. 
+ 
+    * the probability that it exceeds a critical threshold, 
+    * the quantile associated to some critical level,
+
 - sometimes, the whole [probability distribution](https://en.wikipedia.org/wiki/Probability_distribution) of $Y$!
 
 There is a question in particular: 
@@ -215,8 +250,13 @@ There is a question in particular:
     - Is the probability that $Y$ exceeds a threshold small or not?
     - Is green or red?
 
+    If you have a lot of observations of $Y$:
+
     <img src="../images/y_pdf_N_sd_1pct.png" width="45%" height="auto">
     <img src="../images/y_pdf_N_sd_10pct.png" width="45%" height="auto">
+
+    If you have a few observations of $Y$:
+
     <img src="../images/y_hist_N_sd_1pct.png" width="45%" height="auto">
     <img src="../images/y_hist_N_sd_10pct.png" width="45%" height="auto">
     <img src="../images/y_boxplot_N_sd_1pct.png" width="45%" height="auto">
@@ -230,7 +270,7 @@ There is a question in particular:
     2. There is **an** input $x_i$ subject to a small variation $\delta x_i$
        for which the output variation $\Delta y$ is **important**.
 
-    Which assertion is true?
+    Which assertion is true? Is there a [butterfly effect](https://en.wikipedia.org/wiki/Butterfly_effect)? 
 
 
 !!! question "Is the risk that the output exceeds a critical threshold important?"
@@ -254,10 +294,10 @@ The problem that emerges is the management of uncertainties in a model.
 
 We want to
 
-- understand the uncertainty present in the output of a model,
-- link this uncertainty to the uncertain input sources,
-- identify the more significant uncertain input sources,
-- reduce some uncertainty sources if possible.
+- quantify the uncertainty present in the output of a model,
+- link this uncertainty to the uncertain input sources (if too much output uncertainty),
+- identify the more significant uncertain input sources (if too much output uncertainty),,
+- reduce some uncertainty sources if possible (if too much output uncertainty),.
 
 A solution to this problem is called *uncertainty quantification & management* (UQ&M),
 often abbreviated to UQ.
@@ -266,7 +306,7 @@ requiring knowledge of the fields to which it applies.
 
 Based on industrial practices,
 four categories can be listed[@rocquigny2009quantifying]
-in which to place of the goals of any quantitative risk/uncertainty assessment:
+to classify the objectives of any quantitative risk/uncertainty assessment:
  
 ??? info "U (Understand)"
 
@@ -289,7 +329,7 @@ in which to place of the goals of any quantitative risk/uncertainty assessment:
 
 ??? info "C (Comply))"
 
-    Defining an adequate criterion or regulatory threshold (*e.g.* licensing, certification, ...) 
+    Defining an adequate criterion or regulatory threshold (e.g. licensing, certification, ...) 
     taking into account the uncertainties allows to demonstrate compliance of the system.
 
 A popular scheme is available

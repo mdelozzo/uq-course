@@ -13,17 +13,14 @@ theme:
         name: Switch to light mode
 
 nav:
-- Home:
-  - Overview: index.md
-- Lectures:
-  - Introduction: lectures/index.md
-  - Basics of probability: lectures/probability.md
-  - Uncertainty quantification: lectures/uncertainty_quantification.md
-  - Sensitivity analysis: lectures/sensitivity_analysis.md
-  - Surrogate models: lectures/surrogate_models.md
-  - Robust optimization: lectures/robust_optimization.md
-- Exercises:
-  - Introduction: exercises/index.md
+- Home: index.md
+- 1. Introduction: lectures/index.md
+- 2. Basics of probability and statistics: lectures/probability.md
+- 3. Uncertainty quantification: lectures/uncertainty_quantification.md
+- 4. Uncertainty propagation: lectures/uncertainty_propagation.md
+- 5. Sensitivity analysis: lectures/sensitivity_analysis.md
+- 6. Surrogate models: lectures/surrogate_models.md
+- 7. Robust optimization: lectures/robust_optimization.md
 
 plugins:
   - bibtex:

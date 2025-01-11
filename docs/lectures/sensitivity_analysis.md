@@ -1,4 +1,4 @@
-# Sensitivity analysis
+# 5. Sensitivity analysis
 
 ## What is sensitivity analysis (SA)?
 
@@ -57,7 +57,7 @@ How does $Y$ vary over the uncertain input space $(\Omega, \mathcal{X} , \mathbb
 
 ### Quadratic cumul
 
-Let $\tilde{x}\in\mathcal{X}$ be a point of interest, *e.g.* $\mu=\mathbb{E}[X]$.
+Let $\tilde{x}\in\mathcal{X}$ be a point of interest, e.g. $\mu=\mathbb{E}[X]$.
 
 #### First-order Taylor polynomials
 
