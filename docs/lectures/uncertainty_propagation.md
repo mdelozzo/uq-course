@@ -1,4 +1,4 @@
-# 4. Uncertainty propagation
+# 5. Uncertainty propagation
 
 ## Introduction
 
@@ -35,7 +35,7 @@ we seek to create a DOE $x^{(1)},\ldots,x^{(N)}$ whose
 - coverage of the input space is the best possible,
 - number of samples $N$ is constrained by the cost of a model.
 
-The objective is to sample the input space \underline{sparingly} and methodically (``optimally''), 
+The objective is to sample the input space *sparingly* and methodically ("optimally"), 
 in order to collect as much information as possible on the input-output model behavior with no more than $N$ samples.
 
 The art of DOE techniques is to find a good set of input samples $x^{(1)},\ldots,x^{(N)}$.
@@ -67,7 +67,7 @@ using the inverse transform sampling technique.
     2. compute $x=F_X^{-1}(u)$.
 
 Therefore,
-given random input variable $X$ with values in $\mathcal{X}\subset\mathbb{R}^d$, 
+given random input variable $X$ with values in $\mathcal{X}\subseteq\mathbb{R}^d$, 
 we often
 
 1. apply a DOE technique to sample uniformly and sparingly the unit hypercube $[0,1]^d$
@@ -122,16 +122,13 @@ we often
     !!! Example
 
         When $d=3$:
-        \begin{table}
-        \centering
-        \begin{tabular}{rrr|rrr|rrr}
-         0 &  0 &  0 &  0 &  0 &  0 & 0 &  0 &  0 \\  
-        --1 & --1 &  0 & --1 &  0 & --1 & 0 & --1 & --1 \\  
-        +1 & --1 &  0 & +1 &  0 & --1 & 0 & +1 & --1 \\  
-        --1 & +1 &  0 & --1 &  0 & +1 & 0 & -1 & +1 \\  
-        +1 & +1 &  0 & +1 &  0 & +1 & 0 & --1 & +1 \\
-        \end{tabular}
-        \end{table}
+        ```
+         0  0  0  0  0  0  0  0  0  
+        -1 -1  0 -1  0 -1  0 -1 -1  
+        +1 -1  0 +1  0 -1  0  1 -1  
+        -1 +1  0 -1  0 +1  0 -1 +1  
+        +1 +1  0 +1  0 +1  0 -1 +1
+        ```
 
 Box-Behnken DOE with $d=3$ and $n=13$:
 <img src="../images/bbdesign_pyDOE.png"/>

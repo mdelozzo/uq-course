@@ -1,4 +1,4 @@
-# 5. Sensitivity analysis
+# 6. Sensitivity analysis
 
 ## What is sensitivity analysis (SA)?
 
@@ -13,7 +13,7 @@ We aim to reduce the output uncertainty:
 2. R&D to reduce the reducible sources of uncertainty.
 3. Fix the non-significant ones at nominal values.
 4. Reduce the dimension of the uncertain space.
-5. R&D to change the model if too much uncertainty at the model output.
+5. R&D to change the model if the model output is too much uncertain.
 
 
 ## Local vs. global SA
@@ -179,31 +179,38 @@ is the standardized regression coefficient associated to $X_i$ with the same mea
 
 #### Theory
 
-If $f$ is finite-variance,
+If $f$ is finite-variance and $X_1,\ldots,X_d$ are independent random variables,
 *i.e.* $\mathbb{E}\left[\left(f(X)\right)^2\right]<\infty$, 
-there exists a unique decomposition:
+there exists a unique hierarchical orthogonal expansion of $f$ of the form
 
 $$f(X) = f_{\emptyset} + \sum_{i=1}^d f_{\{i\}}\left(X_{\{i\}}\right) +
-\sum_{j=1\atop j>i}^d f_{\{i,j\}}\left(X_{\{i,j\}}\right) + \ldots = \sum_{I\subset
+\sum_{j=1\atop j>i}^d f_{\{i,j\}}\left(X_{\{i,j\}}\right) + \ldots = \sum_{I\subseteq
 \{1,\ldots,d\}}f_I(X_I)$$
 
-where for any
-$I,J\in\{1,\ldots,d\}$,
-$\mathbb{E}\left[f_I\left(X_I\right)f_J\left(X_J\right)\right]=\delta_{I,J}$ .
+such that 
+
+- $\mathbb{E}\!\left[f_I\!\left(X_I\right)\right]=0$ for all $I\subseteq\{1,\ldots,d\}\setminus\emptyset$,
+- $\mathbb{E}\!\left[f_I\!\left(X_I\right)f_J\!\left(X_J\right)\right]=0$ for all $I,J\subseteq \{1,\ldots,d\}$, $I\neq J$.
+
+The terms follow the hierarchical structure:
+
+- $f_{\emptyset}=\mathbb{E}[f(X)]$
+- $f_{\{i\}}=\mathbb{E}[f(X)|X_i]-f_{\emptyset}$
+- $f_I=\mathbb{E}[f(X)|X_I]-\sum_{J\subsetneq I}f_J(X_J)$
 
 Then, 
 we take the variance:
 
 $$\mathbb{V}[f(X)] =
-\sum_{i=1}^d\mathbb{V}\left[f_{\{i\}}\left(X_{\{i\}}\right)\right] +
-\sum_{j=1\atop j>i}^d \mathbb{V}\left[f_{\{i,j\}}\left(X_{\{i,j\}}\right)\right]
-+ \ldots = \sum_{I\subset
-\{1,\ldots,d\}}\mathbb{V}\left[f_I\left(X_I\right)\right]$$ 
+\sum_{i=1}^d\mathbb{V}\!\left[f_{\{i\}}\!\left(X_{\{i\}}\right)\right] +
+\sum_{j=1\atop j>i}^d \mathbb{V}\!\left[f_{\{i,j\}}\!\left(X_{\{i,j\}}\right)\right]
++ \ldots = \sum_{I\subseteq
+\{1,\ldots,d\}}\mathbb{V}\!\left[f_I\!\left(X_I\right)\right]$$ 
 
 and normalize the terms of the decomposition in $[0,1]$:
 
 $$1 = \sum_{i=1}^d S_{\{i\}} + \sum_{j=1\atop j>i}^d S_{\{i,j\}} + \ldots =
-\sum_{I\subset \{1,\ldots,d\}}S_I.$$
+\sum_{I\subseteq \{1,\ldots,d\}}S_I.$$
 
 $S_{I}=\frac{\mathbb{V}[f_I(X_I)]}{\mathbb{V}[f(X)]}$ is called a Sobol' index.
 
@@ -212,7 +219,7 @@ explained
 
 - by the **group** of random input variables $(X_i)_{i\in I}$,
 - independently of the others random input variables $(X_j)_{j\notin I}$,
-- independently of the sub-groups of random input variables $(X_j)_{j\in I'\subset I}$.
+- independently of the sub-groups of random input variables $(X_j)_{j\in I'\subseteq I}$.
 
 !!! note "Special case"
 
@@ -262,7 +269,7 @@ and sometimes the second-order Sobol' indices in order to highlight joint effect
 
 The total Sobol' index of $X_i$ is:
 
-$$S_{\{i\}}^t=\sum_{I\subset\{1,\ldots,d\}\atop I \ni i} S_{\{I\}}.$$
+$$S_{\{i\}}^t=\sum_{I\subseteq\{1,\ldots,d\}\atop I \ni i} S_{\{I\}}.$$
 
 It measures the share of the output variance $\mathbb{V}[Y]$ 
 due to $X_i$ and all its joint effects.

@@ -29,7 +29,7 @@ The two actors in the play are the *models* and the *uncertainties*.
         * the temperature at various nodes of a spatial mesh,
         * the temperature at a given location every minute.
 
-    Among the output variables, some may interest us more than others; we call the **variables of interest**.
+    Among the output variables, some may interest us more than others; we call them **variables of interest**.
 
     ??? example "Examples of models"
 
@@ -93,7 +93,7 @@ Subject to these uncertainties,
 
 !!! example
 
-    Let us consider a model $f$ calculating the temperature difference between today and the dayf after tomorrow). 
+    Let us consider a model $f$ calculating the temperature difference between today and the day after tomorrow). 
     Its input variable $x_1$ defining the temperature now can be considered as correct as measured with a thermometer,
     but the input variable $x_2$ defining the temperature at the same time the day after tomorrow is uncertain,
     because it comes from a weather forecast. Then, the output $y:=f(x_1,x_2)$ is uncertain.
@@ -211,8 +211,6 @@ we can
    e.g., $X_1$ distributed as a [Gaussian variable](https://en.wikipedia.org/wiki/Normal_distribution), 
    $X_2$ distributed as a [uniform variable](https://en.wikipedia.org/wiki/Continuous_uniform_distribution), ...
 2. quantify the impact of $X_1,\ldots,X_d$ on the model output $Y=f(X)$ which is in turn random.
-
-$Y$ is not referred to as a variable of interest, unlike $y$.
 
 ### Which impact on the model output?
 

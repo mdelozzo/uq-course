@@ -1,4 +1,4 @@
-# 6. Surrogate models
+# 7. Surrogate models
 
 ## What, why and how
     
