@@ -1,0 +1,1212 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../index.html">
+      
+      
+        <link rel="next" href="probability.html">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.12">
+    
+    
+      
+        <title>1. Introduction - UQ course</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.7e359304.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1-introduction" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="UQ course" class="md-header__button md-logo" aria-label="UQ course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            UQ course
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              1. Introduction
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="UQ course" class="md-nav__button md-logo" aria-label="UQ course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    UQ course
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    1. Introduction
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="index.html" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    1. Introduction
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#model-and-uncertainties" class="md-nav__link">
+    <span class="md-ellipsis">
+      Model and uncertainties
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Model and uncertainties">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#models" class="md-nav__link">
+    <span class="md-ellipsis">
+      Models
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uncertainties" class="md-nav__link">
+    <span class="md-ellipsis">
+      Uncertainties
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-do-uncertainties-come-from" class="md-nav__link">
+    <span class="md-ellipsis">
+      Where do uncertainties come from?
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Where do uncertainties come from?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#in-the-equations" class="md-nav__link">
+    <span class="md-ellipsis">
+      In the equations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#in-the-numerical-resolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      In the numerical resolution
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#in-the-model-inputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      In the model inputs
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#types-of-uncertainties" class="md-nav__link">
+    <span class="md-ellipsis">
+      Types of uncertainties
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Types of uncertainties">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#epistemic-vs-aleatory" class="md-nav__link">
+    <span class="md-ellipsis">
+      Epistemic vs. aleatory
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#probability-theory-epistemic-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Probability theory &amp; epistemic variables?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uncertainty-modelling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Uncertainty modelling
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-study-the-effect-of-uncertainties" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why study the effect of uncertainties?
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Why study the effect of uncertainties?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-uncertain-world" class="md-nav__link">
+    <span class="md-ellipsis">
+      The uncertain world
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#which-impact-on-the-model-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      Which impact on the model output?
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uqm-as-an-industrial-solution" class="md-nav__link">
+    <span class="md-ellipsis">
+      UQ&amp;M as an industrial solution
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#surrogate-models-as-uqm-enablers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Surrogate models as UQ&amp;M enablers
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="probability.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Basics of probability and statistics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="uncertainty_quantification.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Uncertainty quantification
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="uncertainty_propagation.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. Uncertainty propagation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="sensitivity_analysis.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5. Sensitivity analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="surrogate_models.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6. Surrogate models
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="robust_optimization.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    7. Robust optimization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../project.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Project
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#model-and-uncertainties" class="md-nav__link">
+    <span class="md-ellipsis">
+      Model and uncertainties
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Model and uncertainties">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#models" class="md-nav__link">
+    <span class="md-ellipsis">
+      Models
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uncertainties" class="md-nav__link">
+    <span class="md-ellipsis">
+      Uncertainties
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-do-uncertainties-come-from" class="md-nav__link">
+    <span class="md-ellipsis">
+      Where do uncertainties come from?
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Where do uncertainties come from?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#in-the-equations" class="md-nav__link">
+    <span class="md-ellipsis">
+      In the equations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#in-the-numerical-resolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      In the numerical resolution
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#in-the-model-inputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      In the model inputs
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#types-of-uncertainties" class="md-nav__link">
+    <span class="md-ellipsis">
+      Types of uncertainties
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Types of uncertainties">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#epistemic-vs-aleatory" class="md-nav__link">
+    <span class="md-ellipsis">
+      Epistemic vs. aleatory
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#probability-theory-epistemic-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Probability theory &amp; epistemic variables?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uncertainty-modelling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Uncertainty modelling
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-study-the-effect-of-uncertainties" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why study the effect of uncertainties?
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Why study the effect of uncertainties?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-uncertain-world" class="md-nav__link">
+    <span class="md-ellipsis">
+      The uncertain world
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#which-impact-on-the-model-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      Which impact on the model output?
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uqm-as-an-industrial-solution" class="md-nav__link">
+    <span class="md-ellipsis">
+      UQ&amp;M as an industrial solution
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#surrogate-models-as-uqm-enablers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Surrogate models as UQ&amp;M enablers
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="1-introduction">1. Introduction<a class="headerlink" href="#1-introduction" title="Permanent link">&para;</a></h1>
+<p>This course is about uncertainty quantification (UQ) in numerical simulation.</p>
+<h2 id="model-and-uncertainties">Model and uncertainties<a class="headerlink" href="#model-and-uncertainties" title="Permanent link">&para;</a></h2>
+<p>The two actors in the play are the <em>models</em> and the <em>uncertainties</em>. </p>
+<h3 id="models">Models<a class="headerlink" href="#models" title="Permanent link">&para;</a></h3>
+<details class="question">
+<summary>What is a model?</summary>
+<p>In this course,
+a model is a <strong>function</strong> <span class="arithmatex">\(f\)</span>:</p>
+<ul>
+<li>representing a causal phenomenon,</li>
+<li>with input variables <span class="arithmatex">\(x\in\mathcal{X}\)</span>,</li>
+<li>with output variables <span class="arithmatex">\(y:=f\left(x\right)\in\mathcal{Y}\)</span>.</li>
+</ul>
+<p>These <strong>input and output variables</strong> can be </p>
+<ul>
+<li>
+<p>either monodimensional, e.g. </p>
+<ul>
+<li>the temperature at given location and time,</li>
+</ul>
+</li>
+<li>
+<p>or multidimensional, e.g. </p>
+<ul>
+<li>the temperature at various points along a line, </li>
+<li>the temperature at various nodes of a spatial mesh,</li>
+<li>the temperature at a given location every minute.</li>
+</ul>
+</li>
+</ul>
+<p>Among the output variables, some may interest us more than others; we call them <strong>variables of interest</strong>.</p>
+<details class="example">
+<summary>Examples of models</summary>
+<ul>
+<li>
+<p>An analytical expression, e.g. </p>
+<ul>
+<li><span class="arithmatex">\(f(x)=\pi x^2\)</span> to compute the area enclosed by a circle of radius <span class="arithmatex">\(x\)</span>,</li>
+</ul>
+</li>
+<li>
+<p>a numerical simulator, e.g. </p>
+<ul>
+<li>a computational fluid dynamics (CFD) model for the airflow over an aircraft wing,</li>
+</ul>
+</li>
+<li>
+<p>...</p>
+</li>
+</ul>
+</details>
+<p>Models have many advantages, such as</p>
+<ul>
+<li>explainability, because a model is based on physical theories.</li>
+<li>accuracy with respect to the modelled phenomenon.</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">Applications</p>
+<p>Models can be used to</p>
+<ul>
+<li>compare several designs (trade-off study),</li>
+<li>improve a design, or even look for a totally disruptive one,</li>
+<li>ensure that a design meets certain requirements (reliability), </li>
+<li>analyse and (hope to) understand complex phenomena, </li>
+<li>etc.</li>
+</ul>
+<p>More generally, 
+models can be used instead of experiments (<em>in silico</em> vs. <em>in situ</em>).
+This is computer experimentation.</p>
+</div>
+</details>
+<h3 id="uncertainties">Uncertainties<a class="headerlink" href="#uncertainties" title="Permanent link">&para;</a></h3>
+<details class="question">
+<summary>What is uncertainty? What are uncertainties?</summary>
+<ul>
+<li>"A situation in which something is not known, or <strong>something that is not known or certain</strong>." - Cambridge dictionary</li>
+<li>"The feeling of not being sure what will happen in the future." - Cambridge dictionary</li>
+<li>"<strong>The state of being uncertain</strong>." - Oxford Learner's Dictionaries</li>
+<li>"Something that you cannot be sure about; a situation that makes you not be or feel certain" - Oxford Learner's Dictionaries</li>
+</ul>
+</details>
+<h2 id="where-do-uncertainties-come-from">Where do uncertainties come from?<a class="headerlink" href="#where-do-uncertainties-come-from" title="Permanent link">&para;</a></h2>
+<p>A model faces uncertainties on all sides.</p>
+<h3 id="in-the-equations">In the equations<a class="headerlink" href="#in-the-equations" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Simplification of the physical phenomenon.</li>
+<li>Different theories and assumptions.</li>
+</ul>
+<h3 id="in-the-numerical-resolution">In the numerical resolution<a class="headerlink" href="#in-the-numerical-resolution" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Numerical approximation of partial differential equations.</li>
+<li>Different methods, mesh sizes, ...</li>
+<li>Numerical noise in addition.</li>
+</ul>
+<h3 id="in-the-model-inputs">In the model inputs<a class="headerlink" href="#in-the-model-inputs" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Uncertain data (initial and boundary conditions, calibration data, ...).</li>
+<li>Uncertain parameters (dimensions, physical properties, ...).</li>
+</ul>
+<p>Subject to these uncertainties, 
+<strong>the model generates an output that is in turn uncertain</strong>.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>Let us consider a model <span class="arithmatex">\(f\)</span> calculating the temperature difference between today and the day after tomorrow). 
+Its input variable <span class="arithmatex">\(x_1\)</span> defining the temperature now can be considered as correct as measured with a thermometer,
+but the input variable <span class="arithmatex">\(x_2\)</span> defining the temperature at the same time the day after tomorrow is uncertain,
+because it comes from a weather forecast. Then, the output <span class="arithmatex">\(y:=f(x_1,x_2)\)</span> is uncertain.</p>
+</div>
+<h2 id="types-of-uncertainties">Types of uncertainties<a class="headerlink" href="#types-of-uncertainties" title="Permanent link">&para;</a></h2>
+<p>Because these uncertainties have different types,
+we may want to classify them in order to propose specific analyses.</p>
+<h3 id="epistemic-vs-aleatory">Epistemic vs. aleatory<a class="headerlink" href="#epistemic-vs-aleatory" title="Permanent link">&para;</a></h3>
+<p>We often consider two types of uncertainties: aleatory and epistemic.</p>
+<details class="question">
+<summary>What is an aleatory uncertainty?</summary>
+<ul>
+<li>An aleatory uncertainty is intrinsic to the parameter to which it relates. </li>
+<li>An aleatory uncertainty is irreducible.</li>
+<li>An aleatory uncertainty can be estimated by means of experimental measures.</li>
+<li>Its modelling is mainly based on probability theory and inferential statistics.</li>
+</ul>
+</details>
+<details class="question">
+<summary>What is an epistemic uncertainty?</summary>
+<ul>
+<li>An epistemic uncertainty is due to a lack of knowledge.</li>
+<li>An epistemic uncertainty could be reducible.</li>
+<li>Knowledge is often subjective and based on expert opinion, 
+  either quantitative or qualitative.</li>
+<li>Their modelling can rely on different uncertainty theories (possibility, credibility, probability, ...) 
+  but mainly based on probability theory for simplicity.</li>
+</ul>
+</details>
+<h3 id="probability-theory-epistemic-variables">Probability theory &amp; epistemic variables?<a class="headerlink" href="#probability-theory-epistemic-variables" title="Permanent link">&para;</a></h3>
+<div class="admonition example">
+<p class="admonition-title">Cycling race</p>
+<ul>
+<li><span class="arithmatex">\(N\)</span> cyclists.</li>
+<li>Who is going to win the race?</li>
+<li>A first person says "They have the same level!".</li>
+<li>A second person says "No idea!".</li>
+</ul>
+<details class="question">
+<summary>For each statement, what is the probability that the <span class="arithmatex">\(i^{\text{th}}\)</span> cyclist wins?</summary>
+<p><span class="arithmatex">\(\frac{1}{N}\)</span> in both cases! 
+For the first one, it's obvious 
+and for the second one, we use the principle of insufficient reason, a.k.a. principle of indifference.
+As we can see, 
+natural language sentences are very different
+but identical in probabilistic language.</p>
+</details>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Color balls in the box</p>
+<ol>
+<li>A box contains at least as many blue balls as red balls.</li>
+<li>This box contains at most twice as many blue balls as red balls.</li>
+</ol>
+<details class="question">
+<summary>What is the probability that the box contains at most 50% more blue balls than red balls?</summary>
+<ol>
+<li>This probability can be written as <span class="arithmatex">\(\mathbb{P}[n_b\leq \frac{3}{2}n_r]\)</span>.</li>
+<li>Points 1 and 2 can be translated as <span class="arithmatex">\(n_b\geq n_r\)</span> and <span class="arithmatex">\(n_b\leq 2n_r\)</span> respectively.</li>
+<li>
+<p>The principle of insufficient reason applied to <span class="arithmatex">\(n_b\)</span>: </p>
+<ul>
+<li><span class="arithmatex">\(n_b\)</span> is a uniform variable between <span class="arithmatex">\(n_r\)</span> and <span class="arithmatex">\(2n_r\)</span>.</li>
+<li>So, <span class="arithmatex">\(\mathbb{P}[n_b\leq \frac{3}{2}n_r]=\frac{\frac{3}{2}-1}{2-1}=\frac{1}{2}\)</span>.</li>
+</ul>
+</li>
+<li>
+<p>The principle of insufficient reason applied to <span class="arithmatex">\(n_r\)</span>:</p>
+<ul>
+<li><span class="arithmatex">\(n_r\)</span> is a uniform variable between <span class="arithmatex">\(\frac{1}{2}n_b\)</span> and <span class="arithmatex">\(n_b\)</span></li>
+<li>So, <span class="arithmatex">\(\mathbb{P}[n_b\leq \frac{3}{2}n_r]=\mathbb{P}[n_r\geq \frac{2}{3}n_b]=\frac{1-\frac{2}{3}}{1-\frac{1}{2}}=\frac{2}{3}\)</span>.</li>
+</ul>
+</li>
+</ol>
+<p>The probability is equal to both <span class="arithmatex">\(\frac{1}{2}\)</span> and <span class="arithmatex">\(\frac{2}{3}\)</span>, which makes no sense.</p>
+</details>
+</div>
+<p>Probability theory isn't necessarily a good approach for epistemic variables, as you can see.</p>
+<h3 id="uncertainty-modelling">Uncertainty modelling<a class="headerlink" href="#uncertainty-modelling" title="Permanent link">&para;</a></h3>
+<p><a href="https://en.wikipedia.org/wiki/Frequentist_probability">Frequentist probability theory</a> is mainly used to model aleatory uncertainties.</p>
+<p>We can use 
+<a href="https://en.wikipedia.org/wiki/Bayesian_probability">Bayesian probability theory</a>, 
+<a href="https://en.wikipedia.org/wiki/Dempster%E2%80%93Shafer_theory">evidence theory</a>, 
+etc. to model epistemic uncertainties.</p>
+<p>In the case of evidence theory, </p>
+<ul>
+<li>experts can provide plausible and believable values for the epistemic parameters 
+  and these expert opinions can be aggregated. </li>
+<li>Then, 
+  a first uncertainty study based on the aleatory uncertainties can be realized 
+  with the epistemic uncertainties fixed at their believable values 
+  and a second one with the epistemic uncertainties fixed at their plausible values. </li>
+<li>Lastly, 
+  both believable, plausible and <a href="https://en.wikipedia.org/wiki/Pignistic_probability">pignistic</a> uncertainty study results are obtained 
+  rather than a single one in the case where all uncertainties would be treated as aleatory variables. </li>
+<li>In practice, 
+  an uncertainty study result could be the estimated probability density function of the model output.</li>
+</ul>
+<p>In practice, </p>
+<ul>
+<li>epistemic uncertainties are often treated with the frequentist probability theory,
+  unless it doesn't make sense at all, as with the problems of cyclists and balls,</li>
+<li>the distinction between epistemic and random uncertainties is not always easy to make or engraved in stone...</li>
+</ul>
+<h2 id="why-study-the-effect-of-uncertainties">Why study the effect of uncertainties?<a class="headerlink" href="#why-study-the-effect-of-uncertainties" title="Permanent link">&para;</a></h2>
+<h3 id="the-uncertain-world">The uncertain world<a class="headerlink" href="#the-uncertain-world" title="Permanent link">&para;</a></h3>
+<p>Let's consider a model <span class="arithmatex">\(f\)</span>:</p>
+<ul>
+<li>depending on input variables <span class="arithmatex">\(x=(x_1,\ldots,x_d)\)</span>,</li>
+<li>returning an output variable <span class="arithmatex">\(y=f(x)\)</span>.</li>
+</ul>
+<p>In the deterministic world, <span class="arithmatex">\(y\)</span> is a <strong>variable of interest</strong>.</p>
+<p>In a uncertain world, 
+when the value of <span class="arithmatex">\(x\)</span> is uncertain, 
+we can</p>
+<ol>
+<li>replace <span class="arithmatex">\(x\)</span> by a random variable <span class="arithmatex">\(X\)</span>,
+   e.g., <span class="arithmatex">\(X_1\)</span> distributed as a <a href="https://en.wikipedia.org/wiki/Normal_distribution">Gaussian variable</a>, 
+   <span class="arithmatex">\(X_2\)</span> distributed as a <a href="https://en.wikipedia.org/wiki/Continuous_uniform_distribution">uniform variable</a>, ...</li>
+<li>quantify the impact of <span class="arithmatex">\(X_1,\ldots,X_d\)</span> on the model output <span class="arithmatex">\(Y=f(X)\)</span> which is in turn random.</li>
+</ol>
+<p><span class="arithmatex">\(Y\)</span> is not referred to as a variable of interest, unlike <span class="arithmatex">\(y\)</span>.</p>
+<h3 id="which-impact-on-the-model-output">Which impact on the model output?<a class="headerlink" href="#which-impact-on-the-model-output" title="Permanent link">&para;</a></h3>
+<p>We are then interested in the variability of <span class="arithmatex">\(Y\)</span> caused by the variability of <span class="arithmatex">\(X\)</span>.
+Unfortunately, 
+the probability distribution of <span class="arithmatex">\(Y\)</span> is often unknown
+and potentially far from the classic probability distributions 
+(<a href="https://en.wikipedia.org/wiki/Normal_distribution">normal</a>, 
+<a href="https://en.wikipedia.org/wiki/Exponential_distribution">exponential</a>, 
+<a href="https://en.wikipedia.org/wiki/Log-normal_distribution">log-normal</a>, 
+<a href="https://en.wikipedia.org/wiki/Continuous_uniform_distribution">uniform</a>, ...).</p>
+<p>In practice, we want to summarize the output uncertainty with a <strong>quantity of interest</strong>:</p>
+<ul>
+<li>
+<p>a central statistics of <span class="arithmatex">\(Y\)</span>, e.g. </p>
+<ul>
+<li>its <a href="https://en.wikipedia.org/wiki/Expected_value">mean</a>, </li>
+<li>its <a href="https://en.wikipedia.org/wiki/Median">median</a></li>
+<li>its <a href="https://en.wikipedia.org/wiki/Standard_deviation">standard deviation</a>,</li>
+</ul>
+</li>
+<li>
+<p>a reliability measure of <span class="arithmatex">\(Y\)</span>, e.g. </p>
+<ul>
+<li>the probability that it exceeds a critical threshold, </li>
+<li>the quantile associated to some critical level,</li>
+</ul>
+</li>
+<li>
+<p>sometimes, the whole <a href="https://en.wikipedia.org/wiki/Probability_distribution">probability distribution</a> of <span class="arithmatex">\(Y\)</span>!</p>
+</li>
+</ul>
+<p>There is a question in particular: </p>
+<blockquote>
+<p>How do the input uncertainties <span class="arithmatex">\(X\)</span> impact the model output <span class="arithmatex">\(Y\)</span>?        </p>
+</blockquote>
+<div class="admonition question">
+<p class="admonition-title">Does the output remain close to its nominal value?</p>
+<ul>
+<li>Is the variance of <span class="arithmatex">\(Y\)</span> small or not?</li>
+<li>Is the variation coefficient of <span class="arithmatex">\(Y\)</span> small or not?</li>
+<li>Is the probability that <span class="arithmatex">\(Y\)</span> exceeds a threshold small or not?</li>
+<li>Is green or red?</li>
+</ul>
+<p>If you have a lot of observations of <span class="arithmatex">\(Y\)</span>:</p>
+<p><img src="../images/y_pdf_N_sd_1pct.png" width="45%" height="auto">
+<img src="../images/y_pdf_N_sd_10pct.png" width="45%" height="auto"></p>
+<p>If you have a few observations of <span class="arithmatex">\(Y\)</span>:</p>
+<p><img src="../images/y_hist_N_sd_1pct.png" width="45%" height="auto">
+<img src="../images/y_hist_N_sd_10pct.png" width="45%" height="auto">
+<img src="../images/y_boxplot_N_sd_1pct.png" width="45%" height="auto">
+<img src="../images/y_boxplot_N_sd_10pct.png" width="45%" height="auto"></p>
+</div>
+<div class="admonition question">
+<p class="admonition-title">Is the risk that the output exceeds a critical threshold important?</p>
+<ol>
+<li>For <strong>any</strong> input <span class="arithmatex">\(x_i\)</span> subject to a small variation <span class="arithmatex">\(\delta x_i\)</span>,
+   the output variation <span class="arithmatex">\(\Delta y\)</span> is <strong>small</strong>.</li>
+<li>There is <strong>an</strong> input <span class="arithmatex">\(x_i\)</span> subject to a small variation <span class="arithmatex">\(\delta x_i\)</span>
+   for which the output variation <span class="arithmatex">\(\Delta y\)</span> is <strong>important</strong>.</li>
+</ol>
+<p>Which assertion is true? Is there a <a href="https://en.wikipedia.org/wiki/Butterfly_effect">butterfly effect</a>? </p>
+</div>
+<div class="admonition question">
+<p class="admonition-title">Is the risk that the output exceeds a critical threshold important?</p>
+<p><img src="../images/y_threshold_low.png" width="45%" height="auto">
+<img src="../images/y_threshold_high.png" width="45%" height="auto"></p>
+</div>
+<div class="admonition question">
+<p class="admonition-title">How is the output uncertainty explained by the inputs?</p>
+<p><img src="../images/y_var_xi_eq.png" width="45%" height="auto">
+<img src="../images/y_var_xi_grad.png" width="45%" height="auto"></p>
+</div>
+<div class="admonition question">
+<p class="admonition-title">Which input uncertainties should we reduce?</p>
+<p><img src="../images/y_var_xi_eq_red.png" width="45%" height="auto">
+<img src="../images/y_var_xi_grad_red.png" width="45%" height="auto"></p>
+</div>
+<h2 id="uqm-as-an-industrial-solution">UQ&amp;M as an industrial solution<a class="headerlink" href="#uqm-as-an-industrial-solution" title="Permanent link">&para;</a></h2>
+<p>The problem that emerges is the management of uncertainties in a model.</p>
+<p>We want to</p>
+<ul>
+<li>quantify the uncertainty present in the output of a model,</li>
+<li>link this uncertainty to the uncertain input sources (if too much output uncertainty),</li>
+<li>identify the more significant uncertain input sources (if too much output uncertainty),,</li>
+<li>reduce some uncertainty sources if possible (if too much output uncertainty),.</li>
+</ul>
+<p>A solution to this problem is called <em>uncertainty quantification &amp; management</em> (UQ&amp;M),
+often abbreviated to UQ.
+UQ is an engineering domain in its own right, 
+requiring knowledge of the fields to which it applies.</p>
+<p>Based on industrial practices,
+four categories can be listed<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>
+to classify the objectives of any quantitative risk/uncertainty assessment:</p>
+<details class="info">
+<summary>U (Understand)</summary>
+<p>Understand the influence or rank of importance of uncertainties helps to 
+guide the new measurements or the computer modeling and the R&amp;D efforts.</p>
+</details>
+<details class="info">
+<summary>A (Accredit)</summary>
+<p>Give credit to a model or a method of measurement 
+and reach an acceptable quality level for its use, 
+by fixing some model inputs, 
+estimating parameters of other inputs, 
+reducing the output uncertainty, ... 
+or even updating the uncertainty model through dynamic data assimilation.</p>
+</details>
+<details class="info">
+<summary>S (Select)</summary>
+<p>The consideration of uncertainties allows to compare different system performances 
+and optimize the choice of the objective policy, operation or design of the system.</p>
+</details>
+<details class="info">
+<summary>C (Comply))</summary>
+<p>Defining an adequate criterion or regulatory threshold (e.g. licensing, certification, ...) 
+taking into account the uncertainties allows to demonstrate compliance of the system.</p>
+</details>
+<p>A popular scheme is available
+to summarize a UQ&amp;M study from a number of generic tasks:</p>
+<p><img alt=" " src="../images/uq_schema.png" /></p>
+<h2 id="surrogate-models-as-uqm-enablers">Surrogate models as UQ&amp;M enablers<a class="headerlink" href="#surrogate-models-as-uqm-enablers" title="Permanent link">&para;</a></h2>
+<p>UQ&amp;M techniques tools often require an important number of model evaluations 
+to estimate quantities of interest such as quantiles or probabilities.</p>
+<p>But in many cases,
+model evaluation are expensive or time-consuming
+and in these cases,
+precise estimation of these quantities is impossible.</p>
+<p>To carry out UQ studies in spite of this,<br />
+models are commonly replaced by so-called <em>surrogate models</em>
+which are inexpensive to evaluate.</p>
+<p>These surrogate models are often designed using machine learning techniques.</p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>E de Rocquigny. Quantifying uncertainty in an industrial approach: an emerging consensus in an old epistemological debate. <em>SAPI EN. S. Surveys and Perspectives Integrating Environment and Society</em>, 2009.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Matthias De Lozzo -  All rights reserved -  Reproduction prohibited without permission.
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.c8d2eff1.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1330 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="uncertainty_propagation.html">
+      
+      
+        <link rel="next" href="surrogate_models.html">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.12">
+    
+    
+      
+        <title>5. Sensitivity analysis - UQ course</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.7e359304.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#5-sensitivity-analysis" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="UQ course" class="md-header__button md-logo" aria-label="UQ course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            UQ course
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              5. Sensitivity analysis
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="UQ course" class="md-nav__button md-logo" aria-label="UQ course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    UQ course
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="probability.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Basics of probability and statistics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="uncertainty_quantification.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Uncertainty quantification
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="uncertainty_propagation.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. Uncertainty propagation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    5. Sensitivity analysis
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="sensitivity_analysis.html" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    5. Sensitivity analysis
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-sensitivity-analysis-sa" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is sensitivity analysis (SA)?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#local-vs-global-sa" class="md-nav__link">
+    <span class="md-ellipsis">
+      Local vs. global SA
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Local vs. global SA">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#local-sa-lsa" class="md-nav__link">
+    <span class="md-ellipsis">
+      Local SA (LSA)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#global-sa-gsa" class="md-nav__link">
+    <span class="md-ellipsis">
+      Global SA (GSA)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lsa" class="md-nav__link">
+    <span class="md-ellipsis">
+      LSA
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="LSA">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#quadratic-cumul" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quadratic cumul
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Quadratic cumul">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#first-order-taylor-polynomials" class="md-nav__link">
+    <span class="md-ellipsis">
+      First-order Taylor polynomials
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gsa" class="md-nav__link">
+    <span class="md-ellipsis">
+      GSA
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GSA">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#morris-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      Morris method
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Morris method">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#one-at-a-time-oat-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      One-at-A-Time (OAT) method
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#morris-method_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Morris method
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#visualizations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Visualizations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scatter-plot-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scatter plot matrix
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cobwebplot" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cobwebplot
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#correlation-coefficients" class="md-nav__link">
+    <span class="md-ellipsis">
+      Correlation coefficients
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Correlation coefficients">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#standardized-regression-coefficients" class="md-nav__link">
+    <span class="md-ellipsis">
+      Standardized regression coefficients
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sobol-indices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sobol' indices
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sobol' indices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#theory" class="md-nav__link">
+    <span class="md-ellipsis">
+      Theory
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      Practice
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Practice">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#first-order-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      First-order index
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#second-order-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      Second-order index
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#high-order-indices" class="md-nav__link">
+    <span class="md-ellipsis">
+      High-order indices
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#total-order-indices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Total-order indices
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#estimation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Estimation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      Properties
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#synthesis-on-sensitivity-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Synthesis on sensitivity analysis
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="surrogate_models.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6. Surrogate models
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="robust_optimization.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    7. Robust optimization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../project.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Project
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-sensitivity-analysis-sa" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is sensitivity analysis (SA)?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#local-vs-global-sa" class="md-nav__link">
+    <span class="md-ellipsis">
+      Local vs. global SA
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Local vs. global SA">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#local-sa-lsa" class="md-nav__link">
+    <span class="md-ellipsis">
+      Local SA (LSA)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#global-sa-gsa" class="md-nav__link">
+    <span class="md-ellipsis">
+      Global SA (GSA)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lsa" class="md-nav__link">
+    <span class="md-ellipsis">
+      LSA
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="LSA">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#quadratic-cumul" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quadratic cumul
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Quadratic cumul">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#first-order-taylor-polynomials" class="md-nav__link">
+    <span class="md-ellipsis">
+      First-order Taylor polynomials
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gsa" class="md-nav__link">
+    <span class="md-ellipsis">
+      GSA
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GSA">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#morris-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      Morris method
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Morris method">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#one-at-a-time-oat-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      One-at-A-Time (OAT) method
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#morris-method_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Morris method
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#visualizations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Visualizations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scatter-plot-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scatter plot matrix
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cobwebplot" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cobwebplot
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#correlation-coefficients" class="md-nav__link">
+    <span class="md-ellipsis">
+      Correlation coefficients
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Correlation coefficients">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#standardized-regression-coefficients" class="md-nav__link">
+    <span class="md-ellipsis">
+      Standardized regression coefficients
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sobol-indices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sobol' indices
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sobol' indices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#theory" class="md-nav__link">
+    <span class="md-ellipsis">
+      Theory
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      Practice
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Practice">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#first-order-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      First-order index
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#second-order-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      Second-order index
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#high-order-indices" class="md-nav__link">
+    <span class="md-ellipsis">
+      High-order indices
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#total-order-indices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Total-order indices
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#estimation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Estimation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      Properties
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#synthesis-on-sensitivity-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Synthesis on sensitivity analysis
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="5-sensitivity-analysis">5. Sensitivity analysis<a class="headerlink" href="#5-sensitivity-analysis" title="Permanent link">&para;</a></h1>
+<h2 id="what-is-sensitivity-analysis-sa">What is sensitivity analysis (SA)?<a class="headerlink" href="#what-is-sensitivity-analysis-sa" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Sensitivity</strong> - Does the model output vary when inputs vary?</li>
+<li><strong>Sensitivity quantification</strong> - How much does the model output vary in function of inputs variations?</li>
+<li><strong>Sensitivity analysis</strong> - How the model output uncertainty is explained by the different uncertain inputs? Qualitatively? Quantitatively?</li>
+</ul>
+<p>We aim to reduce the output uncertainty:</p>
+<ol>
+<li>Identify the most influential inputs and the non-significant ones, 
+   either around a nominal value, or over the whole input space.</li>
+<li>R&amp;D to reduce the reducible sources of uncertainty.</li>
+<li>Fix the non-significant ones at nominal values.</li>
+<li>Reduce the dimension of the uncertain space.</li>
+<li>R&amp;D to change the model if the model output is too much uncertain.</li>
+</ol>
+<h2 id="local-vs-global-sa">Local vs. global SA<a class="headerlink" href="#local-vs-global-sa" title="Permanent link">&para;</a></h2>
+<h3 id="local-sa-lsa">Local SA (LSA)<a class="headerlink" href="#local-sa-lsa" title="Permanent link">&para;</a></h3>
+<p>We consider</p>
+<div class="arithmatex">\[y=f(x)=f(x_1,\ldots,x_d)\]</div>
+<p>where <span class="arithmatex">\(x\)</span> and <span class="arithmatex">\(y\)</span> are deterministic variables.</p>
+<p>How does <span class="arithmatex">\(y\)</span> vary around a nominal input <span class="arithmatex">\(x^{(0)}\)</span>? 
+Which is the most influential input?</p>
+<ul>
+<li>Mainly based on partial derivatives (or finite differences) of <span class="arithmatex">\(f\)</span> at <span class="arithmatex">\(x^{(0)}\)</span>;
+  we compare their absolute values.</li>
+<li>Conclusions depend on the choice of <span class="arithmatex">\(x^{(0)}\)</span> and on the discretization step <span class="arithmatex">\(\delta x\)</span>.</li>
+</ul>
+<h3 id="global-sa-gsa">Global SA (GSA)<a class="headerlink" href="#global-sa-gsa" title="Permanent link">&para;</a></h3>
+<p>We consider</p>
+<div class="arithmatex">\[Y=f(X)=f(X_1,\ldots,X_d)\]</div>
+<p>where <span class="arithmatex">\(x\)</span> and <span class="arithmatex">\(y\)</span> are deterministic variables.</p>
+<p>How does <span class="arithmatex">\(Y\)</span> vary over the uncertain input space <span class="arithmatex">\((\Omega, \mathcal{X} , \mathbb{P})\)</span>?</p>
+<ul>
+<li>Based on probabilistic distributions of <span class="arithmatex">\(X\)</span>;
+  given a dataset, we compare output statistics and compare these statistics.</li>
+<li>Conclusions depend on the choice of the distribution of <span class="arithmatex">\(X\)</span> (distributions of <span class="arithmatex">\(X_1,\ldots,X_d\)</span>, and eventually their joint distribution).</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p><span class="arithmatex">\(Y=f(X)=\exp(X_1)+\exp(X_2)\)</span> with <span class="arithmatex">\(X_1,X_2\sim_{\text{i.i.d.}}\mathcal{U}([0,1])\)</span>.</p>
+<p>A GSA would conclude that <span class="arithmatex">\(X_1\)</span> and <span class="arithmatex">\(X_2\)</span> have the same effect on <span class="arithmatex">\(Y\)</span> while a LSA would conclude that <span class="arithmatex">\(x_1\)</span> is more influent if <span class="arithmatex">\(x_1&gt;x_2\)</span> and conversely.</p>
+</div>
+<h2 id="lsa">LSA<a class="headerlink" href="#lsa" title="Permanent link">&para;</a></h2>
+<h3 id="quadratic-cumul">Quadratic cumul<a class="headerlink" href="#quadratic-cumul" title="Permanent link">&para;</a></h3>
+<p>Let <span class="arithmatex">\(\tilde{x}\in\mathcal{X}\)</span> be a point of interest, e.g. <span class="arithmatex">\(\mu=\mathbb{E}[X]\)</span>.</p>
+<h4 id="first-order-taylor-polynomials">First-order Taylor polynomials<a class="headerlink" href="#first-order-taylor-polynomials" title="Permanent link">&para;</a></h4>
+<p>We can compute the first-order Taylor polynomial with analytic formulas, finite differences, automatic differentiation, etc.</p>
+<p>The first-order Taylor expansion at <span class="arithmatex">\(\tilde{x}\)</span> can be written as</p>
+<div class="arithmatex">\[f(x)=f\left(\tilde{x}\right)+\sum_{i=1}^d\frac{\partial f(\tilde{x})}{\partial x_i}\left(x_i-\tilde{x}_i\right)+o\left(\left\|x-\tilde{x}\right\|\right).\]</div>
+<p>Assuming a behavior mainly linear, the first-order Taylor polynomial reads</p>
+<div class="arithmatex">\[f_1(X) \equiv f\left(\tilde{x}\right)+\sum_{i=1}^d\frac{\partial f(\tilde{x})}{\partial x_i}\left(X_i-\tilde{x}_i\right)\]</div>
+<p>Then,
+the mean value of the random variable <span class="arithmatex">\(Y\)</span> is simply</p>
+<div class="arithmatex">\[\mathbb{E}[Y]\approx \mathbb{E}[f_1(X)]= f\left(\tilde{x}\right)\]</div>
+<p>and the same for its variance:</p>
+<div class="arithmatex">\[\mathbb{V}[f(X)]\approx\mathbb{V}[f_1(X)]=\sum_{i=1}^d\left(\frac{\partial f(\tilde{x})}{\partial x_i}\right)^2\mathbb{V}[X_i]\]</div>
+<p>where <span class="arithmatex">\(\mathbb{V}[X_1],\ldots,\mathbb{V}[X_N]\)</span> are known.</p>
+<p>We can deduce from this last expression our first sensitivity indices:</p>
+<div class="arithmatex">\[\forall i\in\{1,\ldots,d\},\quad\text{QC}_i\left(\tilde{x}\right)=\left(\frac{\partial f(\tilde{x})}{\partial x_i}\right)^2\frac{\mathbb{V}[X_i]}{\mathbb{V}[Y]}\]</div>
+<p>Most often, 
+<span class="arithmatex">\(\tilde{x}\equiv\mathbb{E}[X]\)</span> 
+to compare the impact of the input uncertainties on the output around the mean input value.</p>
+<div class="arithmatex">\[\forall i\in\{1,\ldots,d\},\quad\text{QC}_i\equiv\left(\frac{\partial f(\mathbb{E}[X])}{\partial x_i}\right)^2\frac{\mathbb{V}[X_i]}{\mathbb{V}[Y]}\]</div>
+<div class="admonition note">
+<p class="admonition-title">Pros</p>
+<ul>
+<li>Need only an expert knowledge of input means and variances.</li>
+<li>If <span class="arithmatex">\(X\)</span> is Gaussian, <span class="arithmatex">\(f(X)\)</span> is almost Gaussian with analytic formula for mean and variance if <span class="arithmatex">\(f\)</span> is almost linear.</li>
+</ul>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Cons</p>
+<ul>
+<li><span class="arithmatex">\(f\)</span> must not be strongly non-linear.</li>
+<li>For uncertainty propagation purposes, it is not possible to get the whole distribution of <span class="arithmatex">\(Y\)</span>, except is <span class="arithmatex">\(f\)</span> is almost linear.</li>
+</ul>
+</div>
+<h2 id="gsa">GSA<a class="headerlink" href="#gsa" title="Permanent link">&para;</a></h2>
+<h3 id="morris-method">Morris method<a class="headerlink" href="#morris-method" title="Permanent link">&para;</a></h3>
+<p>From a few calls to the simulator, 
+the Morris method aims at comparing the influence of the uncertain inputs on the output variability
+in terms of degree of the influence of the inputs and variation of the influence over the input range.</p>
+<h4 id="one-at-a-time-oat-method">One-at-A-Time (OAT) method<a class="headerlink" href="#one-at-a-time-oat-method" title="Permanent link">&para;</a></h4>
+<p>This method requires <span class="arithmatex">\(d+1\)</span> model evaluations, 
+where <span class="arithmatex">\(d\)</span> is the input dimension,
+and is very simple:</p>
+<ol>
+<li>Select an input value <span class="arithmatex">\(x^{(0)}\)</span> and evaluate the model: <span class="arithmatex">\(y^{(0)}=f\left(x^{(0)}\right)\)</span>.</li>
+<li>For each input variable <span class="arithmatex">\(X_i\)</span>, <span class="arithmatex">\(i\in\{1,\ldots,d\}\)</span>, evaluate the model: <span class="arithmatex">\(y^{(i)}=f\left(x^{(i)}\right)\)</span> where <span class="arithmatex">\(x^{(i)}_j=x^{(i-1)}_j+\tau_i\delta_{j=i}\)</span>.</li>
+<li>Compare <span class="arithmatex">\(\Delta y^{(1)},\ldots,\Delta y^{(d)}\)</span> with <span class="arithmatex">\(\Delta y^{(i)}=\frac{y^{(i)}-y^{(i-1)}}{\tau_i}\)</span></li>
+</ol>
+<h4 id="morris-method_1">Morris method<a class="headerlink" href="#morris-method_1" title="Permanent link">&para;</a></h4>
+<p>This method requires <span class="arithmatex">\(R(d+1)\)</span> model evaluations
+and consists of computing statistics of the OAT technique results</p>
+<ol>
+<li>Repeat <span class="arithmatex">\(R\)</span> times the OAT method with <span class="arithmatex">\(R\)</span> different initial values <span class="arithmatex">\(x^{(0),[1]},\ldots,x^{(0),[R]}\)</span>
+   to get <span class="arithmatex">\(\left(\Delta y^{(1),[1]},\ldots,\Delta y^{(1),[R]}\right),\ldots,\left(\Delta y^{(d),[1]},\ldots,\Delta y^{(1),[R]}\right)\)</span>.</li>
+<li>For each input variable <span class="arithmatex">\(X_i\)</span>, 
+   compute the mean value of <span class="arithmatex">\(\Delta y^{(i)}\)</span>, noted <span class="arithmatex">\(\mu_i^*\)</span>,
+   as well as its standard deviation, noted <span class="arithmatex">\(\sigma_i\)</span>. </li>
+<li>Compare <span class="arithmatex">\(x_1,\ldots,x_d\)</span> by plotting the pairs <span class="arithmatex">\((\mu_1^*,\sigma_1),\ldots,(\mu_d^*,\sigma_d)\)</span>.</li>
+</ol>
+<details class="tip">
+<summary>Equations</summary>
+<div class="arithmatex">\[\mu_i=R^{-1}\sum_{r=1}^R\Delta y^{(i),[r]}\]</div>
+<div class="arithmatex">\[\mu_i^*=R^{-1}\sum_{r=1}^R|\Delta y^{(i),[r]}|\]</div>
+<div class="arithmatex">\[\sigma_i^2=R^{-1}\sum_{r=1}^R\left(|\Delta y^{(i),[r]}|-\mu_i\right)^2.\]</div>
+</details>
+<p>In the graph below,
+<span class="arithmatex">\(\mu_i\geq 0\)</span> measures the degree of uncertainty
+and <span class="arithmatex">\(\sigma_i\geq 0\)</span> measures the degree of non-linearity of <span class="arithmatex">\(f\)</span> with respect to <span class="arithmatex">\(x_i\)</span>.</p>
+<p><img src="../images/morrisschema.png" width="50%"/></p>
+<h3 id="visualizations">Visualizations<a class="headerlink" href="#visualizations" title="Permanent link">&para;</a></h3>
+<h3 id="scatter-plot-matrix">Scatter plot matrix<a class="headerlink" href="#scatter-plot-matrix" title="Permanent link">&para;</a></h3>
+<p><img alt=" " src="../images/scatter_matrix_kde.png" /></p>
+<h3 id="cobwebplot">Cobwebplot<a class="headerlink" href="#cobwebplot" title="Permanent link">&para;</a></h3>
+<p><img alt=" " src="../images/cobwebplot.png" /></p>
+<h3 id="correlation-coefficients">Correlation coefficients<a class="headerlink" href="#correlation-coefficients" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Pearson coefficient under linear assumptions.</li>
+<li>Spearman coefficient under monotonous assumptions,</li>
+<li>Kendall coefficient under monotonous assumptions.</li>
+</ul>
+<p>Pros and cons:</p>
+<ul>
+<li>Easy to understand and analyze.</li>
+<li>Not adapted for non-monotonous models.</li>
+</ul>
+<h4 id="standardized-regression-coefficients">Standardized regression coefficients<a class="headerlink" href="#standardized-regression-coefficients" title="Permanent link">&para;</a></h4>
+<p>If <span class="arithmatex">\(f(X)=a_0+\sum_{i=1}^dX_i\)</span> with independent uncertain inputs, then:</p>
+<div class="arithmatex">\[\texttt{SRC}(X_i)=a_i\sqrt{\frac{\mathbb{V}[X_i]}{\mathbb{V}[f(X)]}}\]</div>
+<p>is the standardized regression coefficient associated to <span class="arithmatex">\(X_i\)</span> with the same meaning as the Pearson coefficient.</p>
+<h3 id="sobol-indices">Sobol' indices<a class="headerlink" href="#sobol-indices" title="Permanent link">&para;</a></h3>
+<h4 id="theory">Theory<a class="headerlink" href="#theory" title="Permanent link">&para;</a></h4>
+<p>If <span class="arithmatex">\(f\)</span> is finite-variance and <span class="arithmatex">\(X_1,\ldots,X_d\)</span> are independent random variables,
+<em>i.e.</em> <span class="arithmatex">\(\mathbb{E}\left[\left(f(X)\right)^2\right]&lt;\infty\)</span>, 
+there exists a unique hierarchical orthogonal expansion of <span class="arithmatex">\(f\)</span> of the form</p>
+<div class="arithmatex">\[f(X) = f_{\emptyset} + \sum_{i=1}^d f_{\{i\}}\left(X_{\{i\}}\right) +
+\sum_{j=1\atop j&gt;i}^d f_{\{i,j\}}\left(X_{\{i,j\}}\right) + \ldots = \sum_{I\subseteq
+\{1,\ldots,d\}}f_I(X_I)\]</div>
+<p>such that </p>
+<ul>
+<li><span class="arithmatex">\(\mathbb{E}\!\left[f_I\!\left(X_I\right)\right]=0\)</span> for all <span class="arithmatex">\(I\subseteq\{1,\ldots,d\}\setminus\emptyset\)</span>,</li>
+<li><span class="arithmatex">\(\mathbb{E}\!\left[f_I\!\left(X_I\right)f_J\!\left(X_J\right)\right]=0\)</span> for all <span class="arithmatex">\(I,J\subseteq \{1,\ldots,d\}\)</span>, <span class="arithmatex">\(I\neq J\)</span>.</li>
+</ul>
+<p>The terms follow the hierarchical structure:</p>
+<ul>
+<li><span class="arithmatex">\(f_{\emptyset}=\mathbb{E}[f(X)]\)</span></li>
+<li><span class="arithmatex">\(f_{\{i\}}=\mathbb{E}[f(X)|X_i]-f_{\emptyset}\)</span></li>
+<li><span class="arithmatex">\(f_I=\mathbb{E}[f(X)|X_I]-\sum_{J\subsetneq I}f_J(X_J)\)</span></li>
+</ul>
+<p>Then, 
+we take the variance:</p>
+<div class="arithmatex">\[\mathbb{V}[f(X)] =
+\sum_{i=1}^d\mathbb{V}\!\left[f_{\{i\}}\!\left(X_{\{i\}}\right)\right] +
+\sum_{j=1\atop j&gt;i}^d \mathbb{V}\!\left[f_{\{i,j\}}\!\left(X_{\{i,j\}}\right)\right]
++ \ldots = \sum_{I\subseteq
+\{1,\ldots,d\}}\mathbb{V}\!\left[f_I\!\left(X_I\right)\right]\]</div>
+<p>and normalize the terms of the decomposition in <span class="arithmatex">\([0,1]\)</span>:</p>
+<div class="arithmatex">\[1 = \sum_{i=1}^d S_{\{i\}} + \sum_{j=1\atop j&gt;i}^d S_{\{i,j\}} + \ldots =
+\sum_{I\subseteq \{1,\ldots,d\}}S_I.\]</div>
+<p><span class="arithmatex">\(S_{I}=\frac{\mathbb{V}[f_I(X_I)]}{\mathbb{V}[f(X)]}\)</span> is called a Sobol' index.</p>
+<p><span class="arithmatex">\(S_{I}\)</span> represents the share of variance of the random output variable <span class="arithmatex">\(Y\)</span> 
+explained </p>
+<ul>
+<li>by the <strong>group</strong> of random input variables <span class="arithmatex">\((X_i)_{i\in I}\)</span>,</li>
+<li>independently of the others random input variables <span class="arithmatex">\((X_j)_{j\notin I}\)</span>,</li>
+<li>independently of the sub-groups of random input variables <span class="arithmatex">\((X_j)_{j\in I'\subseteq I}\)</span>.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Special case</p>
+<p><span class="arithmatex">\(S_{i}\)</span> represents the share of variance of the random output variable <span class="arithmatex">\(Y\)</span> 
+explained </p>
+<ul>
+<li>by the random input variable <span class="arithmatex">\(X_i\)</span>, as <span class="arithmatex">\(X_{i}=\{X_i\}\)</span>,</li>
+<li>independently of the others random input variables <span class="arithmatex">\((X_j)_{1\leq j\neq i \leq d}\)</span>.</li>
+</ul>
+</div>
+<h4 id="practice">Practice<a class="headerlink" href="#practice" title="Permanent link">&para;</a></h4>
+<p>A Sobol' index measures the share of the output variance <span class="arithmatex">\(\mathbb{V}[Y]\)</span> 
+due to a particular input <span class="arithmatex">\(X_i\)</span> or a particular group of inputs <span class="arithmatex">\((X_i)_{i\in I}\)</span>. </p>
+<p>For the sake of simplicity,
+we only consider the case of a specific input <span class="arithmatex">\(X_i\)</span>.</p>
+<h5 id="first-order-index">First-order index<a class="headerlink" href="#first-order-index" title="Permanent link">&para;</a></h5>
+<p>The first-order Sobol' index of <span class="arithmatex">\(X_i\)</span> is:</p>
+<div class="arithmatex">\[S_{\{i\}}=\frac{\mathbb{V}_{X_{\{i\}}}\left[\mathbb{E}_{X_{-\{i\}}}\left[f(X)|X_{\{i\}}\right]\right]}{\mathbb{V}_X[f(X)]}\]</div>
+<p>with <span class="arithmatex">\(X_{-i}=(X_j)_{1\leq j\neq i\leq d}\)</span>
+and where <span class="arithmatex">\(\mathbb{E}_{X_{-\{i\}}}\left[f(X)|X_{\{i\}}\right]\)</span> is the expectation of <span class="arithmatex">\(f(X)\)</span> conditioned by <span class="arithmatex">\(X_{\{i\}}\)</span>
+(so this is a function of <span class="arithmatex">\(X_{\{i\}}\)</span>)</p>
+<p>This sensitivity index measures the share of the output variance <span class="arithmatex">\(\mathbb{V}[Y]\)</span> 
+due to the single effect of <span class="arithmatex">\(X_i\)</span>.</p>
+<h5 id="second-order-index">Second-order index<a class="headerlink" href="#second-order-index" title="Permanent link">&para;</a></h5>
+<p>The <span class="arithmatex">\(j^{\text{th}}\)</span> second-order Sobol' index of <span class="arithmatex">\(X_i\)</span> is:</p>
+<div class="arithmatex">\[S_{\{i,j\}}=\frac{\mathbb{V}_{\{i,j\}}\left[\mathbb{E}_{-\{i,j\}}\left[f(X)|X_{\{i,j\}}\right]\right]}{\mathbb{V}[f(X)]} - S_{\{i\}} - S_{\{j\}}.\]</div>
+<p>It measures the share of the output variance <span class="arithmatex">\(\mathbb{V}[Y]\)</span><br />
+due to the joint effect between <span class="arithmatex">\(X_i\)</span> and <span class="arithmatex">\(X_j\)</span>.</p>
+<h5 id="high-order-indices">High-order indices<a class="headerlink" href="#high-order-indices" title="Permanent link">&para;</a></h5>
+<p>Sensitivity indices with orders higher than 2 can be defined but in practice, 
+we only consider first-order and total Sobol' indices, 
+and sometimes the second-order Sobol' indices in order to highlight joint effects.</p>
+<h5 id="total-order-indices">Total-order indices<a class="headerlink" href="#total-order-indices" title="Permanent link">&para;</a></h5>
+<p>The total Sobol' index of <span class="arithmatex">\(X_i\)</span> is:</p>
+<div class="arithmatex">\[S_{\{i\}}^t=\sum_{I\subseteq\{1,\ldots,d\}\atop I \ni i} S_{\{I\}}.\]</div>
+<p>It measures the share of the output variance <span class="arithmatex">\(\mathbb{V}[Y]\)</span> 
+due to <span class="arithmatex">\(X_i\)</span> and all its joint effects.</p>
+<h5 id="estimation">Estimation<a class="headerlink" href="#estimation" title="Permanent link">&para;</a></h5>
+<h5 id="properties">Properties<a class="headerlink" href="#properties" title="Permanent link">&para;</a></h5>
+<ul>
+<li>A Sobol' index belongs to <span class="arithmatex">\([0,1]\)</span>, so it is easy to compare and sort them.</li>
+<li>Sobol' indices add up to 1,
+  so a Sobol' index can be expressed as a percentage of the output variance
+  and inputs with non-significant Sobol' indices can be set at nominal values.</li>
+<li>These indices of a polynomial chaos expansion (PCE),
+  which is a surrogate model widely used in the UQ field,
+  can be expressed from its coefficients,
+  so their estimation can be straightforward, 
+  not requiring Monte-Carlo sampling.</li>
+</ul>
+<h5 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h5>
+<p>Let's consider the Ishigami function <span class="arithmatex">\(f\)</span>, well-known in the UQ domain, subject to uncertainties:</p>
+<div class="arithmatex">\[f(X) =
+\sin(X_1)+7\sin(X_2)^2+0.1X_3^4\sin(X_1)\]</div>
+<p>where <span class="arithmatex">\(X_1\)</span>, <span class="arithmatex">\(X_2\)</span> and <span class="arithmatex">\(X_3\)</span> are independent uniform random variables over <span class="arithmatex">\([-\pi,\pi]\)</span>.</p>
+<p><img alt=" " src="../images/sobol_piechart.png" /></p>
+<h2 id="synthesis-on-sensitivity-analysis">Synthesis on sensitivity analysis<a class="headerlink" href="#synthesis-on-sensitivity-analysis" title="Permanent link">&para;</a></h2>
+<p><sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup> features an interesting graph to find your way 
+among the various sensitivity techniques and according to the type of function (non-linearity and dimension):</p>
+<p><img alt=" " src="../images/sa.png" /></p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>Bertrand Iooss and Paul Lemaître. <em>A Review on Global Sensitivity Analysis Methods</em>, pages 101–122. Springer US, Boston, MA, 2015. URL: <a href="https://doi.org/10.1007/978-1-4899-7547-8_5">https://doi.org/10.1007/978-1-4899-7547-8_5</a>, <a href="https://doi.org/10.1007/978-1-4899-7547-8_5">doi:10.1007/978-1-4899-7547-8_5</a>.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Matthias De Lozzo -  All rights reserved -  Reproduction prohibited without permission.
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.c8d2eff1.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

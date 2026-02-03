@@ -1,0 +1,1515 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="sensitivity_analysis.html">
+      
+      
+        <link rel="next" href="robust_optimization.html">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.12">
+    
+    
+      
+        <title>6. Surrogate models - UQ course</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.7e359304.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#6-surrogate-models" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="UQ course" class="md-header__button md-logo" aria-label="UQ course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            UQ course
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              6. Surrogate models
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="UQ course" class="md-nav__button md-logo" aria-label="UQ course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    UQ course
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="probability.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Basics of probability and statistics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="uncertainty_quantification.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Uncertainty quantification
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="uncertainty_propagation.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. Uncertainty propagation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="sensitivity_analysis.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5. Sensitivity analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    6. Surrogate models
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="surrogate_models.html" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    6. Surrogate models
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-why-and-how" class="md-nav__link">
+    <span class="md-ellipsis">
+      What, why and how
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What, why and how">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#use-of-simulators" class="md-nav__link">
+    <span class="md-ellipsis">
+      Use of simulators
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#toy-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      Toy model
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#limits-of-models-in-computer-experimentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Limits of models in computer experimentation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#from-single-output-to-multiple-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      From single output to multiple output
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#approximating-the-simulator" class="md-nav__link">
+    <span class="md-ellipsis">
+      Approximating the simulator
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Approximating the simulator">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Requirements
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solution" class="md-nav__link">
+    <span class="md-ellipsis">
+      Solution
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quality-of-a-surrogate-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quality of a surrogate model
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Quality of a surrogate model">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#learning-error" class="md-nav__link">
+    <span class="md-ellipsis">
+      Learning error
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generalization-error" class="md-nav__link">
+    <span class="md-ellipsis">
+      Generalization error
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test-error" class="md-nav__link">
+    <span class="md-ellipsis">
+      Test error
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cross-validation-cv-error" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cross-validation (CV) error
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#leave-one-out-loo-error" class="md-nav__link">
+    <span class="md-ellipsis">
+      Leave-one-out (LOO) error
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q2-score" class="md-nav__link">
+    <span class="md-ellipsis">
+      Q2 score
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#different-surrogate-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      Different surrogate models
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Different surrogate models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#linear-regressors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Linear regressors
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#radial-basis-function-rbf-regressors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Radial basis function (RBF) regressors
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gaussian-process-gp-regressors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gaussian process (GP) regressors
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#polynomial-chaos-expansion-pce" class="md-nav__link">
+    <span class="md-ellipsis">
+      Polynomial chaos expansion (PCE)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Polynomial chaos expansion (PCE)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#learning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Learning
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enumerating-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enumerating strategy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pce-degree" class="md-nav__link">
+    <span class="md-ellipsis">
+      PCE degree
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comparison
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#towards-the-best-surrogate-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      Towards the best surrogate model
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="robust_optimization.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    7. Robust optimization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../project.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Project
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-why-and-how" class="md-nav__link">
+    <span class="md-ellipsis">
+      What, why and how
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What, why and how">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#use-of-simulators" class="md-nav__link">
+    <span class="md-ellipsis">
+      Use of simulators
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#toy-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      Toy model
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#limits-of-models-in-computer-experimentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Limits of models in computer experimentation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#from-single-output-to-multiple-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      From single output to multiple output
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#approximating-the-simulator" class="md-nav__link">
+    <span class="md-ellipsis">
+      Approximating the simulator
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Approximating the simulator">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Requirements
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solution" class="md-nav__link">
+    <span class="md-ellipsis">
+      Solution
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quality-of-a-surrogate-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quality of a surrogate model
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Quality of a surrogate model">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#learning-error" class="md-nav__link">
+    <span class="md-ellipsis">
+      Learning error
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generalization-error" class="md-nav__link">
+    <span class="md-ellipsis">
+      Generalization error
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test-error" class="md-nav__link">
+    <span class="md-ellipsis">
+      Test error
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cross-validation-cv-error" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cross-validation (CV) error
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#leave-one-out-loo-error" class="md-nav__link">
+    <span class="md-ellipsis">
+      Leave-one-out (LOO) error
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q2-score" class="md-nav__link">
+    <span class="md-ellipsis">
+      Q2 score
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#different-surrogate-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      Different surrogate models
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Different surrogate models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#linear-regressors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Linear regressors
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#radial-basis-function-rbf-regressors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Radial basis function (RBF) regressors
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gaussian-process-gp-regressors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gaussian process (GP) regressors
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#polynomial-chaos-expansion-pce" class="md-nav__link">
+    <span class="md-ellipsis">
+      Polynomial chaos expansion (PCE)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Polynomial chaos expansion (PCE)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#learning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Learning
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enumerating-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enumerating strategy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pce-degree" class="md-nav__link">
+    <span class="md-ellipsis">
+      PCE degree
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comparison
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#towards-the-best-surrogate-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      Towards the best surrogate model
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="6-surrogate-models">6. Surrogate models<a class="headerlink" href="#6-surrogate-models" title="Permanent link">&para;</a></h1>
+<h2 id="what-why-and-how">What, why and how<a class="headerlink" href="#what-why-and-how" title="Permanent link">&para;</a></h2>
+<h3 id="use-of-simulators">Use of simulators<a class="headerlink" href="#use-of-simulators" title="Permanent link">&para;</a></h3>
+<p>A simulator can be viewed as a mathematical application <span class="arithmatex">\(f:\mathcal{X}\mapsto\mathcal{Y}\)</span> 
+computing the output <span class="arithmatex">\(y\)</span> from the input <span class="arithmatex">\(x\)</span>. See the <a href="index.html">introduction</a> for more details.</p>
+<h3 id="toy-model">Toy model<a class="headerlink" href="#toy-model" title="Permanent link">&para;</a></h3>
+<p>In the following,
+we will illustrate the concept with a simple one-dimensional function</p>
+<div class="arithmatex">\[y:=f(x)=(6x-2)^2\sin(12x-4)\]</div>
+<p>from the literature<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>.</p>
+<p><img src="../images/reference.png" width="60%"/></p>
+<h3 id="limits-of-models-in-computer-experimentation">Limits of models in computer experimentation<a class="headerlink" href="#limits-of-models-in-computer-experimentation" title="Permanent link">&para;</a></h3>
+<p>Simulations are costly</p>
+<ul>
+<li>A single evaluation can be computationally expensive.</li>
+<li>The gradient is not always available, and if missing, gradient approximation is required. </li>
+</ul>
+<p>So, optimization is costly:</p>
+<ul>
+<li>Minimizing <span class="arithmatex">\(f\)</span> w.r.t. <span class="arithmatex">\(x\)</span> by browsing the design
+  parameter space, even intelligently, requires at least dozens or hundreds of
+  evaluations of <span class="arithmatex">\(f\)</span>.</li>
+</ul>
+<p>So, uncertainty quantification is costly:</p>
+<ul>
+<li>When the input <span class="arithmatex">\(x\)</span> is uncertain,
+  the output <span class="arithmatex">\(y:=f\left(x;u\right)\)</span> is also uncertain.
+  Sampling <span class="arithmatex">\(f\)</span> over <span class="arithmatex">\(\mathcal{X}\ni x\)</span> to quantify the output uncertainty
+  (e.g., mean, the standard deviation, the probability of exceeding a threshold, quantile, ...) 
+  requires at least hundreds or thousands of evaluations of <span class="arithmatex">\(f\)</span> over the uncertain variable space.</li>
+</ul>
+<p>So, visualization is costly:</p>
+<ul>
+<li>Visualizing the behavior of <span class="arithmatex">\(f\)</span> w.r.t. <span class="arithmatex">\(x\)</span> requires
+  at least hundreds or thousands of evaluations of <span class="arithmatex">\(f\)</span> over the design
+  parameter space.</li>
+</ul>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>How to provide a cheap but accurate approximation of <span class="arithmatex">\(f\)</span>?</p>
+</div>
+<h3 id="from-single-output-to-multiple-output">From single output to multiple output<a class="headerlink" href="#from-single-output-to-multiple-output" title="Permanent link">&para;</a></h3>
+<p>For the sake of clarity,
+we consider a model <span class="arithmatex">\(f\)</span> with a scalar output <span class="arithmatex">\(y\)</span>.</p>
+<p>The methodological and computational tools presented in this course 
+can be extended to the multiple output case.</p>
+<p>A classical approach consists of reducing the output dimension:</p>
+<ol>
+<li>Decompose the multiple output on an orthogonal basis,
+   e.g. principal component analysis (PCA): 
+   <span class="arithmatex">\(f(x)=\sum_{i=1}^{\text{dim}(y)}\alpha_i(x)\varphi_i\)</span> with <span class="arithmatex">\(\varphi_i\in\mathcal{Y}\)</span>.</li>
+<li>Keep the more significant modes of the basis: <span class="arithmatex">\(f_{\text{PCA}}(x)=\sum_{i=1}^{p\ll\text{dim}(y)}\alpha_i(x)\varphi_i\)</span>.</li>
+<li>For each significant mode, create a surrogate model <span class="arithmatex">\(\hat{\alpha}_i\)</span> of <span class="arithmatex">\(\alpha_i\)</span> (see how in the following sections).</li>
+<li>Provide a cheap but accurate approximation of <span class="arithmatex">\(f\)</span> by combining the
+   previous approximations: <span class="arithmatex">\(\hat{f}_{\text{PCA}}(x)=\sum_{i=1}^{p}\hat{\alpha}_i(x)\varphi_i\)</span>.</li>
+</ol>
+<h3 id="approximating-the-simulator">Approximating the simulator<a class="headerlink" href="#approximating-the-simulator" title="Permanent link">&para;</a></h3>
+<p>We want to <strong>build an efficient emulator</strong> <span class="arithmatex">\(\hat{f}\)</span> for the model <span class="arithmatex">\(f\)</span>.</p>
+<h4 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Accuracy: <span class="arithmatex">\(\text{Error}(f,\hat{f})\leq \varepsilon\)</span></li>
+<li>Velocity: <span class="arithmatex">\(\text{EvaluationTime}(\hat{f})\ll\text{EvaluationTime}(f)\)</span></li>
+</ul>
+<h4 id="solution">Solution<a class="headerlink" href="#solution" title="Permanent link">&para;</a></h4>
+<p>Use a surrogate model as emulator <span class="arithmatex">\(\hat{f}\)</span>,
+based on statistical and machine learning techniques.</p>
+<p>A surrogate model is a regression or interpolation function</p>
+<div class="arithmatex">\[\hat{y}\equiv\hat{f}_{\hat{\alpha}}\left(x\right)\]</div>
+<ul>
+<li>defined over the input parameter space <span class="arithmatex">\(\mathcal{X}\)</span>,</li>
+<li>depending on hyperparameters <span class="arithmatex">\(\hat{\alpha}\in\mathcal{A}\)</span>, </li>
+<li>parametrized by learning a training dataset.</li>
+</ul>
+<p>Training dataset:</p>
+<ol>
+<li>Create a design of experiments (DOE)}: <span class="arithmatex">\(x^{(1)},\ldots,y^{(n)}\)</span>.</li>
+<li>Evaluate the simulator <span class="arithmatex">\(f\)</span>: <span class="arithmatex">\(y^{(1)},\ldots,y^{(N)}\)</span> where <span class="arithmatex">\(y^{(i)}=f(x^{(i)})\)</span>.</li>
+<li>Create the learning dataset: <span class="arithmatex">\(\mathcal{L}_N=\left\{(x^{(1)},y^{(1)}),\ldots,(x^{(N)},y^{(N)})\right\}\)</span></li>
+</ol>
+<p>The learning stage consists of searching the hyperparameters <span class="arithmatex">\(\hat{\alpha}\)</span> 
+minimizing a learning error over <span class="arithmatex">\(\mathcal{A}\)</span>, 
+e.g. the mean squared error <span class="arithmatex">\(\text{MSE}(\mathcal{L}_{N})=N^{-1}\sum_{i=1}^N\left(y^{(i)}-\hat{f}_\hat{\alpha}\left(x^{(i)}\right)\right)^2\)</span>.</p>
+<div class="admonition example">
+<p class="admonition-title">Toy model - Learning and test samples</p>
+<p>10 learning samples and 3 test samples:</p>
+<p><img src="../images/learn_sample.png" width="60%"/></p>
+</div>
+<h4 id="quality-of-a-surrogate-model">Quality of a surrogate model<a class="headerlink" href="#quality-of-a-surrogate-model" title="Permanent link">&para;</a></h4>
+<h5 id="learning-error">Learning error<a class="headerlink" href="#learning-error" title="Permanent link">&para;</a></h5>
+<p>Have we learned the learning set well?</p>
+<div class="arithmatex">\[\text{MSE}(\mathcal{L}_{N})\]</div>
+<h5 id="generalization-error">Generalization error<a class="headerlink" href="#generalization-error" title="Permanent link">&para;</a></h5>
+<p>How far is <span class="arithmatex">\(\hat{f}\)</span> from <span class="arithmatex">\(f\)</span>? Less than <span class="arithmatex">\(\varepsilon\)</span>?</p>
+<div class="arithmatex">\[\|f-\hat{f}_\alpha\|_2=\int_{\mathcal{X}}(f(x)-\hat{f}_{\hat{\theta}}(x))^2dx\]</div>
+<h5 id="test-error">Test error<a class="headerlink" href="#test-error" title="Permanent link">&para;</a></h5>
+<p>Have we learned the model behavior well? 
+When we have an additional input-output dataset <span class="arithmatex">\(\mathcal{T}_{N}\)</span>, called test set:</p>
+<div class="arithmatex">\[\text{MSE}(\mathcal{T}_{N})\]</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>When the total number of evaluations <span class="arithmatex">\(N+N_t\)</span> is very limited,
+learning from <span class="arithmatex">\(N\)</span> samples and testing on <span class="arithmatex">\(N_t\)</span> samples rather than learning
+from all <span class="arithmatex">\(N+N_t\)</span> samples can drastically reduce the quality of the surrogate model.</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Toy model - Learning and test errors</p>
+<p>Toy model where the surrogate model is a linear regression. 
+Errors (learning, test, generalization)=(5.1, 5.2, 4.5).</p>
+<p><img src="../images/LinReg_pred_sample.png" width="60%"/></p>
+</div>
+<h5 id="cross-validation-cv-error">Cross-validation (CV) error<a class="headerlink" href="#cross-validation-cv-error" title="Permanent link">&para;</a></h5>
+<p>Have we learned the model behavior well?</p>
+<p>We split the learning input-output set <span class="arithmatex">\(\mathcal{L}_N\)</span> into <span class="arithmatex">\(K\in\{1,\ldots,N\}\)</span> folds:</p>
+<div class="arithmatex">\[\mathcal{L}_N=\mathcal{F}_{N,1}\bigcup\mathcal{F}_{N,2}\bigcup\mathcal{F}_{N,K}.\]</div>
+<p>Then, for any <span class="arithmatex">\(k\in\{1,\ldots,K\}\)</span>, </p>
+<ol>
+<li>we build a new surrogate model by learning all <span class="arithmatex">\(\mathcal{L}_N\)</span> but <span class="arithmatex">\(\mathcal{F}_{N,k}\)</span>,</li>
+<li>we measure its accuracy on <span class="arithmatex">\(\mathcal{F}_{N,k}\)</span>.</li>
+</ol>
+<p>Finally, the cross-validation error averages these <span class="arithmatex">\(K\)</span> accuracies:</p>
+<div class="arithmatex">\[K^{-1}\sum_{k=1}^k\text{MSE}(\mathcal{F}_{N,k})\]</div>
+<h5 id="leave-one-out-loo-error">Leave-one-out (LOO) error<a class="headerlink" href="#leave-one-out-loo-error" title="Permanent link">&para;</a></h5>
+<p>Have we learned the model behavior well?</p>
+<p>The LOO error is a specific case of the CV error with <span class="arithmatex">\(K=N\)</span> folds.
+In this case, a fold is reduced to a single sample <span class="arithmatex">\(\mathcal{F}_{N,k}=(x^{(k)},y^{(k)})\)</span>.</p>
+<div class="admonition example">
+<p class="admonition-title">Toy model - Learning and test errors</p>
+<p>Toy model where the surrogate model is a linear regression.
+Leave-one-out error = -0.689.</p>
+<p><img src="../images/LinReg_loo.png" width="60%"/></p>
+</div>
+<h5 id="q2-score">Q2 score<a class="headerlink" href="#q2-score" title="Permanent link">&para;</a></h5>
+<div class="arithmatex">\[Q^2(\mathcal{T}_{N_\text{t}})=1-\frac{\text{MSE}(\mathcal{T}_{N_\text{t}};\hat{f}_\theta)}{\text{MSE}(\mathcal{T}_{N_\text{t}};m)}\]</div>
+<p>where <span class="arithmatex">\(m\)</span> is a function returning the constant <span class="arithmatex">\(N^{-1}\sum_{i=1}^Ny^{(i)}\)</span> with <span class="arithmatex">\(y^{(1)},\ldots,y^{(N)}\)</span> the learning output samples.</p>
+<p>How much better than the learning output mean?</p>
+<ul>
+<li><span class="arithmatex">\(&lt;0\)</span>: performance poorer than the learning output mean,</li>
+<li><span class="arithmatex">\(=0\)</span>: performance similar to the learning output mean,</li>
+<li><span class="arithmatex">\(=1\)</span>: great performance (test error is 0).</li>
+</ul>
+<p>In practice, we hope that</p>
+<ul>
+<li><span class="arithmatex">\(Q^2\in[0,1]\)</span></li>
+<li><span class="arithmatex">\(Q^2&gt;q_{\text{thresh}}^2\)</span> for some <span class="arithmatex">\(q_{\text{thresh}}\in[0,1]\)</span>, e.g. <span class="arithmatex">\(q_{\text{thresh}}=0.9\)</span></li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">Toy model - Learning and test errors</p>
+<p>Toy model where the surrogate model is a linear regression.
+<span class="arithmatex">\(Q^2\)</span> (learning, test, generalization)=(0.132, -1.945, 0.032).</p>
+<p><img src="../images/LinReg_q2.png" width="60%"/></p>
+</div>
+<h2 id="different-surrogate-models">Different surrogate models<a class="headerlink" href="#different-surrogate-models" title="Permanent link">&para;</a></h2>
+<h3 id="linear-regressors">Linear regressors<a class="headerlink" href="#linear-regressors" title="Permanent link">&para;</a></h3>
+<p>Expression:</p>
+<div class="arithmatex">\[\hat{f}_\alpha(x)=\alpha_0+\sum_{i=1}^d\alpha_ix_i\]</div>
+<p>with <span class="arithmatex">\(\alpha\in\mathbb{R}^p\)</span> and <span class="arithmatex">\(p=1+d\)</span>.</p>
+<div class="admonition note">
+<p class="admonition-title">Learning</p>
+<div class="arithmatex">\[\hat{\alpha}=\text{argmin}_{\alpha\in\mathcal{A}}\text{MSE}(\mathcal{L}_N;\hat{f}_\alpha)\]</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Optimum</p>
+<div class="arithmatex">\[\hat{\alpha}=\left(\mathbf{X}^T\mathbf{X}\right)^{-1}\mathbf{X}^T\mathbf{Y}\]</div>
+<p>where <span class="arithmatex">\(\mathbf{X}_{i,1}=1\)</span>, <span class="arithmatex">\(\mathbf{X}_{i,j+1}=x_j^{(i)}\)</span> and <span class="arithmatex">\(\mathbf{Y}_{i,1}=y^{(i)}\)</span>, <span class="arithmatex">\(x_j^{(i)}\)</span> (resp. <span class="arithmatex">\(y^{(i)}\)</span>)
+being the <span class="arithmatex">\(i^{\text{th}}\)</span> learning value of the input <span class="arithmatex">\(x_j\)</span> (resp. output <span class="arithmatex">\(y\)</span>),
+and <span class="arithmatex">\(\mathbf{1}_N\)</span> is the <span class="arithmatex">\(N\)</span>-length unit vector.</p>
+</div>
+<p>Pros:</p>
+<ul>
+<li>The training is easy as it is based on fundamentals of linear algebra,</li>
+<li>The explainability is easy: if <span class="arithmatex">\(\alpha_i&gt;0\)</span> (resp. <span class="arithmatex">\(&lt;0\)</span>), the surrogate model increases (resp. decreases) monotically with <span class="arithmatex">\(x_i\)</span>.</li>
+</ul>
+<p>Cons:</p>
+<ul>
+<li>There is a strong hypothesis: the model <span class="arithmatex">\(f\)</span> is linear without any interaction.</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">Toy model - Linear model</p>
+<p><img src="../images/LinReg_pred_sample.png" width="60%"/></p>
+</div>
+<h3 id="radial-basis-function-rbf-regressors">Radial basis function (RBF) regressors<a class="headerlink" href="#radial-basis-function-rbf-regressors" title="Permanent link">&para;</a></h3>
+<p>Expression:</p>
+<div class="arithmatex">\[\hat{f}_{\alpha}(x)=\alpha_0+\sum_{i=1}^N\alpha_i\kappa_{\ell}\left(x,x^{(i)}\right)\]</div>
+<p>with <span class="arithmatex">\(\alpha\in\mathbb{R}^p\)</span> and <span class="arithmatex">\(p=1+N\)</span>.</p>
+<p><span class="arithmatex">\(x\mapsto\kappa_{\ell}(x,x^{(i)})\)</span> is a radial basis function with:</p>
+<ul>
+<li>user-defined length scale hyperparameter <span class="arithmatex">\(\ell\)</span>,</li>
+<li>position hyperparameter <span class="arithmatex">\(x^{(i)}\)</span>.</li>
+</ul>
+<p>Here is an example of radial basis function:</p>
+<div class="arithmatex">\[\kappa_{\ell}(x,x')=\exp\left(-\ell^{-2}\|x-x'\|_2^2\right)\]</div>
+<div class="admonition note">
+<p class="admonition-title">Learning</p>
+<div class="arithmatex">\[\hat{\alpha}=\text{argmin}_{\alpha\in\mathcal{A}}\text{MSE}(\mathcal{L}_N;\hat{f}_\alpha)\]</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Optimum</p>
+<div class="arithmatex">\[\hat{\alpha}=\left(\mathbf{K}^T\mathbf{K}\right)^{-1}\mathbf{K}^T\mathbf{Y}\]</div>
+<p>where
+<span class="arithmatex">\(\mathbf{K}_{\ell,i,j+1}=\kappa_{\ell}\left(x^{(i)}-x^{(j)}\right)\)</span> and <span class="arithmatex">\(\mathbf{Y}^{(i)}=y^{(i)}\)</span>.</p>
+</div>
+<p>Pros:</p>
+<ul>
+<li>The training is easy as it is based on fundamentals of linear algebra,</li>
+<li>The explainability is medium: 
+  weighted sum of learned outputs with weight <span class="arithmatex">\(w_i(x)\)</span> all the closer to zero than <span class="arithmatex">\(x\)</span> is far from <span class="arithmatex">\(x^{(i)}\)</span>.</li>
+</ul>
+<p>Cons:</p>
+<ul>
+<li>This structure of this model is dependent on the learning dataset size.</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">Toy model - RBF model</p>
+<p><img src="../images/RBF_pred_sample.png" width="60%"/></p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Toy model - RBF model - Decomposition</p>
+<p>Decomposition of the surrogate model into a sum of weighted of radial basis functions:</p>
+<p><img src="../images/RBF_decomposition.png" width="60%"/></p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Toy model - RBF model - Basis functions</p>
+<p><img src="../images/RBF_basis.png" width="60%"/></p>
+</div>
+<h3 id="gaussian-process-gp-regressors">Gaussian process (GP) regressors<a class="headerlink" href="#gaussian-process-gp-regressors" title="Permanent link">&para;</a></h3>
+<p>GP models are also called Kriging modles.</p>
+<p>Expression:</p>
+<div class="arithmatex">\[\hat{f}_\alpha(x)=\mu(x;\alpha_{\mu})+\sum_{i=1}^N\alpha_i\kappa_{\alpha_{\ell}}\left(x,x^{(i)}\right)\]</div>
+<p>with <span class="arithmatex">\(\alpha\in\mathbb{R}^p\)</span> and <span class="arithmatex">\(p=p_{\mu}+p_{\ell}\)</span>.</p>
+<p>Estimator of the local prediction error</p>
+<div class="arithmatex">\[s_\alpha(x)=\sqrt{\sigma^2-k_{\ell}(x)^TK_{\ell}^{-1}k_{\ell}(x)}\]</div>
+<p>Notations:</p>
+<ul>
+<li><span class="arithmatex">\(\kappa_{\ell}\left(x,x'\right)\)</span> is stationary kernel function, 
+  a.k.a. correlation function, 
+  depending on the distance <span class="arithmatex">\(\|x-x'\|_2\)</span></li>
+<li><span class="arithmatex">\(K_{\ell}=\left(\kappa_{\ell}\left(x^{(i)},x^{(j)}\right)\right)_{1\leq
+  i,j\leq N}\)</span> is the learning correlation matrix,</li>
+<li><span class="arithmatex">\(k_{\ell}(x)=\left(\kappa_{\ell}\left(x,x^{(i)}\right)\right)_{1\leq
+  i \leq N}^T\)</span> is the correlation column vector at <span class="arithmatex">\(x\)</span> w.r.t. learning design of
+  experiments</li>
+<li><span class="arithmatex">\(\sigma\)</span> is the noise level.</li>
+</ul>
+<div class="arithmatex">\[\hat{f}_\alpha(x)=\mu(x;\alpha_{\mu})+\sum_{i=1}^N\alpha_i\kappa_{\alpha_{\ell}}\left(x,x^{(i)}\right)\]</div>
+<div class="admonition note">
+<p class="admonition-title">Learning</p>
+<div class="arithmatex">\[\hat{\alpha}=\text{argmin}_{\alpha\in\mathcal{A}}\text{MSE}(\mathcal{L}_N;\hat{f}_\alpha)\]</div>
+<ul>
+<li>Given <span class="arithmatex">\(\hat{\alpha}_{\ell}\)</span>, 
+  the optimum <span class="arithmatex">\(\hat{\alpha}_{\mu}\)</span> has a closed-form expression:
+  <span class="arithmatex">\(\hat{\alpha}_{\mu}=\left(\mathbf{K}_{\ell}^T\mathbf{K}_{\ell}\right)^{-1}\mathbf{K}_{\ell}\mathbf{Y}\)</span>
+  where
+  <span class="arithmatex">\(\mathbf{K}_{i,1}=1\)</span>, <span class="arithmatex">\(\mathbf{K}_{i,j+1}=\kappa_{\ell}\left(x^{(i)},x^{(j)}\right)\)</span>
+  and <span class="arithmatex">\(\mathbf{Y}_{i}=y^{(i)}\)</span>.</li>
+<li>Then, <span class="arithmatex">\(\alpha_{\ell}\)</span> is obtained by numerical non-linear optimization for a fixed value <span class="arithmatex">\(\alpha_{\mu}\)</span>.</li>
+<li>Then, we iterate.</li>
+</ul>
+</div>
+<p>Advantages:</p>
+<ul>
+<li>The training is medium, 
+  as it combines fundamentals of linear algebra and 
+  numerical optimization for length scale <span class="arithmatex">\(\alpha_{\ell}\)</span> 
+  (sensitive to small learning sample size <span class="arithmatex">\(N\)</span>).</li>
+<li>The surrogate model provides a local error measure <span class="arithmatex">\(s_\alpha\)</span>.</li>
+<li>The explainability is medium as the surrogate model is the weighted sum of
+  learned outputs with weight <span class="arithmatex">\(w_i(x)\)</span> tending to zero when <span class="arithmatex">\(\|x-x^{(i)}\|\)</span> tends to infinity.</li>
+<li>Structure: size - <span class="arithmatex">\(p\)</span> increases no more than linearly
+  with <span class="arithmatex">\(d\)</span> (commonly, <span class="arithmatex">\(\mu(x,\alpha_{\mu})=\alpha_{\mu,0}\)</span> or
+  <span class="arithmatex">\(\alpha_{\mu,0}+\sum_{i=1}^d\alpha_{\mu,i}x_i\)</span>).</li>
+<li>Uncertainty as we model <span class="arithmatex">\(f\)</span> as an instance of a random process; useful for reliability, active learning design, efficient global optimization, ...</li>
+</ul>
+<p>Drawbacks:</p>
+<ul>
+<li>The hypothesis is strong: <span class="arithmatex">\(f\)</span> is an instance of a Gaussian process.</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">Toy model - GP model</p>
+<p>Matern(5/2) kernel and <span class="arithmatex">\(\mu(x;\alpha_0):=\alpha_0\)</span>.
+The blue envelope represents the 95% confidence interval of the surrogate model:</p>
+<p><img src="../images/GPR_pred_sample.png" width="60%"/></p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Toy model - GP model - Decomposition</p>
+<p>Decomposition of the surrogate model into a sum of weighted of radial basis functions:</p>
+<p><img src="../images/GPR_decomposition.png" width="60%"/></p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Toy model - GP model - Basis functions</p>
+<p><img src="../images/RBF_basis.png" width="60%"/></p>
+</div>
+<h3 id="polynomial-chaos-expansion-pce">Polynomial chaos expansion (PCE)<a class="headerlink" href="#polynomial-chaos-expansion-pce" title="Permanent link">&para;</a></h3>
+<p>Expression:</p>
+<div class="arithmatex">\[\hat{f}_\alpha(x)=\alpha_0+\sum_{i=1}^{p-1}\alpha_i\Psi_i(x)\]</div>
+<p>with <span class="arithmatex">\(\alpha\in\mathbb{R}^p\)</span> and <span class="arithmatex">\(\Psi_i(x)=\prod_{j=1}^d\Psi_{\tau_j(i),j}(x_j)\)</span> where:</p>
+<ul>
+<li><span class="arithmatex">\(\left(\Psi_{i,j}\right)_{i\geq 1}\)</span> is an orthonormal polynomial basis,
+  <em>i.e.</em> <span class="arithmatex">\(\mathbb{E}\left[\Psi_{i,j}(X_j)\Psi_{i',j}(X_j)\right]=\delta_{ii'}\)</span>,</li>
+<li>
+<p><span class="arithmatex">\(\tau=\left(\tau_1,\ldots,\tau_d\right):\{i,\ldots,p-1\}\mapsto \mathbb{N}^d\)</span> is an enumerating function.</p>
+</li>
+<li>
+<p>PCE are stochastic models whose inputs are random variables <span class="arithmatex">\(\mathbf{X}\)</span> 
+  and are often used to deal with uncertainty quantification problems.</p>
+</li>
+</ul>
+<p>When the problem is deterministic, 
+we can still use PCE 
+under the assumptions that the random variables <span class="arithmatex">\(X_1,X_2,\ldots,X_d\)</span> are independent uniform random variables. 
+Then, <span class="arithmatex">\(\left(\Psi_{i,j}\right)_{i\geq 1}\)</span> is the Hermite basis:</p>
+<div class="arithmatex">\[H_n(x)=(-1)^ne^{x^2/2}\frac{\mathrm{d}^n}{\mathrm{d}x^n}e^{-x^2/2}.\]</div>
+<p><img src="../images/hermite.png" width="60%"/></p>
+<h4 id="learning">Learning<a class="headerlink" href="#learning" title="Permanent link">&para;</a></h4>
+<p>Classical methods dedicated to the learning of a PCE surrogate model.</p>
+<div class="admonition note">
+<p class="admonition-title">Learning by least square regression</p>
+<div class="arithmatex">\[\hat{\alpha}=\text{argmin}_{\alpha\in\mathcal{A}}\text{MSE}(\mathcal{L}_N;\hat{f}_\alpha)\]</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">optimum</p>
+<div class="arithmatex">\[\hat{\alpha}=\left(\mathbf{\Psi}^T\mathbf{\Psi}\right)^{-1}\mathbf{\Psi}^T\mathbf{Y}\]</div>
+<p>where <span class="arithmatex">\(\mathbf{\Psi}_{i,1}=1\)</span>, <span class="arithmatex">\(\mathbf{\Psi}_{i,j+1}=\Psi_{j}(\mathbf{x}^{(i)})\)</span> and <span class="arithmatex">\(\mathbf{Y}_{i}=y^{(i)}\)</span>.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Learning by sparse least square regression</p>
+<p>Useful when <span class="arithmatex">\(N&lt;p\)</span></p>
+<div class="arithmatex">\[\hat{\alpha}=\text{argmin}_{\alpha\in\mathcal{A}}\text{MSE}(\mathcal{L}_N;\hat{f}_\alpha)+\lambda\times\text{penalty}(\alpha)\]</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Learning by quadrature</p>
+<p>By orthonormality, we have that <span class="arithmatex">\(\forall i\geq 1\)</span>, 
+<span class="arithmatex">\(\alpha_i=\mathbb{E}\left[\left(f(\mathbf{X})-\alpha_0\right)\Psi_i(\mathbf{X})\right]\)</span>
+and <span class="arithmatex">\(\alpha_0=\mathbb{E}[f(\mathbf{X})]\)</span>. </p>
+<p>Then,
+<span class="arithmatex">\(\left(\hat{\alpha}_i\right)_{i\geq 0}\)</span> are obtained by quadrature techniques.</p>
+</div>
+<div class="arithmatex">\[\hat{f}_\alpha(x)=\alpha_0+\sum_{i=1}^{p-1}\alpha_i\Psi_i(x)=\alpha_0+\sum_{i=1}^{p-1}\alpha_i\prod_{j=1}^d\Psi_{\tau_j(i),j}(x_j)\]</div>
+<h4 id="enumerating-strategy">Enumerating strategy<a class="headerlink" href="#enumerating-strategy" title="Permanent link">&para;</a></h4>
+<p>The choice of the function <span class="arithmatex">\(\tau=(\tau_1,\ldots,\tau_d)\)</span> is an enumerating strategy 
+and <span class="arithmatex">\(\tau_j(i)\)</span> is the degree of <span class="arithmatex">\(\Psi_{\tau_j(i),j}\)</span>. </p>
+<h4 id="pce-degree">PCE degree<a class="headerlink" href="#pce-degree" title="Permanent link">&para;</a></h4>
+<p>A PCE is defined by its degree, <span class="arithmatex">\(P\in\mathbb{N}_+\)</span>.</p>
+<p><span class="arithmatex">\(\forall i\in\{1,\ldots,p-1\}\)</span>, <span class="arithmatex">\(\text{degree}\left(\Psi_{i}\right)=\sum_{j=1}^{d}\tau_j(i)\leq P\)</span>.</p>
+<p>Linear enumerating strategy with <span class="arithmatex">\(d=2\)</span>:</p>
+<div class="arithmatex">\[\{\emptyset\},\]</div>
+<div class="arithmatex">\[\{\Psi_{1,1}\},\{\Psi_{1,2}\},\{\Psi_{2,1}\},\]</div>
+<div class="arithmatex">\[\{\Psi_{1,1}\Psi_{1,1}\},\{\Psi_{2,2}\},\{\Psi_{3,1}\},\{\Psi_{2,1}\Psi_{1,1}\},\{\Psi_{1,1}\Psi_{2,1}\}, \{\Psi_{3,2}\}, \ldots\]</div>
+<div class="arithmatex">\[\Rightarrow p=\frac{(P+d)!}{P!d!} \text{ terms}\]</div>
+<p><img src="../images/pce_linear_enumeration.png" width="40%"/></p>
+<p>Pros:</p>
+<ul>
+<li>The training is medium, as it relies on fundamentals of linear algebra or quadrature
+  but may require advanced techniques when the number of learning samples is too small.</li>
+<li>The model only requires that <span class="arithmatex">\(f\)</span> has a finite variance, <em>i.e</em> <span class="arithmatex">\(\mathbb{E}[f(\mathbf{X})^2]&lt;\infty\)</span>.</li>
+<li>The PCE can provide analytical expressions for mean, variance and Sobol' indices</li>
+<li>The explainability is not so easy as a PCE is polynomial regressor with many interactions between input parameters.</li>
+</ul>
+<p>Cons:</p>
+<ul>
+<li>Structure: the number of parameters to be estimated <span class="arithmatex">\(p\)</span> increases exponentially with <span class="arithmatex">\(d\)</span>.</li>
+<li>When your software library does not provide default settings,
+  you have to chose training, truncation and enumerating strategies, as well as PCE degree,
+  which can be a bit complicated.</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">PCE</p>
+<p>Polynomial chaos expansion model with a degree equal to 5.</p>
+<p><img src="../images/pce_pred_sample.png" width="60%"/></p>
+</div>
+<h3 id="comparison">Comparison<a class="headerlink" href="#comparison" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Linear</th>
+<th>RBF</th>
+<th>GPR</th>
+<th>PCE</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Configuration</td>
+<td>-</td>
+<td>Gaussian</td>
+<td>Matern(5/2)</td>
+<td>degree=5</td>
+</tr>
+<tr>
+<td># parameters</td>
+<td>2</td>
+<td>11</td>
+<td>2</td>
+<td>6</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(Q^2\)</span> score</td>
+<td>0.032</td>
+<td>0.998</td>
+<td>0.995</td>
+<td>0.897</td>
+</tr>
+<tr>
+<td>RMSE</td>
+<td>4.49</td>
+<td>0.17</td>
+<td>0.33</td>
+<td>1.47</td>
+</tr>
+<tr>
+<td>Mean AE</td>
+<td>3.02</td>
+<td>0.1</td>
+<td>0.22</td>
+<td>1.13</td>
+</tr>
+<tr>
+<td>Median AE</td>
+<td>1.08</td>
+<td>0.04</td>
+<td>0.10</td>
+<td>0.85</td>
+</tr>
+<tr>
+<td>std</td>
+<td>4.41</td>
+<td>0.17</td>
+<td>0.32</td>
+<td>1.45</td>
+</tr>
+<tr>
+<td>Mean</td>
+<td>-0.88</td>
+<td>-0.06</td>
+<td>-0.09</td>
+<td>0.22</td>
+</tr>
+<tr>
+<td>Minimum</td>
+<td>-9.05</td>
+<td>-0.67</td>
+<td>-0.84</td>
+<td>-2.60</td>
+</tr>
+<tr>
+<td>1st quartile</td>
+<td>-2.54</td>
+<td>-0.08</td>
+<td>-0.17</td>
+<td>-0.77</td>
+</tr>
+<tr>
+<td>Median</td>
+<td>-0.52</td>
+<td>-0.01</td>
+<td>-0.01</td>
+<td>0.22</td>
+</tr>
+<tr>
+<td>3rd quartile</td>
+<td>-0.04</td>
+<td>0.01</td>
+<td>0.02</td>
+<td>0.95</td>
+</tr>
+<tr>
+<td>Maximum</td>
+<td>11.29</td>
+<td>0.17</td>
+<td>0.85</td>
+<td>3.75</td>
+</tr>
+</tbody>
+</table>
+<p>Be careful: configurations are not optimized!</p>
+<h2 id="towards-the-best-surrogate-model">Towards the best surrogate model<a class="headerlink" href="#towards-the-best-surrogate-model" title="Permanent link">&para;</a></h2>
+<p>Different families of surrogate models: linear regression, radial basis
+function, Gaussian process regression, polynomial chaos expansion, ...</p>
+<ol>
+<li>We train surrogate models of different architectures (<em>e.g</em>, covariance kernel) taken from different families (e.g., GP models),
+   by minimizing a learning error.</li>
+<li>Among each family, 
+   we select the surrogate model whose architecture minimizes a test error or a cross-validation error.</li>
+<li>Over the different families,
+   we select the surrogate model minimizing a test error or a cross-validation error.</li>
+</ol>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>Alexander I. J. Forrester, Andras Sobester, and Andy J. Keane. <em>Engineering Design via Surrogate Modelling - A Practical Guide.</em> Wiley, 2008. ISBN 978-0-470-06068-1.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Matthias De Lozzo -  All rights reserved -  Reproduction prohibited without permission.
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.c8d2eff1.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

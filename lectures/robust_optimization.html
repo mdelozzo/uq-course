@@ -1,0 +1,849 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="surrogate_models.html">
+      
+      
+        <link rel="next" href="../project.html">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.12">
+    
+    
+      
+        <title>7. Robust optimization - UQ course</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.7e359304.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#7-robust-optimization" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="UQ course" class="md-header__button md-logo" aria-label="UQ course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            UQ course
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              7. Robust optimization
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="UQ course" class="md-nav__button md-logo" aria-label="UQ course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    UQ course
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="probability.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Basics of probability and statistics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="uncertainty_quantification.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Uncertainty quantification
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="uncertainty_propagation.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. Uncertainty propagation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="sensitivity_analysis.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5. Sensitivity analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="surrogate_models.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6. Surrogate models
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    7. Robust optimization
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="robust_optimization.html" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    7. Robust optimization
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#optimization-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      Optimization problem
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multidisciplinary-optimization-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multidisciplinary optimization problem
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optimization-under-uncertainty" class="md-nav__link">
+    <span class="md-ellipsis">
+      Optimization under uncertainty
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Optimization under uncertainty">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#illustration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Illustration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#probabilistic-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      Probabilistic framework
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#statistic-estimation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Statistic estimation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../project.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Project
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#optimization-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      Optimization problem
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multidisciplinary-optimization-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multidisciplinary optimization problem
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optimization-under-uncertainty" class="md-nav__link">
+    <span class="md-ellipsis">
+      Optimization under uncertainty
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Optimization under uncertainty">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#illustration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Illustration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#probabilistic-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      Probabilistic framework
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#statistic-estimation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Statistic estimation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="7-robust-optimization">7. Robust optimization<a class="headerlink" href="#7-robust-optimization" title="Permanent link">&para;</a></h1>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
+<h3 id="optimization-problem">Optimization problem<a class="headerlink" href="#optimization-problem" title="Permanent link">&para;</a></h3>
+<p>A standard optimization problem aims to
+find a vector <span class="arithmatex">\(x^*\)</span>
+minimizing an objective function <span class="arithmatex">\(f\)</span>
+over a search space <span class="arithmatex">\(\mathcal{X}\subseteq\mathbb{R}^d\)</span>
+while satisfying inequality constraints <span class="arithmatex">\(g(x)\leq 0\)</span>
+and equality constraints <span class="arithmatex">\(h(x)=0\)</span>:</p>
+<div class="arithmatex">\[
+\begin{align}
+&amp;\underset{x\in\mathcal{X}}{\operatorname{minimize}}&amp; &amp; f(x) \\
+&amp;\operatorname{subject\;to}
+&amp; &amp;g(x) \leq 0 \\
+&amp;&amp;&amp;h(x) = 0
+\end{align}
+\]</div>
+<p>where <span class="arithmatex">\(f:\mathcal{X}\to\mathbb{R}\)</span>,
+<span class="arithmatex">\(g:\mathcal{X}\to\mathbb{R}^{p_g}\)</span>
+and <span class="arithmatex">\(h:\mathcal{X}\to\mathbb{R}^{p_h}\)</span>.</p>
+<p>Any optimization problem of the form</p>
+<div class="arithmatex">\[
+\begin{align}
+&amp;\underset{x\in\mathcal{X}}{\operatorname{minimize}}&amp; &amp; f_{\textrm{cost}}(x) \\
+&amp;\underset{x\in\mathcal{X}}{\operatorname{maximize}}&amp;
+&amp; f_{\textrm{performance}}(x) \\
+&amp;\operatorname{subject\;to} &amp; &amp;g_n(x) \leq t_{g_n} \\
+&amp;&amp;&amp;g_p(x) \geq t_{g_p} \\
+&amp;&amp;&amp;\tilde{h}(x) = t_h
+\end{align}
+\]</div>
+<p>can be reduced to such a standard optimization problem:</p>
+<ul>
+<li>an objective to minimize,</li>
+<li>upper inequality constraints with bounds equal to 0,</li>
+<li>equality constraints with right-hand sides equal to 0.</li>
+</ul>
+<h3 id="multidisciplinary-optimization-problem">Multidisciplinary optimization problem<a class="headerlink" href="#multidisciplinary-optimization-problem" title="Permanent link">&para;</a></h3>
+<p>In complex systems,
+the quantities <span class="arithmatex">\(f(x)\)</span>, <span class="arithmatex">\(g(x)\)</span> and <span class="arithmatex">\(h(x)\)</span> are often computed by <span class="arithmatex">\(M\)</span> models,
+called <em>disciplines</em>,
+which can be weakly or strongly coupled.
+The vector <span class="arithmatex">\(x\)</span> can be split into</p>
+<ul>
+<li>a sub-vector <span class="arithmatex">\(x_0\)</span> shared by at least two disciplines,</li>
+<li>sub-vectors <span class="arithmatex">\(x_{1\ldots M}=\{x_1,\ldots,x_M\}\)</span>, where <span class="arithmatex">\(x_i\)</span> is specific to the <span class="arithmatex">\(i\)</span>-th discipline.</li>
+</ul>
+<p>Then,
+the problem can be rewritten as the multidisciplinary optimization (MDO) problem</p>
+<div class="arithmatex">\[
+\begin{align}
+&amp;\underset{x\in\mathcal{X},\,y\in\mathcal{Y}}{\operatorname{minimize}}&amp;&amp;f(x,y)\\
+&amp;\operatorname{subject\;to}
+&amp; &amp;g(x,y) \leq 0 \\
+&amp;&amp;&amp;h(x,y) = 0 \\
+&amp;&amp;&amp;y=c(x,y)
+\end{align}
+\]</div>
+<p>where <span class="arithmatex">\(c_i:x_0,x_i,y_{-i}\mapsto y_i\)</span> represents the <span class="arithmatex">\(i\)</span>-th discipline
+with <span class="arithmatex">\(y_{-i}=\{y_j\}_{j\in\{1,\ldots,M\}\setminus\{i\}}\)</span>.</p>
+<p>This MDO problem implies that
+the optimum <span class="arithmatex">\((x^*,y^*)\)</span> must be multidisciplinary feasible,
+i.e. satisfying the coupling equations <span class="arithmatex">\(y=c(x,y)\)</span>.
+Solving a non-linear equation system is called a <em>multidisciplinary analysis</em> (MDA).</p>
+<p>Last but not least, 
+the efficient resolution of an MDO problem involves finding a suitable rewriting of the problem, 
+called MDO formulation or architecture.</p>
+<h2 id="optimization-under-uncertainty">Optimization under uncertainty<a class="headerlink" href="#optimization-under-uncertainty" title="Permanent link">&para;</a></h2>
+<p>A (multidisciplinary) optimization problem under uncertainty is a (multidisciplinary) optimization whose objective and constraints are statistics.</p>
+<h3 id="illustration">Illustration<a class="headerlink" href="#illustration" title="Permanent link">&para;</a></h3>
+<p>Let us consider the simple optimization problem</p>
+<div class="arithmatex">\[
+\begin{align}
+&amp;\underset{x\in[0,1]}{\operatorname{minimize}}&amp; &amp; (ax-b)^2\sin(cx-d) \\
+&amp;\operatorname{subject\;to}
+&amp; &amp;(ax-b)^2\cos(cx-d) \leq 0 
+\end{align}
+\]</div>
+<p>with <span class="arithmatex">\(a=6\)</span>, <span class="arithmatex">\(b=2\)</span>, <span class="arithmatex">\(c=12\)</span> and <span class="arithmatex">\(d=4\)</span>.
+The following figure represents the objective function, the objective function, the feasibility domain and the optimum:</p>
+<p><img alt="Optimization under uncertainty" src="../images/optimization_under_uncertainty.png" /></p>
+<p>Let us now consider the constants <span class="arithmatex">\(a\)</span>, <span class="arithmatex">\(b\)</span>, <span class="arithmatex">\(c\)</span> and <span class="arithmatex">\(d\)</span> as uncertain 
+and model them by independent random variables <span class="arithmatex">\(A\)</span>, <span class="arithmatex">\(B\)</span>, <span class="arithmatex">\(C\)</span> and <span class="arithmatex">\(D\)</span> respectively. 
+These random variables are distributed 
+according to triangular distributions centered at their reference values with an amplitude of <span class="arithmatex">\(\pm 15\%\)</span>.
+The following figure illustrates the propagation of these uncertainties through the constraint and objective functions 
+and compares the previous solution to the solution of the optimization problem under uncertainty:</p>
+<div class="arithmatex">\[
+\begin{align}
+&amp;\underset{x\in[0,1]}{\operatorname{minimize}}&amp; &amp; \mathbb{E}[(Ax-B)^2\sin(Cx-D)] \\
+&amp;\operatorname{subject\;to}
+&amp; &amp;\mathbb{E}[(Ax-B)^2\cos(Cx-D)]+2\mathbb{S}[(Ax-B)^2\cos(Cx-D)] \leq 0 
+\end{align}
+\]</div>
+<p>First, 
+we can see that the average value of the objective function has increased (blue curve to orange curve) 
+without shifting its constraint-free minimum argument around 0.75. 
+On the other hand, 
+the feasibility domain has decreased (from semi-opaque red and green zones to less opaque red and green zones), 
+forcing the solution to shift to the left (from blue vertical line and dot to orange vertical line and dot).</p>
+<h3 id="probabilistic-framework">Probabilistic framework<a class="headerlink" href="#probabilistic-framework" title="Permanent link">&para;</a></h3>
+<p>The models are often subject to uncertainty sources <span class="arithmatex">\(U\)</span>, represented by random variables.
+Then,
+the objective <span class="arithmatex">\(f(x,U)\)</span> and the constraints <span class="arithmatex">\(g(x,U)\)</span> and <span class="arithmatex">\(h(x,U)\)</span>,
+where <span class="arithmatex">\(U\)</span> denotes random inputs,
+are in turn random variables
+and the standard optimization problem is replaced by</p>
+<div class="arithmatex">\[
+\begin{align}
+&amp;\underset{x\in\mathcal{X}}{\operatorname{minimize}}&amp; &amp; \mathbb{K}_f[f(x,U)] \\
+&amp;\operatorname{subject\;to}
+&amp; &amp;\mathbb{K}_g[g(x,U)] \leq 0 \\
+&amp;&amp;&amp;\mathbb{K}_h[h(x,U)] = 0
+\end{align}
+\]</div>
+<p>where <span class="arithmatex">\(\mathbb{K}_f\)</span>, <span class="arithmatex">\(\mathbb{K}_g\)</span> and <span class="arithmatex">\(\mathbb{K}_h\)</span> are statistic operators,
+e.g.</p>
+<ul>
+<li>the expectation operator <span class="arithmatex">\(\mathbb{E}\)</span>,</li>
+<li>the standard deviation operator <span class="arithmatex">\(\mathbb{S}\)</span>,</li>
+<li>the variance operator <span class="arithmatex">\(\mathbb{V}\)</span>,</li>
+<li>a margin, i.e. a combination of expectation and standard deviation operators parametrized by a weight <span class="arithmatex">\(\kappa\)</span>: <span class="arithmatex">\(\mathbb{E}+\kappa\cdot\mathbb{S}\)</span>,</li>
+<li>a probability operator <span class="arithmatex">\(\mathbb{P}\)</span> parametrized by bounds <span class="arithmatex">\(m\)</span> and <span class="arithmatex">\(M\)</span>.</li>
+</ul>
+<p>Concerning the margin,
+the sign of <span class="arithmatex">\(\kappa\)</span> depends on the function type:</p>
+<ul>
+<li><span class="arithmatex">\(\kappa\)</span> must be positive for an objective to minimize,</li>
+<li><span class="arithmatex">\(\kappa\)</span> must be negative for an objective to maximize,</li>
+<li><span class="arithmatex">\(\kappa\)</span> must be positive for a negativity constraint,</li>
+<li><span class="arithmatex">\(\kappa\)</span> must be negative for a positivity constraint,</li>
+<li><span class="arithmatex">\(\kappa\)</span> can be either positive of negative for an observable.</li>
+</ul>
+<p>In practice,
+the statistics <span class="arithmatex">\(\mathbb{K}_f[f(x,U)]\)</span>, <span class="arithmatex">\(\mathbb{K}_g[g(x,U)]\)</span> and <span class="arithmatex">\(\mathbb{K}_h[h(x,U)]\)</span> are unknown
+and the operators <span class="arithmatex">\(\mathbb{K}_f\)</span>, <span class="arithmatex">\(\mathbb{K}_g\)</span> and <span class="arithmatex">\(\mathbb{K}_h\)</span> are replaced
+by data-based operators <span class="arithmatex">\(\widehat{\mathbb{K}}_f\)</span>, <span class="arithmatex">\(\widehat{\mathbb{K}}_g\)</span> and <span class="arithmatex">\(\widehat{\mathbb{K}}_h\)</span>.
+For example,
+in the case of the expectation operator <span class="arithmatex">\(\mathbb{E}\)</span> and the Monte Carlo (MC) sampling technique,
+the statistic <span class="arithmatex">\(\mathbb{E}[f(x,U)]\)</span> is replaced
+by the statistic estimator <span class="arithmatex">\(\widehat{\mathbb{E}}[f(x,U)]=\frac{1}{N}\sum_{i=1}^Nf(x,u^{(i)})\)</span>
+where <span class="arithmatex">\(u^{(1)},\ldots,u^{(N)}\)</span> are <span class="arithmatex">\(N\)</span> independent realizations of <span class="arithmatex">\(U\)</span>.</p>
+<p>Typically,
+a margin is applied to the objective to ensure a robust optimum <span class="arithmatex">\(x^*\)</span>.
+Indeed, minimizing margin <span class="arithmatex">\(\mathbb{E}[f(x,U)]+\kappa\cdot\mathbb{S}[f(x,U)]\)</span> pushes towards a compromise between</p>
+<ol>
+<li>a small value of <span class="arithmatex">\(f(x^*,u)\)</span> by minimizing <span class="arithmatex">\(\mathbb{E}[f(x,U)]\)</span>,</li>
+<li>a small dispersion around <span class="arithmatex">\(f(x^*,u)\)</span> by minimizing <span class="arithmatex">\(\mathbb{S}[f(x,U)]\)</span>.</li>
+</ol>
+<p>For reliability purposes,
+probabilities could be applied to inequality constraints,
+e.g. <span class="arithmatex">\(\mathbb{P}[g(x,U)\geq\epsilon]\)</span> or <span class="arithmatex">\(\mathbb{P}[g(x,u)&gt;0]-\varepsilon\)</span>,
+or equality constraints,
+e.g. <span class="arithmatex">\(\mathbb{P}[|h(x,U)|\geq\epsilon]\)</span>.</p>
+<div class="admonition note">
+<p class="admonition-title">Margin under normal assumption</p>
+<p>When <span class="arithmatex">\(\phi(x,U)\)</span> is normally distributed,
+the margin <span class="arithmatex">\(\mathbb{E}[\phi(x,U)]+q_\alpha\cdot\mathbb{S}[\phi(x,U)]\)</span>
+corresponds to the <span class="arithmatex">\(\alpha\)</span>-quantile of <span class="arithmatex">\(\phi(x,U)\)</span>
+where <span class="arithmatex">\(q_\alpha\)</span> is the <span class="arithmatex">\(\alpha\)</span>-quantile
+of the standard Gaussian distribution.
+For that reason,
+2 or 3 are common candidates for <span class="arithmatex">\(\kappa\)</span>
+as in this case,
+the margins correspond to
+the 0.975- and 0.999- quantiles of <span class="arithmatex">\(\phi(x,U)\)</span> respectively.</p>
+</div>
+<h3 id="statistic-estimation">Statistic estimation<a class="headerlink" href="#statistic-estimation" title="Permanent link">&para;</a></h3>
+<p>Given value of the design variable <span class="arithmatex">\(x\)</span>,
+many types of estimators can be used to estimate the statistics:</p>
+<ul>
+<li>Monte Carlo and quasi Monte Carlo techniques provide unbiased estimators but require a lot of samples; 
+  they cannot be used for costly disciplines; 
+  e.g. <span class="arithmatex">\(\mathbb{E}[f(x,U)]\approx E_{MC,N}[f(x,U)]=N^{-1}\sum_{i=1}^Nf(x,U^{(i)})\)</span>, </li>
+<li>first-order Taylor expansions over the uncertain space 
+  (ie. <span class="arithmatex">\(f(x,U)\approx f(x,\mathbb{E}[U])+\frac{\partial f(x,\mathbb{E}[U])}{\partial x}(U-\mathbb{E}[U])\)</span>)
+  can be used to approximate the expectations and variances composing many statistics in optimization under uncertainty; 
+  if the models provide the gradients for cheap, 
+  it is really advantageous;
+  provided that the objective and constraint functions are sensitively linear with respect to the uncertain variables;</li>
+<li>surrogate models built over either the uncertain space or both the uncertain and design spaces;</li>
+<li>variance reduction techniques, 
+  such as control variates and importance sampling, 
+  preserve this unbiasedness property but are more complicated to set up 
+  and can still require too much samples for costly disciplines; 
+  e.g. <span class="arithmatex">\(\mathbb{E}[f(x,U)]\approx E_{MC,N}[f(x,U)]-\frac{C_{MC,N}(f,\tilde{f})}{V_{MC,N}}(E_{MC,N}[\tilde{f}(x,U)]-\mathbb{E}[\tilde{f}(x,U)])\)</span>
+  where <span class="arithmatex">\(\hat{f}\)</span> is a cheap approximation of <span class="arithmatex">\(f\)</span> and <span class="arithmatex">\(\mathbb{E}[\tilde{f}(x,U)]\)</span> is known or can be estimated for free.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Matthias De Lozzo -  All rights reserved -  Reproduction prohibited without permission.
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.c8d2eff1.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

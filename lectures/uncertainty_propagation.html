@@ -1,0 +1,1229 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="uncertainty_quantification.html">
+      
+      
+        <link rel="next" href="sensitivity_analysis.html">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.12">
+    
+    
+      
+        <title>4. Uncertainty propagation - UQ course</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.7e359304.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#4-uncertainty-propagation" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="UQ course" class="md-header__button md-logo" aria-label="UQ course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            UQ course
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              4. Uncertainty propagation
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="UQ course" class="md-nav__button md-logo" aria-label="UQ course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    UQ course
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="probability.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Basics of probability and statistics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="uncertainty_quantification.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Uncertainty quantification
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    4. Uncertainty propagation
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="uncertainty_propagation.html" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    4. Uncertainty propagation
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#doe-for-real-experiments" class="md-nav__link">
+    <span class="md-ellipsis">
+      DOE for real experiments
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DOE for real experiments">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#full-factorial-doe" class="md-nav__link">
+    <span class="md-ellipsis">
+      Full factorial DOE
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#box-behnken-doe" class="md-nav__link">
+    <span class="md-ellipsis">
+      Box-Behnken DOE
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#factorial-doe" class="md-nav__link">
+    <span class="md-ellipsis">
+      Factorial DOE
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#axial-doe" class="md-nav__link">
+    <span class="md-ellipsis">
+      Axial DOE
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#composite-doe" class="md-nav__link">
+    <span class="md-ellipsis">
+      Composite DOE
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Limitations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#random-sampling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Random sampling
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#low-discrepancy-sequences" class="md-nav__link">
+    <span class="md-ellipsis">
+      Low-discrepancy sequences
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Low-discrepancy sequences">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is it?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#convergence-rate" class="md-nav__link">
+    <span class="md-ellipsis">
+      Convergence rate
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#whos-who" class="md-nav__link">
+    <span class="md-ellipsis">
+      Who's who?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#haselgrove-sequence" class="md-nav__link">
+    <span class="md-ellipsis">
+      Haselgrove sequence
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sobol-sequence" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sobol' sequence
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#faure-sequence" class="md-nav__link">
+    <span class="md-ellipsis">
+      Faure sequence
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#halton-sequence" class="md-nav__link">
+    <span class="md-ellipsis">
+      Halton sequence
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#which-sequence" class="md-nav__link">
+    <span class="md-ellipsis">
+      Which sequence?
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#latin-hypercube-sampling-lhs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Latin hypercube sampling (LHS)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Latin hypercube sampling (LHS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#standard" class="md-nav__link">
+    <span class="md-ellipsis">
+      Standard
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optimized" class="md-nav__link">
+    <span class="md-ellipsis">
+      Optimized
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="sensitivity_analysis.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5. Sensitivity analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="surrogate_models.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6. Surrogate models
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="robust_optimization.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    7. Robust optimization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../project.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Project
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#doe-for-real-experiments" class="md-nav__link">
+    <span class="md-ellipsis">
+      DOE for real experiments
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DOE for real experiments">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#full-factorial-doe" class="md-nav__link">
+    <span class="md-ellipsis">
+      Full factorial DOE
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#box-behnken-doe" class="md-nav__link">
+    <span class="md-ellipsis">
+      Box-Behnken DOE
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#factorial-doe" class="md-nav__link">
+    <span class="md-ellipsis">
+      Factorial DOE
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#axial-doe" class="md-nav__link">
+    <span class="md-ellipsis">
+      Axial DOE
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#composite-doe" class="md-nav__link">
+    <span class="md-ellipsis">
+      Composite DOE
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Limitations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#random-sampling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Random sampling
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#low-discrepancy-sequences" class="md-nav__link">
+    <span class="md-ellipsis">
+      Low-discrepancy sequences
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Low-discrepancy sequences">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is it?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#convergence-rate" class="md-nav__link">
+    <span class="md-ellipsis">
+      Convergence rate
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#whos-who" class="md-nav__link">
+    <span class="md-ellipsis">
+      Who's who?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#haselgrove-sequence" class="md-nav__link">
+    <span class="md-ellipsis">
+      Haselgrove sequence
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sobol-sequence" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sobol' sequence
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#faure-sequence" class="md-nav__link">
+    <span class="md-ellipsis">
+      Faure sequence
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#halton-sequence" class="md-nav__link">
+    <span class="md-ellipsis">
+      Halton sequence
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#which-sequence" class="md-nav__link">
+    <span class="md-ellipsis">
+      Which sequence?
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#latin-hypercube-sampling-lhs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Latin hypercube sampling (LHS)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Latin hypercube sampling (LHS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#standard" class="md-nav__link">
+    <span class="md-ellipsis">
+      Standard
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optimized" class="md-nav__link">
+    <span class="md-ellipsis">
+      Optimized
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="4-uncertainty-propagation">4. Uncertainty propagation<a class="headerlink" href="#4-uncertainty-propagation" title="Permanent link">&para;</a></h1>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
+<p>Propagating uncertainties from inputs to outputs means sampling the model in two-step:</p>
+<ol>
+<li>sampling the inputs to get <span class="arithmatex">\(N\)</span> values <span class="arithmatex">\(x^{(1)},\ldots,x^{(N)}\)</span>,</li>
+<li>evaluate the model <span class="arithmatex">\(f\)</span> at these input values: <span class="arithmatex">\(f(x^{(1)}),\ldots,f(x^{(N)})\)</span></li>
+</ol>
+<p>The way to generate the input samples <span class="arithmatex">\(x^{(1)},\ldots,x^{(N)}\)</span> is called <em>design of experiments (DOE)</em>.</p>
+<p>DOE techniques are not just useful for UQ.</p>
+<details class="example">
+<summary>Statistics estimation</summary>
+<p>When the probability distributions of the uncertain input variables is defined,
+the random input variables are sampled according to these distributions
+and quantities of interest (i.e. statistics related to the output of interest) can be estimated from the output samples.</p>
+</details>
+<details class="example">
+<summary>Trade-off studies</summary>
+<p>When the input variables are only defined from bounds,
+the input variables are sampled uniformly between bounds
+and the best output value is selected among <span class="arithmatex">\(f(x^{(1)}),\ldots,f(x^{(N)})\)</span>.
+This is a way to approximate the model optimum over the whole input space.</p>
+</details>
+<details class="example">
+<summary>Surrogate modelling</summary>
+<p>The input-output dataset <span class="arithmatex">\(\{x^{(i)},f(x^{(i)})\}_{1\leq i \leq N}\)</span> can be used to train a surrogate model <span class="arithmatex">\(\hat{f}\)</span>
+in order to approximate the model <span class="arithmatex">\(f\)</span> over the whole input space, using machine learning techniques.</p>
+</details>
+<p>For all these examples, 
+we seek to create a DOE <span class="arithmatex">\(x^{(1)},\ldots,x^{(N)}\)</span> whose </p>
+<ul>
+<li>coverage of the input space is the best possible,</li>
+<li>number of samples <span class="arithmatex">\(N\)</span> is constrained by the cost of a model.</li>
+</ul>
+<p>The objective is to sample the input space <em>sparingly</em> and methodically ("optimally"), 
+in order to collect as much information as possible on the input-output model behavior with no more than <span class="arithmatex">\(N\)</span> samples.</p>
+<p>The art of DOE techniques is to find a good set of input samples <span class="arithmatex">\(x^{(1)},\ldots,x^{(N)}\)</span>.</p>
+<p>The default technique is Monte Carlo sampling.
+Unfortunately, 
+the accuracy of the statistics estimators increases slowly with <span class="arithmatex">\(N\)</span> (in <span class="arithmatex">\(1/\sqrt{N}\)</span> for the expectation).</p>
+<p>Here are three alternatives to Monte Carlo sampling:</p>
+<ul>
+<li>quasi Monte Carlo to get a better convergence rate of the estimator,</li>
+<li>importance sampling to decrease the constant of the estimator variance,</li>
+<li>replace the model with a surrogate model trained from <span class="arithmatex">\(N\)</span> samples 
+  and estimate statistics by intensively sampling the surrogate model.</li>
+</ul>
+<p>Lastly,
+the DOE techniques rarely consider the probability distributions of the input random variables.
+Instead, 
+they apply to the uniform distribution over the unit hypercube,
+using the inverse transform sampling technique.</p>
+<details class="info">
+<summary>Inverse transform sampling</summary>
+<p>If <span class="arithmatex">\(U\)</span> has a uniform distribution on <span class="arithmatex">\([0,1]\)</span> and if <span class="arithmatex">\(X\)</span> as a cumulative distribution function <span class="arithmatex">\(F_X\)</span>, 
+then the random variable <span class="arithmatex">\(F_X^{-1}(U)\)</span> has the same distribution as <span class="arithmatex">\(U\)</span>. 
+Thus, if <span class="arithmatex">\(F_X^{-1}\)</span> is easy to obtain and evaluate, the following sampling method works:</p>
+<ol>
+<li>generate <span class="arithmatex">\(u\)</span>, an instance of the standard uniform random variable <span class="arithmatex">\(U\)</span>,</li>
+<li>compute <span class="arithmatex">\(x=F_X^{-1}(u)\)</span>.</li>
+</ol>
+</details>
+<p>Therefore,
+given random input variable <span class="arithmatex">\(X\)</span> with values in <span class="arithmatex">\(\mathcal{X}\subseteq\mathbb{R}^d\)</span>, 
+we often</p>
+<ol>
+<li>apply a DOE technique to sample uniformly and sparingly the unit hypercube <span class="arithmatex">\([0,1]^d\)</span>
+   and get <span class="arithmatex">\(u^{(1)},\ldots,u^{(N)}\)</span>,</li>
+<li>apply the cumulative distribution function $F_X^{-1} to <span class="arithmatex">\(u^{(1)},\ldots,u^{(N)}\)</span>
+   and get <span class="arithmatex">\(x^{(1)},\ldots,x^{(N)}\)</span>,</li>
+<li>evaluate the model <span class="arithmatex">\(f\)</span>
+   and get <span class="arithmatex">\(f(x^{(1)}),\ldots,f(x^{(N)})\)</span></li>
+</ol>
+<h2 id="doe-for-real-experiments">DOE for real experiments<a class="headerlink" href="#doe-for-real-experiments" title="Permanent link">&para;</a></h2>
+<h3 id="full-factorial-doe">Full factorial DOE<a class="headerlink" href="#full-factorial-doe" title="Permanent link">&para;</a></h3>
+<details class="note">
+<summary>Method</summary>
+<p>Each input parameter is placed at one of <span class="arithmatex">\(n_{\text{levels}}\)</span> values, 
+usually <span class="arithmatex">\(n_{\text{levels}}=2\)</span> levels coded as -1 and +1 which correspond to low and high levels.</p>
+<p>Number of points: <span class="arithmatex">\(n=n_{\text{levels}}^d\)</span></p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>When <span class="arithmatex">\(d=3\)</span> and <span class="arithmatex">\(n_{\text{levels}}=2\)</span>:
+<div class="highlight"><pre><span></span><code>-1 -1 -1
+-1 -1 +1
+-1 +1 -1
+-1 +1 +1
++1 -1 -1
++1 -1 +1
++1 +1 -1
++1 +1 +1
+</code></pre></div></p>
+</div>
+</details>
+<p><img src="../images/fullfact_pyDOE.png"/></p>
+<h3 id="box-behnken-doe">Box-Behnken DOE<a class="headerlink" href="#box-behnken-doe" title="Permanent link">&para;</a></h3>
+<details class="note">
+<summary>Method</summary>
+<p>Each input parameter is placed at one of three equally spaced values, 
+usually coded as -1, 0, +1.</p>
+<p>The placement is done as follows:</p>
+<ol>
+<li>Define blocks of lower dimension.</li>
+<li>For each block, apply a full factorial design with 2 levels around a central point.</li>
+<li>Add the central points.</li>
+</ol>
+<p>Number of points: <span class="arithmatex">\(n=d*2^{d-1}+1\)</span>.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>When <span class="arithmatex">\(d=3\)</span>:
+<div class="highlight"><pre><span></span><code> 0  0  0  0  0  0  0  0  0  
+-1 -1  0 -1  0 -1  0 -1 -1  
++1 -1  0 +1  0 -1  0  1 -1  
+-1 +1  0 -1  0 +1  0 -1 +1  
++1 +1  0 +1  0 +1  0 -1 +1
+</code></pre></div></p>
+</div>
+</details>
+<p>Box-Behnken DOE with <span class="arithmatex">\(d=3\)</span> and <span class="arithmatex">\(n=13\)</span>:
+<img src="../images/bbdesign_pyDOE.png"/></p>
+<h3 id="factorial-doe">Factorial DOE<a class="headerlink" href="#factorial-doe" title="Permanent link">&para;</a></h3>
+<details class="note">
+<summary>Method</summary>
+<p>Stratified DOE generating a pattern with points:</p>
+<ul>
+<li>only on diagonals of the parameter space</li>
+<li>at specified levels,
+  e.g.
+  <span class="arithmatex">\(\alpha_1,\alpha_2,\ldots,\alpha_{n_{\text{levels}}}\)</span>
+  \item symmetrically with respect to the center\
+  e.g.
+  <span class="arithmatex">\(-\alpha_{n_{\text{levels}}},\ldots,-\alpha_2,-\alpha_1,0,+\alpha_1,+\alpha_2,\ldots,+\alpha_{n_{\text{levels}}}\)</span>.</li>
+</ul>
+</details>
+<p>Remarks:</p>
+<ul>
+<li>Not convenient to model influences of single input variables.</li>
+<li>Number of points: <span class="arithmatex">\(1 + 2^d n_{\text{levels}}\)</span>.</li>
+</ul>
+<p>Factorial DOE when <span class="arithmatex">\(d=3\)</span>, <span class="arithmatex">\(n_{\text{levels}}=5\)</span> and <span class="arithmatex">\(n=41\)</span>:
+<img src="../images/factorial_openturns.png"></p>
+<h3 id="axial-doe">Axial DOE<a class="headerlink" href="#axial-doe" title="Permanent link">&para;</a></h3>
+<details class="note">
+<summary>Method</summary>
+<p>Stratified DOE generating a pattern with points:</p>
+<ul>
+<li>only along the axes</li>
+<li>at specified levels,
+  e.g.
+  <span class="arithmatex">\(\alpha_1,\alpha_2,\ldots,\alpha_{n_{\text{levels}}}\)</span>
+  \item symmetrically with respect to the center\
+  e.g.
+  <span class="arithmatex">\(-\alpha_{n_{\text{levels}}},\ldots,-\alpha_2,-\alpha_1,0,+\alpha_1,+\alpha_2,\ldots,+\alpha_{n_{\text{levels}}}\)</span>.</li>
+</ul>
+</details>
+<p>Remarks:</p>
+<ul>
+<li>Not convenient to model interactions between variables</li>
+<li>Number of points: <span class="arithmatex">\(1 + 2n_{\text{levels}}d\)</span></li>
+</ul>
+<p>Axial DOE when <span class="arithmatex">\(d=3\)</span>, <span class="arithmatex">\(n_{\text{levels}}=5\)</span> and <span class="arithmatex">\(n=31\)</span>:
+<img src="../images/axial_openturns.png"></p>
+<h3 id="composite-doe">Composite DOE<a class="headerlink" href="#composite-doe" title="Permanent link">&para;</a></h3>
+<details class="note">
+<summary>Method</summary>
+<p>A composite DOE is a stratified DOE combining a factorial DOE and an axial DOE.</p>
+</details>
+<p>Remarks:</p>
+<ul>
+<li>Not convenient to model interactions between variables.</li>
+<li>Number of points: <span class="arithmatex">\(1 + n_{\text{levels}}(2d+2^d)\)</span>.</li>
+</ul>
+<p>Composite DOE when <span class="arithmatex">\(d=3\)</span>, <span class="arithmatex">\(n_{\text{levels}}=5\)</span> and <span class="arithmatex">\(n=71\)</span>:
+<img src="../images/composite_openturns.png"/></p>
+<h3 id="limitations">Limitations<a class="headerlink" href="#limitations" title="Permanent link">&para;</a></h3>
+<p>This DOE techniques are not the most suitable for</p>
+<ul>
+<li>numerical experiments (software output, not physical measure),</li>
+<li>large number of input parameters,</li>
+<li>large range of input variation domain,</li>
+<li>multiple output parameters,</li>
+<li>strong interactions between input parameters,</li>
+<li>high non-linearities in the model.</li>
+</ul>
+<p>In these cases, 
+we look for space-filling DOE
+such as</p>
+<ul>
+<li>random sampling / Monte Carlo sampling,</li>
+<li>low-discrepancy sequences,</li>
+<li>latin Hypercube Sampling.</li>
+</ul>
+<h2 id="random-sampling">Random sampling<a class="headerlink" href="#random-sampling" title="Permanent link">&para;</a></h2>
+<p>Random uniform sampling in <span class="arithmatex">\([0,1]^d\)</span>.</p>
+<p><img src="../images/random_openturns.png"/></p>
+<h2 id="low-discrepancy-sequences">Low-discrepancy sequences<a class="headerlink" href="#low-discrepancy-sequences" title="Permanent link">&para;</a></h2>
+<h3 id="what-is-it">What is it?<a class="headerlink" href="#what-is-it" title="Permanent link">&para;</a></h3>
+<p>Sequence:</p>
+<ul>
+<li>An enumerated collection of objects:
+  <span class="arithmatex">\((\mathbf{x}_1,\mathbf{x}_2,\ldots)\)</span></li>
+<li>Finite: <span class="arithmatex">\((\mathbf{x}_1,\mathbf{x}_2,\ldots,\mathbf{x}_N)\)</span> or infinite
+  <span class="arithmatex">\(\left(\mathbf{x}_i\right)_{i\geq 1}\)</span>.</li>
+<li>Formally, a function defined on the natural number set <span class="arithmatex">\(\mathbb{N}^*\)</span>
+  or on the subset <span class="arithmatex">\(\{1,2,\ldots,N\}\)</span>,  e.g. <span class="arithmatex">\(\forall i\in\mathbb{N}^*,
+  x_i=\cos(i\pi)\)</span>  or <span class="arithmatex">\(x_{i+1}=2x_i+1\)</span> with <span class="arithmatex">\(x_1=0\)</span> (which can be
+  rewritten <span class="arithmatex">\(x_i=\sum_{i=1}^N2^{i-1})\)</span>.</li>
+<li>Order matters.</li>
+<li>Repetitions are allowed.</li>
+</ul>
+<p>Discrepancy: </p>
+<ul>
+<li>A measure of deviation from the uniformity
+  How much a sequence <span class="arithmatex">\((\mathbf{x}_1,\mathbf{x}_2,\ldots,\mathbf{x}_N)\)</span> is far from a uniform sampling.</li>
+</ul>
+<p>Low discrepancy sequence:</p>
+<ul>
+<li>A sequence <span class="arithmatex">\((\mathbf{x}_1,\mathbf{x}_2,\ldots,\mathbf{x}_N)\)</span> close to an uniform  sampling.</li>
+</ul>
+<h3 id="convergence-rate">Convergence rate<a class="headerlink" href="#convergence-rate" title="Permanent link">&para;</a></h3>
+<p>Let's imagine we want to estimate the integral of <span class="arithmatex">\(f\)</span> by sampling with an error <span class="arithmatex">\(\varepsilon\)</span>:</p>
+<div class="arithmatex">\[\left|\int_{[0,1]^d}f(\mathbf{x})d\mathbf{x}-
+\frac{1}{N}\sum_{i=1}^Nf\left(\mathbf{x}^{(i)}\right)\right|\leq \varepsilon\]</div>
+<p>Monte-Carlo sampling:</p>
+<div class="arithmatex">\[N=\mathcal{O}\left(\frac{1}{\varepsilon^2}\right)\text{, then
+}\varepsilon/10\Rightarrow N\times 100\]</div>
+<p>Low-discrepancy sequences:</p>
+<div class="arithmatex">\[N=\mathcal{O}\left(\frac{1}{\varepsilon}\right)\text{, then
+}\varepsilon/10\Rightarrow N\times 10\]</div>
+<p>Thus,
+the convergence rate of the estimator based on low-discrepancy sequence is much better 
+than the one of the estimator based on Monte Carlo sampling.
+Low-discrepancy sequences are of interest when <span class="arithmatex">\(N\)</span> is small!</p>
+<h3 id="whos-who">Who's who?<a class="headerlink" href="#whos-who" title="Permanent link">&para;</a></h3>
+<p>Here are two sets of 100 samples in <span class="arithmatex">\([0,1]\times[0,1]\)</span>:</p>
+<p><img src="../images/is_mc.png" width="49%"/>
+<img src="../images/is_halt.png" width="49%"/></p>
+<p>Can you guess which one is based on a low-discrepancy sequence and which on Monte Carlo sampling?</p>
+<h3 id="haselgrove-sequence">Haselgrove sequence<a class="headerlink" href="#haselgrove-sequence" title="Permanent link">&para;</a></h3>
+<p><img src="../images/haselgrove.gif"/>
+}</p>
+<h3 id="sobol-sequence">Sobol' sequence<a class="headerlink" href="#sobol-sequence" title="Permanent link">&para;</a></h3>
+<p><img src="../images/sobol.gif"/></p>
+<h3 id="faure-sequence">Faure sequence<a class="headerlink" href="#faure-sequence" title="Permanent link">&para;</a></h3>
+<p><img src="../images/faure.gif"/></p>
+<h3 id="halton-sequence">Halton sequence<a class="headerlink" href="#halton-sequence" title="Permanent link">&para;</a></h3>
+<p><img src="../images/halton.gif"/></p>
+<h3 id="which-sequence">Which sequence?<a class="headerlink" href="#which-sequence" title="Permanent link">&para;</a></h3>
+<p>The performance of the low discrepancy sequences decreases fastly with the problem dimension:</p>
+<ul>
+<li>whatever the sequence,</li>
+<li>with a deterioration speed which depends on the sequence.</li>
+</ul>
+<p><a href="https://openturns.github.io/openturns/latest/theory/reliability_sensitivity/low_discrepancy_sequence.html">On the OpenTURNS website</a>, 
+we can read recommendations for use:</p>
+<table>
+<thead>
+<tr>
+<th>Sequence</th>
+<th>Dimension no greater than...</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sobol</td>
+<td>several 100</td>
+</tr>
+<tr>
+<td>Haselgrove</td>
+<td>50</td>
+</tr>
+<tr>
+<td>Faure</td>
+<td>25</td>
+</tr>
+<tr>
+<td>Halton</td>
+<td>8</td>
+</tr>
+</tbody>
+</table>
+<h2 id="latin-hypercube-sampling-lhs">Latin hypercube sampling (LHS)<a class="headerlink" href="#latin-hypercube-sampling-lhs" title="Permanent link">&para;</a></h2>
+<h3 id="standard">Standard<a class="headerlink" href="#standard" title="Permanent link">&para;</a></h3>
+<p>Stratified sampling strategy to increase the input parameter space coverage.
+Based on dividing the range of each parameter into several intervals of equal probability.</p>
+<ol>
+<li>Stratify the range of each parameter into <span class="arithmatex">\(n\)</span>
+   iso-probabilistic intervals. <span class="arithmatex">\(\Rightarrow\)</span> parameter space split into <span class="arithmatex">\(n^d\)</span> cells</li>
+<li>Select a cell uniformly among all the available cells.</li>
+<li>Select either the center of the cell or a point randomly in this cell.</li>
+<li>Invert the Cumulative Density Function at the selected point.</li>
+<li>Remove all the cells having a common strate with the previous cell from the list of available cells.</li>
+<li>Go to 2. until the list is empty. </li>
+</ol>
+<p>With 2 variables:</p>
+<p><img src="../images/lhs2d.gif"/></p>
+<p>With 5 variables:</p>
+<p><img src="../images/lhs.gif"/></p>
+<h3 id="optimized">Optimized<a class="headerlink" href="#optimized" title="Permanent link">&para;</a></h3>
+<p>Two possibilities:</p>
+<ul>
+<li>Generate several LHS and select the one minimizing a discrepancy measure.</li>
+<li>Generate an initial LHS and embed it in a optimization loop (e.g. simulated annealing or genetic algorithm) to minimize a discrepancy measure.</li>
+</ul>
+<p>See <a href="https://gemseo.readthedocs.io/en/develop/examples/doe/plot_lhs_example.html#sphx-glr-examples-doe-plot-lhs-example-py">this example</a> in the GEMSEO documentation.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Matthias De Lozzo -  All rights reserved -  Reproduction prohibited without permission.
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.c8d2eff1.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

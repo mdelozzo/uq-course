@@ -1,0 +1,1342 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="index.html">
+      
+      
+        <link rel="next" href="uncertainty_quantification.html">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.12">
+    
+    
+      
+        <title>2. Basics of probability and statistics - UQ course</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.7e359304.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#2-basics-of-probability-and-statistics" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="UQ course" class="md-header__button md-logo" aria-label="UQ course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            UQ course
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              2. Basics of probability and statistics
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="UQ course" class="md-nav__button md-logo" aria-label="UQ course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    UQ course
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    2. Basics of probability and statistics
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="probability.html" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    2. Basics of probability and statistics
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#variable-vs-random-variable" class="md-nav__link">
+    <span class="md-ellipsis">
+      Variable vs. random variable
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Variable vs. random variable">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#variable" class="md-nav__link">
+    <span class="md-ellipsis">
+      Variable
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#random-variable" class="md-nav__link">
+    <span class="md-ellipsis">
+      Random variable
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#random-experiment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Random experiment
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sampling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sampling
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#probability-distribution" class="md-nav__link">
+    <span class="md-ellipsis">
+      Probability distribution
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Probability distribution">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cumulative-distribution-function-cdf" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cumulative distribution function (CDF)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#probability-density-function-pdf" class="md-nav__link">
+    <span class="md-ellipsis">
+      Probability density function (PDF)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#statistical-measures-statistics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Statistical measures (statistics)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Statistical measures (statistics)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#expectation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Expectation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Variance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#standard-deviation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Standard deviation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#coefficient-of-variation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Coefficient of variation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#moments" class="md-nav__link">
+    <span class="md-ellipsis">
+      Moments
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#monte-carlo-sampling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Monte Carlo sampling
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Monte Carlo sampling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      Properties
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examples
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#visualizing-one-1d-variable" class="md-nav__link">
+    <span class="md-ellipsis">
+      Visualizing one 1D variable
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Visualizing one 1D variable">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#textual-statistics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Textual statistics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#empirical-cdf-plot" class="md-nav__link">
+    <span class="md-ellipsis">
+      Empirical CDF plot
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#empirical-pdf-plot" class="md-nav__link">
+    <span class="md-ellipsis">
+      Empirical PDF plot
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#histogram" class="md-nav__link">
+    <span class="md-ellipsis">
+      Histogram
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxplot" class="md-nav__link">
+    <span class="md-ellipsis">
+      Boxplot
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notched-boxplot" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notched boxplot
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#visualizing-several-1d-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Visualizing several 1D variables
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Visualizing several 1D variables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scatter-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scatter matrix
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cobwebplot" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cobwebplot
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="uncertainty_quantification.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Uncertainty quantification
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="uncertainty_propagation.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. Uncertainty propagation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="sensitivity_analysis.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5. Sensitivity analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="surrogate_models.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6. Surrogate models
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="robust_optimization.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    7. Robust optimization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../project.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Project
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#variable-vs-random-variable" class="md-nav__link">
+    <span class="md-ellipsis">
+      Variable vs. random variable
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Variable vs. random variable">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#variable" class="md-nav__link">
+    <span class="md-ellipsis">
+      Variable
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#random-variable" class="md-nav__link">
+    <span class="md-ellipsis">
+      Random variable
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#random-experiment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Random experiment
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sampling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sampling
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#probability-distribution" class="md-nav__link">
+    <span class="md-ellipsis">
+      Probability distribution
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Probability distribution">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cumulative-distribution-function-cdf" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cumulative distribution function (CDF)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#probability-density-function-pdf" class="md-nav__link">
+    <span class="md-ellipsis">
+      Probability density function (PDF)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#statistical-measures-statistics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Statistical measures (statistics)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Statistical measures (statistics)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#expectation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Expectation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Variance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#standard-deviation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Standard deviation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#coefficient-of-variation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Coefficient of variation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#moments" class="md-nav__link">
+    <span class="md-ellipsis">
+      Moments
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#monte-carlo-sampling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Monte Carlo sampling
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Monte Carlo sampling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      Properties
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examples
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#visualizing-one-1d-variable" class="md-nav__link">
+    <span class="md-ellipsis">
+      Visualizing one 1D variable
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Visualizing one 1D variable">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#textual-statistics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Textual statistics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#empirical-cdf-plot" class="md-nav__link">
+    <span class="md-ellipsis">
+      Empirical CDF plot
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#empirical-pdf-plot" class="md-nav__link">
+    <span class="md-ellipsis">
+      Empirical PDF plot
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#histogram" class="md-nav__link">
+    <span class="md-ellipsis">
+      Histogram
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxplot" class="md-nav__link">
+    <span class="md-ellipsis">
+      Boxplot
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notched-boxplot" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notched boxplot
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#visualizing-several-1d-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Visualizing several 1D variables
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Visualizing several 1D variables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scatter-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scatter matrix
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cobwebplot" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cobwebplot
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="2-basics-of-probability-and-statistics">2. Basics of probability and statistics<a class="headerlink" href="#2-basics-of-probability-and-statistics" title="Permanent link">&para;</a></h1>
+<h2 id="variable-vs-random-variable">Variable vs. random variable<a class="headerlink" href="#variable-vs-random-variable" title="Permanent link">&para;</a></h2>
+<h3 id="variable">Variable<a class="headerlink" href="#variable" title="Permanent link">&para;</a></h3>
+<p>A variable is the property of an object resulting of an experiment. 
+e.g. the size of a person where the object is the medical check-up and the experiment is the patient consultation
+(the patient's shoes are not a variable but a parameter).</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>A variable is not a parameter.
+By definition, 
+a variable <em>varies</em> while a parameter is fixed.</p>
+</div>
+<p>Quantitative variable:</p>
+<ul>
+<li>Discrete variable - A variable with discrete values, e.g. building floor.</li>
+<li>A continuous variable - A variable with continuous values, e.g. building height.</li>
+</ul>
+<p>Qualitative variable:</p>
+<ul>
+<li>Nominal variable - A variable with nominal values, e.g. curry dish.</li>
+<li>Ordinal variable - A variable with ordinal values, e.g. spice level.</li>
+</ul>
+<h3 id="random-variable">Random variable<a class="headerlink" href="#random-variable" title="Permanent link">&para;</a></h3>
+<p>A random variable is the property of an object resulting of a random experiment,
+e.g. the size of an adult person among a given population.</p>
+<h2 id="random-experiment">Random experiment<a class="headerlink" href="#random-experiment" title="Permanent link">&para;</a></h2>
+<p>A random experiment is a real-world process whose state is random,
+e.g. obtaining the monthly water requirements per hectare [mwrph] (= the real-world process) 
+of a field (= the state) 
+in the south-west of France (= randomness). </p>
+<p>A random experiment can be modelled by a probability space <span class="arithmatex">\((\Omega,\mathcal{F},\mathbb{P})\)</span> where</p>
+<ul>
+<li>the population <span class="arithmatex">\(\Omega\)</span> is the set of all possible outcomes of the experiment,
+  a.k.a. sample space or possibility space,
+  e.g. the mwrph of all the fields of the SW of France,</li>
+<li>an element <span class="arithmatex">\(\omega\)</span>, a.k.a. realization <span class="arithmatex">\(\omega\)</span>, is any element of the population <span class="arithmatex">\(\Omega\)</span>,
+  e.g. the mwrph of a particular field in the SW of France,</li>
+<li>an event <span class="arithmatex">\(A\)</span> is a set of possible elements, subset of the population <span class="arithmatex">\(\Omega\)</span>, 
+  the set of all events is noted <span class="arithmatex">\(\mathcal{F}\)</span>,
+  e.g. the mwrph of fields of more than 500 hectares in the SW of France,</li>
+<li>the probability <span class="arithmatex">\(\mathbb{P}\)</span> is the measure of the likelihood that an event happens,
+  e.g. the mwrph of the field of the Dupont family at Joli-Village-Sur-Garonne exceeds the one of 2020.
+  <span class="arithmatex">\(\mathbb{P}\)</span> is an application from <span class="arithmatex">\(\Omega\)</span> to <span class="arithmatex">\([0,1]\)</span> 
+  such that <span class="arithmatex">\(\mathbb{P}(\Omega)=1\)</span> and <span class="arithmatex">\(\mathbb{P}(\cup_{i\geq 1}A_i)=\sum_{i\geq 1}\mathbb{P}(A_i)\)</span> iff <span class="arithmatex">\(\forall i\neq j, A_i \cap A_j=\emptyset\)</span>. </li>
+</ul>
+<h2 id="sampling">Sampling<a class="headerlink" href="#sampling" title="Permanent link">&para;</a></h2>
+<p>A sample is an observation of the random variable <span class="arithmatex">\(X\)</span> over the population <span class="arithmatex">\(\Omega\)</span>. 
+The rest of the population remain unknown.</p>
+<p>Notations:</p>
+<ul>
+<li><span class="arithmatex">\(X\)</span> - Random variable</li>
+<li><span class="arithmatex">\(x\)</span> - Observed value of the random variable <span class="arithmatex">\(X\)</span></li>
+<li><span class="arithmatex">\(X^{(i)}\)</span> - The <span class="arithmatex">\(i^{\text{th}}\)</span> observation of the random variable <span class="arithmatex">\(X\)</span>.</li>
+<li><span class="arithmatex">\(x^{(i)}\)</span> - The <span class="arithmatex">\(i^{\text{th}}\)</span> observed value of the random variable <span class="arithmatex">\(X\)</span>.</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>An observation is a random variable contrary to an observed value.</p>
+</div>
+<h2 id="probability-distribution">Probability distribution<a class="headerlink" href="#probability-distribution" title="Permanent link">&para;</a></h2>
+<h3 id="cumulative-distribution-function-cdf">Cumulative distribution function (CDF)<a class="headerlink" href="#cumulative-distribution-function-cdf" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\begin{aligned}
+F_X:\mathcal{X}\subseteq\mathbb{R}&amp;\rightarrow[0,1]\\
+x&amp;\mapsto F_X(x)=\mathbb{P}[X\leq x]
+\end{aligned}
+\]</div>
+<ul>
+<li>Discrete variable: <span class="arithmatex">\(F_X(x)=\sum_{u\in\mathcal{X},~u\leq x}\mathbb{P}[X=u]\)</span></li>
+<li>Continuous variable: <span class="arithmatex">\(F_X(x)=\int_0^xf_X(u)du\)</span></li>
+</ul>
+<p>Properties:</p>
+<ul>
+<li>non-decreasing</li>
+<li>right-continuous</li>
+<li><span class="arithmatex">\(\lim_{x\rightarrow -\infty}F_X(x)=0\)</span></li>
+<li><span class="arithmatex">\(\lim_{x\rightarrow +\infty}F_X(x)=1\)</span></li>
+</ul>
+<h3 id="probability-density-function-pdf">Probability density function (PDF)<a class="headerlink" href="#probability-density-function-pdf" title="Permanent link">&para;</a></h3>
+<p>If there is a positive and integrable function <span class="arithmatex">\(f_X\)</span> such that </p>
+<div class="arithmatex">\[\forall (a,b)\in\mathbb{R}^2, ~\mathbb{P}[a\leq X\leq b]=\int_a^bf_X(x)dx.\]</div>
+<p>then</p>
+<div class="arithmatex">\[\mathbb{P}[X \in I\subseteq\mathcal{X}\subseteq\mathbb{R}]=\int_{I} f_X(x)dx\]</div>
+<p>where</p>
+<div class="arithmatex">\[f_X(x)=\frac{d}{dx}F_X(x)\]</div>
+<p>Properties:</p>
+<ul>
+<li><span class="arithmatex">\(\forall x\in\mathcal{X},~f_X(x)\geq 0\)</span></li>
+<li><span class="arithmatex">\(\int_{\mathcal{X}}f_X(x)=1\)</span></li>
+<li><span class="arithmatex">\(\lim_{x\rightarrow \pm \infty} f_X(x)=0\)</span></li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>Two normal (a.k.a. Gaussian) distributions:</p>
+<table>
+<thead>
+<tr>
+<th>color</th>
+<th>mean</th>
+<th>standard deviation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>blue</td>
+<td>0</td>
+<td>0.5</td>
+</tr>
+<tr>
+<td>red</td>
+<td>1</td>
+<td>0.75</td>
+</tr>
+</tbody>
+</table>
+<p>Below the PDF on the left and the CDF on the right. </p>
+<p><img alt=" " src="../images/probability_distribution_illustration.png" /></p>
+<p>Below the relation between CDF and PDF.</p>
+<p><img alt=" " src="../images/probability_distribution_illustration_suite.png" /></p>
+</div>
+<h3 id="statistical-measures-statistics">Statistical measures (statistics)<a class="headerlink" href="#statistical-measures-statistics" title="Permanent link">&para;</a></h3>
+<h4 id="expectation">Expectation<a class="headerlink" href="#expectation" title="Permanent link">&para;</a></h4>
+<p>The expectation is the first moment.</p>
+<p>The expectation is the mean of <span class="arithmatex">\(X\)</span>, <em>i.e.</em> its central trend:</p>
+<div class="arithmatex">\[\mu=\mathbb{E}[X]\]</div>
+<p><span class="arithmatex">\(\forall (a,b)\in\mathbb{R}^2,~\mathbb{E}[aX+b]=a\mathbb{E}[X]+b\)</span>.</p>
+<h4 id="variance">Variance<a class="headerlink" href="#variance" title="Permanent link">&para;</a></h4>
+<p>The variance if the second central moment.</p>
+<p>The variance is the mean squared dispersion of <span class="arithmatex">\(X\)</span> w.r.t. its central tendency:</p>
+<div class="arithmatex">\[\sigma^2=\mathbb{V}[X]=\mathbb{E}\left[\left(X-\mu\right)^2\right]=\mathbb{E}\left[X^2\right]-\mu^2\]</div>
+<p><span class="arithmatex">\(\forall (a,b)\in\mathbb{R}^2,~\mathbb{V}[aX+b]=a^2\mathbb{V}[X]\)</span>.</p>
+<h4 id="standard-deviation">Standard deviation<a class="headerlink" href="#standard-deviation" title="Permanent link">&para;</a></h4>
+<p>The standard deviation is the square root of the variance:</p>
+<div class="arithmatex">\[\sigma=\sqrt{\mathbb{V}[X]}\]</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><span class="arithmatex">\(\sigma\equiv 0 \Leftrightarrow X\)</span> is determinist.</p>
+</div>
+<h4 id="coefficient-of-variation">Coefficient of variation<a class="headerlink" href="#coefficient-of-variation" title="Permanent link">&para;</a></h4>
+<p>The coefficient of variation is the standard deviation normalized by the expectation:</p>
+<div class="arithmatex">\[\texttt{CoV}=\frac{\sigma}{\mu}\]</div>
+<h4 id="moments">Moments<a class="headerlink" href="#moments" title="Permanent link">&para;</a></h4>
+<p><span class="arithmatex">\(\forall k\in\mathbb{N}^*\)</span>,</p>
+<div class="arithmatex">\[\gamma_k=\mathbb{E}\left[X^k\right]=\int_{\mathcal{X}}x^kf_X(x)dx\]</div>
+<p>is called a moment,</p>
+<div class="arithmatex">\[m_{k,c}=\mathbb{E}\left[\left(X-\mathbb{E}[X]\right)^k\right]\]</div>
+<p>is called a central moment and</p>
+<div class="arithmatex">\[m_{k,s}=\frac{\mathbb{E}\left[\left(X-\mathbb{E}[X]\right)^k\right]}{\mathbb{E}[(X-\mathbb{E}[X])^2]^{\frac{k}{2}}}\]</div>
+<p>is called a standardized moment.</p>
+<p><span class="arithmatex">\(m_{3,s}\)</span> represents the <a href="https://en.wikipedia.org/wiki/Skewness">skewness</a> of the distribution,
+a measure of its asymmetry,
+and <span class="arithmatex">\(m_{4,s}\)</span> represents its <a href="https://en.wikipedia.org/wiki/Kurtosis">kurtosis</a>, a measure of its "tailedness" .</p>
+<p>Expectation and variance are the most popular moments.</p>
+<h2 id="monte-carlo-sampling">Monte Carlo sampling<a class="headerlink" href="#monte-carlo-sampling" title="Permanent link">&para;</a></h2>
+<h3 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h3>
+<p>Statistics are integral of quantify of interest.
+For example, the expectation of the model output can be written as  </p>
+<div class="arithmatex">\[I=\mathbb{E}[f(X)]=\int_{\mathcal{X}}f(x)f_X(x)dx\]</div>
+<p>Computing <span class="arithmatex">\(I\)</span> analytically is often impossible 
+and a brute force approach is Monte Carlo (MC) sampling:</p>
+<div class="arithmatex">\[\hat{I}_N=\frac{1}{N}\sum_{i=1}^Nh\left(x^{(i)}\right)\]</div>
+<p>where <span class="arithmatex">\(x^{(1)},\ldots,x^{(N)}\)</span> are <span class="arithmatex">\(N\)</span> independent realizations of <span class="arithmatex">\(X\)</span>. </p>
+<h3 id="properties">Properties<a class="headerlink" href="#properties" title="Permanent link">&para;</a></h3>
+<p><span class="arithmatex">\(\hat{I}_N\)</span> tends to <span class="arithmatex">\(I\)</span> when <span class="arithmatex">\(N\)</span> tends to <span class="arithmatex">\(\infty\)</span>
+but with a slow convergence in the order of <span class="arithmatex">\(1/\sqrt{N}\)</span>.
+In other words,
+dividing the error by <span class="arithmatex">\(M\)</span> implies to multiply the number of samples by <span class="arithmatex">\(M^2\)</span>.
+To be 10 times more precise, 100 times more evaluations are needed.</p>
+<p>The convergence rate is independent of the dimension of <span class="arithmatex">\(X\)</span>.
+The only limitation to the use of a Monte Carlo estimator is the evaluation cost of <span class="arithmatex">\(f\)</span> 
+not allowing a sufficient number of evaluations <span class="arithmatex">\(N\)</span> to achieve the desired accuracy of the MC estimator.</p>
+<h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
+<p>Mean:</p>
+<div class="arithmatex">\[\mathbb{E}[h(X)]\approx\frac{1}{N}\sum_{i=1}^Nh\left(X^{(i)}\right)\]</div>
+<p>Variance:</p>
+<div class="arithmatex">\[\mathbb{V}[h(X)]\approx\frac{1}{N}\sum_{i=1}^N\left(f\left(X^{(i)}\right)-\frac{1}{N}\sum_{j=1}^Nh\left(X^{(j)}\right)\right)^2\]</div>
+<p>CDF</p>
+<div class="arithmatex">\[F_{f(X)}(y)\approx\frac{1}{N}\sum_{i=1}^N\mathrm{1}_{f\left(X^{(i)}\right)\leq y}=:\hat{F}_N(y)\]</div>
+<p>Quantile</p>
+<div class="arithmatex">\[y_{\alpha}=\inf \left\{z:\hat{F}_N(y)\geq \alpha\right\}\]</div>
+<p>Probability</p>
+<div class="arithmatex">\[\mathbb{P}[X\in\mathcal{D}]=\mathbb{E}[\mathrm{1}_{X\in\mathcal{D}}]\approx\frac{1}{N}\sum_{i=1}^N\mathrm{1}_{X^{(i)}\in\mathcal{D}}\]</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>MC techniques for probabilities and quantiles are very costly,
+requiring <span class="arithmatex">\(N=10^{r+2m}\)</span> evaluations for a probability of <span class="arithmatex">\(10^{-r}\)</span> with a CoV of <span class="arithmatex">\(10^{-m}\)</span>,
+e.g. <span class="arithmatex">\(N=10^5\)</span> evaluations for a probability of 99.9% with a CoV of 10%.</p>
+</div>
+<h2 id="visualizing-one-1d-variable">Visualizing one 1D variable<a class="headerlink" href="#visualizing-one-1d-variable" title="Permanent link">&para;</a></h2>
+<p>Example with 1000 instances of a Gaussian variable with 0 mean and 0.5 standard deviation.</p>
+<h3 id="textual-statistics">Textual statistics<a class="headerlink" href="#textual-statistics" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mean</td>
+<td>-0.030262</td>
+</tr>
+<tr>
+<td>std</td>
+<td>0.491196</td>
+</tr>
+<tr>
+<td>min</td>
+<td>-1.752956</td>
+</tr>
+<tr>
+<td>25%</td>
+<td>-0.370826</td>
+</tr>
+<tr>
+<td>50%</td>
+<td>-0.032611</td>
+</tr>
+<tr>
+<td>75%</td>
+<td>0.312060</td>
+</tr>
+<tr>
+<td>max</td>
+<td>1.687337</td>
+</tr>
+</tbody>
+</table>
+<h3 id="empirical-cdf-plot">Empirical CDF plot<a class="headerlink" href="#empirical-cdf-plot" title="Permanent link">&para;</a></h3>
+<p><img alt=" " src="../images/norm_cdf1000.png" /></p>
+<h3 id="empirical-pdf-plot">Empirical PDF plot<a class="headerlink" href="#empirical-pdf-plot" title="Permanent link">&para;</a></h3>
+<p>We use a kernel-based estimator of the form:</p>
+<div class="arithmatex">\[F_N:x\mapsto\frac{1}{n}\sum_{i=1}^nK\left(\left\|x-x^{(i)}\right\|\right)\]</div>
+<p>where <span class="arithmatex">\(x^{(1)},\ldots,x^{(N)}\)</span> are observations.</p>
+<p><img alt=" " src="../images/norm_pdf1000.png" /></p>
+<h3 id="histogram">Histogram<a class="headerlink" href="#histogram" title="Permanent link">&para;</a></h3>
+<p><img alt=" " src="../images/norm_hist1000.png" /></p>
+<h3 id="boxplot">Boxplot<a class="headerlink" href="#boxplot" title="Permanent link">&para;</a></h3>
+<p><img alt=" " src="../images/norm_boxplot1000.png" /></p>
+<ul>
+<li>Box = [Quantile(25%),Median,Quantile(75%)] </li>
+<li>Inter Quartile Range (IQR) = Quantile(75%)-Quantile(25%) </li>
+<li>Whiskers = Median <span class="arithmatex">\(\pm \kappa \times\)</span> IQR</li>
+<li>Circles = outliers</li>
+</ul>
+<h3 id="notched-boxplot">Notched boxplot<a class="headerlink" href="#notched-boxplot" title="Permanent link">&para;</a></h3>
+<p>A notched boxplot is a boxplot with confidence interval for the median estimator.</p>
+<p><img alt=" " src="../images/norm_nboxplot1000.png" /></p>
+<h2 id="visualizing-several-1d-variables">Visualizing several 1D variables<a class="headerlink" href="#visualizing-several-1d-variables" title="Permanent link">&para;</a></h2>
+<h3 id="scatter-matrix">Scatter matrix<a class="headerlink" href="#scatter-matrix" title="Permanent link">&para;</a></h3>
+<p><img alt=" " src="../images/scatter_matrix_kde.png" /></p>
+<h3 id="cobwebplot">Cobwebplot<a class="headerlink" href="#cobwebplot" title="Permanent link">&para;</a></h3>
+<p>Also known as parallel coordinates.</p>
+<p><img alt=" " src="../images/cobwebplot.png" /></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Matthias De Lozzo -  All rights reserved -  Reproduction prohibited without permission.
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.c8d2eff1.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
