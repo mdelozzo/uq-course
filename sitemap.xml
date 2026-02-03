@@ -41,6 +41,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://mdelozzo.github.io/uq-course/lectures/uncertainty_characterization.html</loc>
+         <lastmod>2026-02-03</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://mdelozzo.github.io/uq-course/lectures/uncertainty_propagation.html</loc>
          <lastmod>2026-02-03</lastmod>
          <changefreq>daily</changefreq>

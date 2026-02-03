@@ -1,0 +1,1449 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://mdelozzo.github.io/uq-course/lectures/uncertainty_characterization.html">
+      
+      
+        <link rel="prev" href="probability.html">
+      
+      
+        <link rel="next" href="uncertainty_quantification.html">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.12">
+    
+    
+      
+        <title>3. Uncertainty characterization - UQ course</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.7e359304.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#3-uncertainty-characterization" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="UQ course" class="md-header__button md-logo" aria-label="UQ course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            UQ course
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              3. Uncertainty characterization
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="UQ course" class="md-nav__button md-logo" aria-label="UQ course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    UQ course
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="probability.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Basics of probability
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    3. Uncertainty characterization
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="uncertainty_characterization.html" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    3. Uncertainty characterization
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#probability-distributions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Probability distributions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Probability distributions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#discrete-probability-distribution" class="md-nav__link">
+    <span class="md-ellipsis">
+      Discrete probability distribution
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Discrete probability distribution">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bernouilli" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bernouilli
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#binomial" class="md-nav__link">
+    <span class="md-ellipsis">
+      Binomial
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uniform" class="md-nav__link">
+    <span class="md-ellipsis">
+      Uniform
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multinomial" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multinomial
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poisson" class="md-nav__link">
+    <span class="md-ellipsis">
+      Poisson
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#continuous-probability-distributions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Continuous probability distributions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Continuous probability distributions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#uniform_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Uniform
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#triangular" class="md-nav__link">
+    <span class="md-ellipsis">
+      Triangular
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#normal" class="md-nav__link">
+    <span class="md-ellipsis">
+      Normal
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chi-squared" class="md-nav__link">
+    <span class="md-ellipsis">
+      Chi-squared
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lognormal" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lognormal
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exponential" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exponential
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gumbel" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gumbel
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#weibull" class="md-nav__link">
+    <span class="md-ellipsis">
+      Weibull
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#beta" class="md-nav__link">
+    <span class="md-ellipsis">
+      Beta
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uncertainty-characterization-without-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Uncertainty characterization without data
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uncertainty-characterization-with-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Uncertainty characterization with data
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Uncertainty characterization with data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#estimation-of-a-probability-distribution" class="md-nav__link">
+    <span class="md-ellipsis">
+      Estimation of a probability distribution
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Estimation of a probability distribution">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#likelihood" class="md-nav__link">
+    <span class="md-ellipsis">
+      Likelihood
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maximizing-the-likelihood" class="md-nav__link">
+    <span class="md-ellipsis">
+      Maximizing the likelihood
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parametric-vs-non-parametric-estimation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parametric vs. non-parametric estimation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Parametric vs. non-parametric estimation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parametric-fitting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parametric fitting
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#non-parametric-fitting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Non-parametric fitting
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="uncertainty_quantification.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. Uncertainty quantification
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="uncertainty_propagation.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5. Uncertainty propagation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="sensitivity_analysis.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6. Sensitivity analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="surrogate_models.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    7. Surrogate models
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="robust_optimization.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    8. Robust optimization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../project.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Project
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#probability-distributions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Probability distributions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Probability distributions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#discrete-probability-distribution" class="md-nav__link">
+    <span class="md-ellipsis">
+      Discrete probability distribution
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Discrete probability distribution">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bernouilli" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bernouilli
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#binomial" class="md-nav__link">
+    <span class="md-ellipsis">
+      Binomial
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uniform" class="md-nav__link">
+    <span class="md-ellipsis">
+      Uniform
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multinomial" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multinomial
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poisson" class="md-nav__link">
+    <span class="md-ellipsis">
+      Poisson
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#continuous-probability-distributions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Continuous probability distributions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Continuous probability distributions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#uniform_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Uniform
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#triangular" class="md-nav__link">
+    <span class="md-ellipsis">
+      Triangular
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#normal" class="md-nav__link">
+    <span class="md-ellipsis">
+      Normal
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chi-squared" class="md-nav__link">
+    <span class="md-ellipsis">
+      Chi-squared
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lognormal" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lognormal
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exponential" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exponential
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gumbel" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gumbel
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#weibull" class="md-nav__link">
+    <span class="md-ellipsis">
+      Weibull
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#beta" class="md-nav__link">
+    <span class="md-ellipsis">
+      Beta
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uncertainty-characterization-without-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Uncertainty characterization without data
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uncertainty-characterization-with-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Uncertainty characterization with data
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Uncertainty characterization with data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#estimation-of-a-probability-distribution" class="md-nav__link">
+    <span class="md-ellipsis">
+      Estimation of a probability distribution
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Estimation of a probability distribution">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#likelihood" class="md-nav__link">
+    <span class="md-ellipsis">
+      Likelihood
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maximizing-the-likelihood" class="md-nav__link">
+    <span class="md-ellipsis">
+      Maximizing the likelihood
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parametric-vs-non-parametric-estimation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parametric vs. non-parametric estimation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Parametric vs. non-parametric estimation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parametric-fitting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parametric fitting
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#non-parametric-fitting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Non-parametric fitting
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="3-uncertainty-characterization">3. Uncertainty characterization<a class="headerlink" href="#3-uncertainty-characterization" title="Permanent link">&para;</a></h1>
+<h2 id="probability-distributions">Probability distributions<a class="headerlink" href="#probability-distributions" title="Permanent link">&para;</a></h2>
+<h3 id="discrete-probability-distribution">Discrete probability distribution<a class="headerlink" href="#discrete-probability-distribution" title="Permanent link">&para;</a></h3>
+<h4 id="bernouilli">Bernouilli<a class="headerlink" href="#bernouilli" title="Permanent link">&para;</a></h4>
+<ul>
+<li><span class="arithmatex">\(\mathcal{X}=\{0,1\}\)</span> or <span class="arithmatex">\(\mathcal{X}=\{\text{failure},\text{success}\}\)</span></li>
+<li><span class="arithmatex">\(\mathbb{P}[X=1]=p\)</span> and <span class="arithmatex">\(\mathbb{P}[X=0]=1-p\)</span></li>
+<li><span class="arithmatex">\(\mathbb{E}[X]=p\)</span> and <span class="arithmatex">\(\mathbb{V}[X]=p(1-p)\)</span></li>
+</ul>
+<details class="example">
+<summary>Example</summary>
+<p>The result of a single round of coin tossing:</p>
+<p><div align="center"><img src="../images/discrete_distributions/bernouilli_coin.jpg" width="20%"/></div></p>
+</details>
+<h4 id="binomial">Binomial<a class="headerlink" href="#binomial" title="Permanent link">&para;</a></h4>
+<ul>
+<li><span class="arithmatex">\(\mathcal{X}=\{0, 1,2,\ldots,N\}\)</span></li>
+<li><span class="arithmatex">\(\mathbb{P}[X=x]=C_N^xp^x(1-p)^{N-x}\)</span></li>
+<li><span class="arithmatex">\(\mathbb{E}[X]=Np\)</span> and <span class="arithmatex">\(\mathbb{V}[X]=Np(1-p)\)</span></li>
+</ul>
+<details class="example">
+<summary>Example</summary>
+<p>The number of heads after <span class="arithmatex">\(N\)</span> independent rounds of coin tossing:</p>
+<p><div align="center"><img src="../images/discrete_distributions/bernouilli_coin.jpg" width="20%"/>
+<img src="../images/discrete_distributions/bernouilli_coin.jpg" width="20%"/>
+..................
+<img src="../images/discrete_distributions/bernouilli_coin.jpg" width="20%"/></div></p>
+</details>
+<h4 id="uniform">Uniform<a class="headerlink" href="#uniform" title="Permanent link">&para;</a></h4>
+<ul>
+<li><span class="arithmatex">\(\mathcal{X}=\{a,a+1,\ldots,b-1,b\}\)</span> with <span class="arithmatex">\(a,b\in\mathbb{N}\)</span> and <span class="arithmatex">\(a\leq b\)</span></li>
+<li><span class="arithmatex">\(\forall x\in\mathcal{X}\)</span>, <span class="arithmatex">\(\mathbb{P}(X=x)=\frac{1}{b-a+1}\)</span></li>
+<li><span class="arithmatex">\(\forall x\in\mathcal{X}\)</span>, <span class="arithmatex">\(\mathbb{P}(X\leq x)=\frac{x-a+1}{b-a+1}\)</span></li>
+<li><span class="arithmatex">\(\mathbb{E}[X]=\frac{a+b}{2}\)</span> and <span class="arithmatex">\(\mathbb{V}[X]=\frac{(b-a+1)^2-1}{12}\)</span></li>
+</ul>
+<details class="example">
+<summary>Example</summary>
+<p>The result of a single die roll:</p>
+<p><div align="center"><img src="../images/discrete_distributions/uniform_dice.png" width="20%"/></div></p>
+</details>
+<h4 id="multinomial">Multinomial<a class="headerlink" href="#multinomial" title="Permanent link">&para;</a></h4>
+<ul>
+<li><span class="arithmatex">\(\mathcal{X}=\mathcal{X}_1\times \ldots \times \mathcal{X}_N\)</span> with <span class="arithmatex">\(\mathcal{X}_i=\{a,a+1,\ldots,b-1,b\}\)</span></li>
+<li><span class="arithmatex">\(\mathbb{P}[X_a=n_a,X_{a+1}=n_{a+1},\ldots,X_{b-1}=n_{b-1},X_b=n_b]=\frac{N!}{n_a!\ldots n_b!}p_a^{n_a}\ldots p_b^{n_b}\)</span></li>
+<li><span class="arithmatex">\(\forall k \in\{a,a+1,\ldots,b-1,b\}\)</span>, <span class="arithmatex">\(\mathbb{E}[X_k]=Np_k\)</span> and <span class="arithmatex">\(\mathbb{V}[X_k]=Np_k(1-p_k)\)</span></li>
+</ul>
+<details class="example">
+<summary>Example</summary>
+<p>The number of 1, 2, ..., 6 after <span class="arithmatex">\(N\)</span> independent rounds of dice rolls:</p>
+<p><div align="center"><img src="../images/discrete_distributions/uniform_dice.png" width="20%"/>
+<img src="../images/discrete_distributions/uniform_dice.png" width="20%"/>
+..................
+<img src="../images/discrete_distributions/uniform_dice.png" width="20%"/></div></p>
+</details>
+<h4 id="poisson">Poisson<a class="headerlink" href="#poisson" title="Permanent link">&para;</a></h4>
+<ul>
+<li><span class="arithmatex">\(\mathcal{X}=\mathbb{N}\)</span></li>
+<li><span class="arithmatex">\(\mathbb{P}[X=k]=\frac{\lambda^k}{k!}e^{-\lambda}\)</span> with <span class="arithmatex">\(\lambda\in\mathbb{N}^*\)</span></li>
+<li><span class="arithmatex">\(\mathbb{E}[X]=\mathbb{V}[X]=\lambda\)</span></li>
+<li>Meaning: Number of occurrences of an event during a time interval knowing the mean occurrence rate.</li>
+</ul>
+<details class="example">
+<summary>Example</summary>
+<p>The number of decay events per second from a radioactive source:</p>
+<p><div align="center"><img src="../images/discrete_distributions/poisson_radioactivity.png" width="20%"/></div></p>
+</details>
+<h3 id="continuous-probability-distributions">Continuous probability distributions<a class="headerlink" href="#continuous-probability-distributions" title="Permanent link">&para;</a></h3>
+<h4 id="uniform_1">Uniform<a class="headerlink" href="#uniform_1" title="Permanent link">&para;</a></h4>
+<ul>
+<li><span class="arithmatex">\(\mathcal{X}=[a,b]\)</span></li>
+<li><span class="arithmatex">\(f_X(x)=\frac{1}{b-a}\)</span>      </li>
+<li><span class="arithmatex">\(\mathbb{P}[X\leq x]=\frac{x-a}{b-a}\)</span></li>
+<li><span class="arithmatex">\(\mathbb{E}[X]=\frac{a+b}{2}\)</span> and <span class="arithmatex">\(\mathbb{V}[X]=\frac{(b-a)^2}{12}\)</span></li>
+</ul>
+<p>Uniform distribution over <span class="arithmatex">\([a,b]\)</span> with minimum <span class="arithmatex">\(a\)</span> and maximum <span class="arithmatex">\(b\)</span>:</p>
+<p><img alt=" " src="../images/continuous_distributions/uniform_distribution.PNG" /></p>
+<details class="example">
+<summary>Example</summary>
+<ul>
+<li>Inverse transform sampling method to sample a random variable based on the inverse of the cumulative distribution function.</li>
+<li>Modeling a random phenomenon for which there is little information except minimum and maximum values (bad habit because it implies an equiprobability over the associated interval), </li>
+<li>...</li>
+</ul>
+</details>
+<div class="admonition tip">
+<p class="admonition-title">Inverse transform sampling</p>
+<p>If <span class="arithmatex">\(U\)</span> has an uniform distribution on <span class="arithmatex">\([0,1]\)</span> and if <span class="arithmatex">\(X\)</span> as a cumulative distribution function <span class="arithmatex">\(F_X\)</span>, then the random variable <span class="arithmatex">\(F_X^{-1}(U)\)</span> has the same distribution as <span class="arithmatex">\(U\)</span>. Thus, if <span class="arithmatex">\(F_X^{-1}\)</span> is easy to obtain and evaluate, the following sampling method works:</p>
+<ul>
+<li>Generate <span class="arithmatex">\(u\)</span>, an instance of the standard uniform random variable <span class="arithmatex">\(U\)</span>.</li>
+<li>Find the inverse distribution <span class="arithmatex">\(F_X^{-1}\)</span>.</li>
+<li>Compute <span class="arithmatex">\(x=F_X^{-1}(u)\)</span>.</li>
+</ul>
+</div>
+<h4 id="triangular">Triangular<a class="headerlink" href="#triangular" title="Permanent link">&para;</a></h4>
+<ul>
+<li><span class="arithmatex">\(\mathcal{X}=[a,b]\)</span></li>
+<li><span class="arithmatex">\(f_X(x)=\frac{2(x-a)}{(b-a)(c-a)}\mathrm{1}_{a\leq x&lt;c}+\frac{2}{b-a}\mathrm{1}_{x=c}+\frac{2(b-x)}{(b-a)(c-a)}\mathrm{1}_{c&lt; x\leq b}\)</span>      </li>
+<li><span class="arithmatex">\(\mathbb{P}[X\leq x]=\frac{(x-a)^2}{(b-a)(c-a)}\mathrm{1}_{a&lt; x&lt;=c}+\left(1-\frac{(b-x)^2}{(b-a)(c-a)}\right)\mathrm{1}_{c&lt; x\leq b}\)</span>      </li>
+<li><span class="arithmatex">\(\mathbb{E}[X]=\frac{a+b+c}{3}\)</span> and <span class="arithmatex">\(\mathbb{V}[X]=\frac{a^2+b^2+c^2-ab-ac-bc}{18}\)</span></li>
+</ul>
+<p>Triangular distribution over <span class="arithmatex">\([a,b]\)</span> with interval <span class="arithmatex">\([a,b]\)</span> and mode <span class="arithmatex">\(m\)</span>:</p>
+<p><img alt=" " src="../images/continuous_distributions/triangular_distribution.PNG" /></p>
+<details class="example">
+<summary>Example</summary>
+<p>Subjective description of a population for which there is only limited sample data but knowledge of minimum, maximum and mode.</p>
+</details>
+<h4 id="normal">Normal<a class="headerlink" href="#normal" title="Permanent link">&para;</a></h4>
+<ul>
+<li><span class="arithmatex">\(\mathcal{X}=\mathbb{R}\)</span></li>
+<li><span class="arithmatex">\(f_X(x)=\frac{1}{\sqrt{2\pi}\sigma}\exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right)\)</span>      </li>
+<li><span class="arithmatex">\(\mathbb{P}[X\leq x]=\frac{(x-a)^2}{(b-a)(c-a)}\mathrm{1}_{a&lt; x&lt;=c}+\left(1-\frac{(b-x)^2}{(b-a)(c-a)}\right)\mathrm{1}_{c&lt; x\leq b}\)</span>      </li>
+<li><span class="arithmatex">\(\mathbb{E}[X]=\mu\)</span> and <span class="arithmatex">\(\mathbb{V}[X]=\sigma^2\)</span></li>
+</ul>
+<p>Normal distribution over <span class="arithmatex">\(\mathbb{R}\)</span> with mean <span class="arithmatex">\(\mu\)</span> and standard deviation <span class="arithmatex">\(\sigma\)</span></p>
+<p><img alt=" " src="../images/continuous_distributions/normal_distribution.PNG" /></p>
+<details class="example">
+<summary>Example</summary>
+<p>Human size among a human population with given age and sex, beak size in a bird population, growth curve on health books, measurement error made by a laboratory technician, cannon fire, ...</p>
+<p>Extract from the French child health record. Note that in this new edition, the weight is no longer normally distributed:</p>
+<p><img alt=" " src="../images/continuous_distributions/poids_imc_filles.jpg" />
+<img alt=" " src="../images/continuous_distributions/poids_imc_garcons.jpg" /></p>
+</details>
+<p>Extract from the French child health record. Note that in this new edition, the weight is no longer normally distributed.</p>
+<h4 id="chi-squared">Chi-squared<a class="headerlink" href="#chi-squared" title="Permanent link">&para;</a></h4>
+<ul>
+<li><span class="arithmatex">\(\mathcal{X}=\mathbb{R}\)</span></li>
+<li><span class="arithmatex">\(f_X(x)=\frac{1}{2^{k/2}\Gamma(k/2)}x^{k/2-1}e^{-x/2}\)</span>      </li>
+<li><span class="arithmatex">\(\mathbb{P}[X\leq x]=\frac{1}{\Gamma(k/2)}\gamma(\frac{k}{2},\frac{x}{2})\)</span></li>
+<li><span class="arithmatex">\(\mathbb{E}[X]=k\)</span> and <span class="arithmatex">\(\mathbb{V}[X]=2k\)</span></li>
+<li>If <span class="arithmatex">\(Z_1,\ldots,Z_k\sim_{i.i.d.}\mathcal{N}(0,1)\)</span>, then <span class="arithmatex">\(\sum_{i=1}^kZ_i^2\sim\mathcal{X}^2_k\)</span></li>
+</ul>
+<p>Chi-squared distribution over <span class="arithmatex">\(\mathbb{R}_+\)</span> with <span class="arithmatex">\(k\)</span> degrees of freedom
+<img alt=" " src="../images/continuous_distributions/chisquared_distribution.PNG" /></p>
+<details class="example">
+<summary>Example</summary>
+<ul>
+<li>Relationships between categorical variables,</li>
+<li>Statistical tests,</li>
+<li>Confidence interval estimations in presence of normal random variables,</li>
+<li>...</li>
+</ul>
+</details>
+<h4 id="lognormal">Lognormal<a class="headerlink" href="#lognormal" title="Permanent link">&para;</a></h4>
+<ul>
+<li><span class="arithmatex">\(\mathcal{X}=\mathbb{R}_+\)</span></li>
+<li><span class="arithmatex">\(f_X(x)=\frac{1}{x\sigma\sqrt{2\pi}}\exp\left(-\frac{(\ln(x)-\mu)^2}{2\sigma^2}\right)\)</span></li>
+<li><span class="arithmatex">\(\mathbb{P}[X\leq x]=\frac{1}{2}+\frac{1}{2}\text{erf}\left(\frac{\ln(x)-\mu}{\sqrt{2}\sigma}\right)\)</span></li>
+<li><span class="arithmatex">\(\mathbb{E}[X]=\exp\left(\mu+\frac{\sigma^2}{2}\right)\)</span> and <span class="arithmatex">\(\mathbb{V}[X]=\left(\exp(\sigma^2)-1\right)\exp(2\mu+\sigma^2)\)</span></li>
+<li>If <span class="arithmatex">\(X\sim\mathcal{N}(\mu,\sigma^2)\)</span>, then <span class="arithmatex">\(\exp(X)\sim\log-\mathcal{N}(\mu,\sigma^2)\)</span></li>
+</ul>
+<p>LogNormal distribution over <span class="arithmatex">\(\mathbb{R}_+\)</span> with <span class="arithmatex">\(\mu\)</span> and <span class="arithmatex">\(\sigma\)</span> the mean and standard deviation of the logarithm of a random variable so distributed</p>
+<p><img alt=" " src="../images/continuous_distributions/lognormal_distribution.PNG" /></p>
+<details class="example">
+<summary>Example</summary>
+<ul>
+<li>Time to repair a maintainable system in reliability analysis,</li>
+<li>Particle size in polymer chemistry,</li>
+<li>Blood pressure,</li>
+<li>Length of comments posted in Internet discussions,</li>
+<li>Annual maximum one-day rainfalls of river discharges,</li>
+<li>... </li>
+</ul>
+<p><img alt=" " src="../images/continuous_distributions/sang.jpg" /></p>
+</details>
+<h4 id="exponential">Exponential<a class="headerlink" href="#exponential" title="Permanent link">&para;</a></h4>
+<p>Exponential distribution over <span class="arithmatex">\(\mathbb{R}_+\)</span> with rate <span class="arithmatex">\(\lambda\)</span> and mean <span class="arithmatex">\(1/\lambda\)</span></p>
+<p><img alt=" " src="../images/continuous_distributions/exponential_distribution.PNG" /></p>
+<details class="example">
+<summary>Example</summary>
+<ul>
+<li>Service time of agents in a system,</li>
+<li>Constant hazard rate portion of the bathtub curve used in reliability theory,</li>
+<li>Amount of time until a battery falls,</li>
+<li>...</li>
+</ul>
+<p>More generally, lengths of the inter-arrival times in a homogeneous Poisson process.</p>
+<p><img alt=" " src="../images/continuous_distributions/battery.jpg" /></p>
+</details>
+<h4 id="gumbel">Gumbel<a class="headerlink" href="#gumbel" title="Permanent link">&para;</a></h4>
+<p>Gumbel distribution over <span class="arithmatex">\(\mathbb{R}\)</span> with position parameter <span class="arithmatex">\(\lambda\)</span> and scale parameter <span class="arithmatex">\(\beta\)</span></p>
+<p><img alt=" " src="../images/continuous_distributions/gumbel_distribution.PNG" /></p>
+<details class="example">
+<summary>Example</summary>
+<ul>
+<li>Distribution of the maximum (or the minimum) of a number of samples of various distributions,</li>
+<li>Prediction of earthquake, </li>
+<li>Prediction of the flood level of a river based on a 10-year flow survey,</li>
+<li>...</li>
+</ul>
+<p><img alt=" " src="../images/continuous_distributions/earthquake.jpg" /></p>
+</details>
+<h4 id="weibull">Weibull<a class="headerlink" href="#weibull" title="Permanent link">&para;</a></h4>
+<ul>
+<li><span class="arithmatex">\(\mathcal{X}=\mathbb{R}_+\)</span></li>
+<li><span class="arithmatex">\(f_X(x)=\frac{k}{\lambda}\left(\frac{x}{\lambda}\right)^{k-1}e^{-(x/\lambda)^k}\)</span></li>
+<li><span class="arithmatex">\(\mathbb{P}[X\leq x]=1 - e^{-(x/\lambda)^k}\)</span></li>
+<li><span class="arithmatex">\(\mathbb{E}[X]=\lambda\Gamma(1+1/k)\)</span> and <span class="arithmatex">\(\mathbb{V}[X]=\lambda^2\left(\Gamma(1+2/k)-\Gamma^2(1+1/k)\right)\)</span></li>
+</ul>
+<p>Weibull distribution over <span class="arithmatex">\(\mathbb{R}_+\)</span> with scale parameter <span class="arithmatex">\(\lambda\)</span> and shape parameter <span class="arithmatex">\(k\)</span></p>
+<p><img alt=" " src="../images/continuous_distributions/weibull_distribution.PNG" /></p>
+<details class="example">
+<summary>Example</summary>
+<ul>
+<li>Overvoltage occurring in an electrical system,</li>
+<li>Wind speed distribution,</li>
+<li>Fading channel in wireless communications,</li>
+<li>...</li>
+</ul>
+<p><img alt=" " src="../images/continuous_distributions/windspeed.jpg" /></p>
+</details>
+<h4 id="beta">Beta<a class="headerlink" href="#beta" title="Permanent link">&para;</a></h4>
+<p>Beta distribution over <span class="arithmatex">\([0,1]\)</span> with shape parameters <span class="arithmatex">\(\alpha\)</span> (number of successes) and <span class="arithmatex">\(\beta\)</span> (number of failures)</p>
+<p><img alt=" " src="../images/continuous_distributions/beta_distribution.PNG" /></p>
+<div class="admonition example">
+<p class="admonition-title">Applications</p>
+<ul>
+<li>Outcomes expressed as percentages or proportions,</li>
+<li>The random variable representing the probability of an event,</li>
+<li>...</li>
+</ul>
+<p><img src="../images/continuous_distributions/percent.png" width="25%"/></p>
+</div>
+<h2 id="uncertainty-characterization-without-data">Uncertainty characterization without data<a class="headerlink" href="#uncertainty-characterization-without-data" title="Permanent link">&para;</a></h2>
+<p>Without any observation of the random variable <span class="arithmatex">\(X\)</span>, 
+whether it is direct or indirect,
+expert advices are required to associate a probability distribution to <span class="arithmatex">\(X\)</span>.</p>
+<details class="example">
+<summary>Examples of expert opinion</summary>
+<ul>
+<li><span class="arithmatex">\(X\)</span> is either positive, negative, continuous or discrete,</li>
+<li><span class="arithmatex">\(X\)</span> belongs to <span class="arithmatex">\([a,b]\)</span>,</li>
+<li><span class="arithmatex">\(m\)</span> is the realization of <span class="arithmatex">\(X\)</span> most likely to occur</li>
+<li><span class="arithmatex">\(\mu\)</span> is the mean value of <span class="arithmatex">\(X\)</span> and <span class="arithmatex">\(\sigma\)</span> its standard deviation</li>
+</ul>
+</details>
+<p>Elicitation is the art of converting expert opinion into a law of probability.
+Given a set of probability distribution and an expert opinion, 
+the goal is to maximize the statistical entropy</p>
+<div class="arithmatex">\[H(X)=-\int_{\mathcal{X}}p(x)\log(p(x))dx\]</div>
+<p>when <span class="arithmatex">\(X\)</span> is a continuous random variable with <span class="arithmatex">\(p\)</span> as probability density function and </p>
+<div class="arithmatex">\[H(X)=-\sum_{k=1}^K\mathbb{P}[X=x_k]\log(\mathbb{P}[X=x_k])\]</div>
+<p>when <span class="arithmatex">\(X\)</span> is a discrete random variable.</p>
+<p>Based on expert knowledge relative to the values taken by the uncertain variable <span class="arithmatex">\(X\)</span>, 
+we can apply the principle of maximum entropy and find an objective probability distribution modeling <span class="arithmatex">\(X\)</span>.</p>
+<details class="question">
+<summary><span class="arithmatex">\(X\)</span> belongs to <span class="arithmatex">\([a,b]\)</span></summary>
+<p>Uniform distribution <span class="arithmatex">\(\mathcal{U}([a,b])\)</span></p>
+</details>
+<details class="question">
+<summary><span class="arithmatex">\(X\)</span> belongs to <span class="arithmatex">\([a,b]\)</span> and <span class="arithmatex">\(m\)</span> is the most probable value</summary>
+<p>Triangular distribution <span class="arithmatex">\(\mathcal{T}(a,b,m)\)</span></p>
+</details>
+<details class="question">
+<summary><span class="arithmatex">\(X\)</span> is centered around <span class="arithmatex">\(\mu\)</span> with standard deviation <span class="arithmatex">\(\sigma\)</span></summary>
+<p>Normal distribution <span class="arithmatex">\(\mathcal{N}(\mu,\sigma^2)\)</span></p>
+</details>
+<details class="question">
+<summary><span class="arithmatex">\(X\)</span> is positive and centered around <span class="arithmatex">\(\mu\)</span></summary>
+<p>Exponential distribution <span class="arithmatex">\(\mathcal{E}(\mu^{-1})\)</span></p>
+</details>
+<details class="question">
+<summary><span class="arithmatex">\(X\)</span> is the probability of an event observed <span class="arithmatex">\(N\)</span> times with <span class="arithmatex">\(N'\)</span> successes</summary>
+<p>Beta distribution <span class="arithmatex">\(\mathcal{B}(N',N-N')\)</span></p>
+</details>
+<h2 id="uncertainty-characterization-with-data">Uncertainty characterization with data<a class="headerlink" href="#uncertainty-characterization-with-data" title="Permanent link">&para;</a></h2>
+<p>Now, 
+we have some realizations of the random variable <span class="arithmatex">\(X\)</span>
+and we will try to infer its probability law.</p>
+<h3 id="estimation-of-a-probability-distribution">Estimation of a probability distribution<a class="headerlink" href="#estimation-of-a-probability-distribution" title="Permanent link">&para;</a></h3>
+<p>Let <span class="arithmatex">\(x^{(1)},\ldots,x^{(n)}\)</span> be a series of 
+<span class="arithmatex">\(n\)</span> independent realizations of a random variable <span class="arithmatex">\(X\)</span>
+with a probability density function <span class="arithmatex">\(f_{\theta}(x)\)</span>
+parametrized by <span class="arithmatex">\(\theta\in\Theta\)</span>.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>A Gaussian variable with mean <span class="arithmatex">\(\mu\)</span> and variance <span class="arithmatex">\(\sigma^2\)</span>
+has the probability density function</p>
+<div class="arithmatex">\[f_{\theta}(x)=\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(x-\mu)^2}{2\sigma^2}}\]</div>
+<p>where <span class="arithmatex">\(\theta=(\mu,\sigma)\in\mathbb{R}\times\mathbb{R}_+^*\)</span>.</p>
+</div>
+<h4 id="likelihood">Likelihood<a class="headerlink" href="#likelihood" title="Permanent link">&para;</a></h4>
+<p>The likelihood measures the possibility that 
+the independent samples <span class="arithmatex">\(x^{(1)},\ldots,x^{(n)}\)</span> are distributed 
+according to a probability distribution of density <span class="arithmatex">\(f_{\theta}\)</span>.</p>
+<p>The likelihood is written as
+the product of the probability density function evaluated at the <span class="arithmatex">\(n\)</span> samples:</p>
+<div class="arithmatex">\[L\left(\theta;x^{(1)},\ldots,x^{(n)}\right) = \prod_{i=1}^nf_{\theta}\left(x^{(i)}\right)\]</div>
+<p>and we often prefer to use its logarithm:</p>
+<div class="arithmatex">\[\log-L\left(\theta;x^{(1)},\ldots,x^{(n)}\right) = \sum_{i=1}^n \log\left(f_{\theta}\left(x^{(i)}\right)\right).\]</div>
+<h4 id="maximizing-the-likelihood">Maximizing the likelihood<a class="headerlink" href="#maximizing-the-likelihood" title="Permanent link">&para;</a></h4>
+<p>Searching the parameters <span class="arithmatex">\(\hat{\theta}\)</span>
+that maximize the likelihood <span class="arithmatex">\(L\)</span> (or its logarithm <span class="arithmatex">\(log-L\)</span>) over <span class="arithmatex">\(\Theta\)</span> 
+is a common approach to select the most likely probability function among <span class="arithmatex">\(\{f_{\theta}(x):\theta\in\Theta\}\)</span> 
+based on the observations <span class="arithmatex">\(x^{(1)},\ldots,x^{(n)}\)</span>.</p>
+<details class="example">
+<summary>Uniform distribution</summary>
+<p>Let <span class="arithmatex">\(x^{(1)},\ldots,x^{(n)}\)</span> be a series of <span class="arithmatex">\(n\)</span> independent realizations of a uniform variable
+with probability density function</p>
+<div class="arithmatex">\[f_{(a,b)}(x)=\frac{1}{b-a}\mathrm{1}_{x\in[a,b]}.\]</div>
+<p>The likelihood is written as</p>
+<div class="arithmatex">\[L\left(a,b;x^{(1)},\ldots,x^{(n)}\right)=\frac{1}{(b-a)^n}\mathrm{1}_{x^{(1)}\in[a,b]}\ldots\mathrm{1}_{x^{(n)}\in[a,b]}\]</div>
+<p>and it maximized at</p>
+<div class="arithmatex">\[\hat{a}=\min_{1\leq i \leq n}x^{(i)} \quad \text{ and }\quad \hat{b}=\min_{1\leq i \leq n}x^{(i)}\]</div>
+<div class="admonition warning">
+<p class="admonition-title">The MLEs of <span class="arithmatex">\(a\)</span> and <span class="arithmatex">\(b\)</span> are biased</p>
+<p>Indeed, <span class="arithmatex">\(\mathbb{E}[\hat{a}]=\frac{n+1}{n}a=a+n^{-1}a\neq a\)</span> and <span class="arithmatex">\(\mathbb{E}[\hat{b}]=\frac{n+1}{n}b=b+n^{-1}b\neq b\)</span>.</p>
+<p>Here are unbiased estimators of <span class="arithmatex">\(a\)</span> and <span class="arithmatex">\(b\)</span>: <span class="arithmatex">\(\hat{a}_u=\frac{n}{n+1}\hat{a}\)</span> and <span class="arithmatex">\(\hat{b}_u=\frac{n}{n+1}\hat{b}\)</span>.</p>
+</div>
+</details>
+<details class="example">
+<summary>Normal distribution</summary>
+<p>Let <span class="arithmatex">\(x^{(1)},\ldots,x^{(n)}\)</span> be a series of <span class="arithmatex">\(n\)</span> independent realizations of a Gaussian variable
+with probability distribution</p>
+<div class="arithmatex">\[f_{\mu,\sigma}(x)=\frac{1}{\sqrt{2\pi}\sigma}\exp\left(-\frac{\left(x-\mu\right)^2}{2\sigma^2}\right).\]</div>
+<p>The likelihood is written as</p>
+<div class="arithmatex">\[L\left(\mu,\sigma;x^{(1)},\ldots,x^{(n)}\right)=\frac{1}{\sqrt{2\pi}^n\sigma^n}\exp\left(-\frac{\sum_{i=1}^n\left(x^{(i)}-\mu\right)^2}{2\sigma^2}\right)\]</div>
+<p>and its logarithm as</p>
+<div class="arithmatex">\[\log-L\left(\mu,\sigma;x^{(1)},\ldots,x^{(n)}\right)=-\frac{n}{2}\log(2\pi\sigma^2) -\frac{1}{2\sigma^2}\sum_{i=1}^n\left(x^{(i)}-\mu\right)^2.\]</div>
+<p>It is maximized at</p>
+<div class="arithmatex">\[\hat{\mu}=\frac{1}{n}\sum_{i=1}^nx^{(i)} \quad \text{ and }\quad \hat{\sigma}=\frac{1}{n}\sum_{i=1}^n\left(x^{(i)}-\hat{\mu}\right)^2\]</div>
+</details>
+<h3 id="parametric-vs-non-parametric-estimation">Parametric vs. non-parametric estimation<a class="headerlink" href="#parametric-vs-non-parametric-estimation" title="Permanent link">&para;</a></h3>
+<p>Let <span class="arithmatex">\(X\)</span> be the random variable of interest and <span class="arithmatex">\(x^{(1)},x^{(2)},\ldots, x^{(n)}\)</span> be a <span class="arithmatex">\(n\)</span>-sample where these <span class="arithmatex">\(n\)</span> samples are independent and identically distributed (i.i.d.). </p>
+<div class="admonition info">
+<p class="admonition-title">Parametric fitting</p>
+<p>Given a set of probability distributions, we test if it is likely that the data <span class="arithmatex">\(x^{(1)},x^{(2)},\ldots, x^{(n)}\)</span> are distributed according to at least one of them, and if so, we select the probability distribution that maximizes the likelihood.</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Non-parametric fitting</p>
+<p>When the data <span class="arithmatex">\(x^{(1)},x^{(2)},\ldots, x^{(n)}\)</span> fail to adjust well to one of the probability distributions, 
+we can estimate either the cumulative density function <span class="arithmatex">\(F_n(x)=\frac{1}{n}\sum_{i=1}^n\mathbf{1}_{x^{(i)}\leq x}\)</span>
+or the probability density function by means of</p>
+<ul>
+<li>an histogram <span class="arithmatex">\(f_n(x)=\frac{1}{nh}\sum_{i=1}^n\mathbf{1}_{x^{(i)}\in I_h(x)}\)</span> where <span class="arithmatex">\(I_h(x)\)</span> is the interval containing <span class="arithmatex">\(x\)</span>,</li>
+<li>a kernel-based density estimator: <span class="arithmatex">\(f_n(x)=\frac{1}{nh}\sum_{i=1}^nK\left(\frac{x-x^{(i)}}{h}\right)\)</span>.</li>
+</ul>
+</div>
+<h4 id="parametric-fitting">Parametric fitting<a class="headerlink" href="#parametric-fitting" title="Permanent link">&para;</a></h4>
+<p>A statistical hypothesis is a hypothesis that is testable by means of observations of random variables.</p>
+<p>A statistical hypothesis test starts from a statistical hypothesis, called <em>null hypothesis</em>, that is done about:</p>
+<ul>
+<li>either the relationship of two datasets in terms of distributions (e.g. same distribution) or statistical properties (e.g. same mean),</li>
+<li>or the relationship of a dataset and a reference probability law in terms of distributions (e.g. Gaussian variable).</li>
+</ul>
+<p>A statistical hypothesis test of <strong>significance level</strong> <span class="arithmatex">\(\alpha\)</span></p>
+<ul>
+<li>compares this <em>null hypothesis</em> <span class="arithmatex">\(\mathcal{H}_0\)</span> to an <em>alternative hypothesis</em> <span class="arithmatex">\(\mathcal{H}_1\)</span> from observations,</li>
+<li>wrongly rejects <span class="arithmatex">\(\mathcal{H}_0\)</span> with a type 1 error <span class="arithmatex">\(\alpha\)</span> <em>defined</em> by the user,</li>
+<li>wrongly keeps <span class="arithmatex">\(\mathcal{H}_0\)</span> with a type 2 error <span class="arithmatex">\(\beta(\alpha)\)</span> <em>suffered by the user</em>.</li>
+</ul>
+<blockquote>
+<p>"If the probability of obtaining a result as extreme as the one obtained, supposing that the null hypothesis were true, is lower than a pre-specified cut-off probability (for example, 5\%), then the result is said to be statistically significant and the null hypothesis is rejected." - Wikipedia, 29.10.19</p>
+<p>"[The null hypothesis] is never proved or established, but is possibly disproved, in the course of experimentation. Every experiment may be said to exist only in order to give the facts a chance of disproving the null hypothesis." - Fisher, 1935.</p>
+</blockquote>
+<p>In the case of distribution fitting, statistical hypotheses are:</p>
+<ul>
+<li><span class="arithmatex">\(\mathcal{H}_0\)</span>: <span class="arithmatex">\(x^{(1)},\ldots,x^{(n)}\)</span> are distributed according to a probability distribution with cumulative distribution function <span class="arithmatex">\(F(x;\hat{\theta})\)</span> with parameter estimate <span class="arithmatex">\(\theta\)</span>.</li>
+<li><span class="arithmatex">\(\mathcal{H}_1\)</span>: <span class="arithmatex">\(x^{(1)},\ldots,x^{(n)}\)</span> are not distributed in this way.</li>
+</ul>
+<p>In practice:</p>
+<ol>
+<li>Compute a test statistics <span class="arithmatex">\(S_*\)</span> from data.</li>
+<li>Reject <span class="arithmatex">\(\mathcal{H}_0\)</span> when <span class="arithmatex">\(S_*\)</span> is <span class="arithmatex">\(&gt;\)</span> a reference value <span class="arithmatex">\(s_{\alpha}\)</span>.</li>
+</ol>
+<details class="example">
+<summary>Kolmogorov Smirnov statistics - Speciality: around the median</summary>
+<div class="arithmatex">\[S_{\text{KS}}=\sup_{x\in\mathcal{X}}~\sqrt{n}\left|F_n(x)-F(x)\right|\]</div>
+</details>
+<details class="example">
+<summary>Cramer Von Mises Smirnov statistics - Speciality: whole distribution</summary>
+<div class="arithmatex">\[S_{\text{CM}}=\int_{-\infty}^{\infty}\left(F_n(x)-F(x)\right)^2dF(x)\]</div>
+</details>
+<details class="example">
+<summary>Anderson Darling statistics - Speciality: rare events</summary>
+<div class="arithmatex">\[S_{\text{AD}}=n\int_{-\infty}^{\infty}\frac{\left(F_n(x)-F(x)\right)^2}{F(x)(1-F(x))}dF(x)\]</div>
+</details>
+<h4 id="non-parametric-fitting">Non-parametric fitting<a class="headerlink" href="#non-parametric-fitting" title="Permanent link">&para;</a></h4>
+<p>Based on the data <span class="arithmatex">\(x^{(1)},x^{(2)},\ldots, x^{(n)}\)</span>,
+compare cumulative distribution functions:</p>
+<ol>
+<li>select a probability distribution with unknown parameters.</li>
+<li>estimate these parameters by maximum likelihood.</li>
+<li>overlay and compare 
+   the empirical cumulative distribution function and
+   the cumulative distribution function of the selected probability distribution with the estimated parameters,</li>
+</ol>
+<p><img alt=" " src="../images/ecdf_norm.png" /></p>
+<p>Based on the data <span class="arithmatex">\(x^{(1)},x^{(2)},\ldots, x^{(n)}\)</span>, compare quantiles with a QQ-plot:</p>
+<ol>
+<li>select a probability distribution with unknown parameters;</li>
+<li>estimate these parameters by maximum likelihood,</li>
+<li>compare on a graph the empirical quantiles and the quantiles of the selected probability distribution with the estimated parameters.</li>
+</ol>
+<p><img alt=" " src="../images/qqplot_norm.png" /></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Matthias De Lozzo -  All rights reserved -  Reproduction prohibited without permission.
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.c8d2eff1.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
