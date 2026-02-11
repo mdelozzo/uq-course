@@ -807,9 +807,9 @@ and analyze the sensitivity of the outputs of interest, namely objective and con
 <span class="n">IDF_Settings</span><span class="p">(</span><span class="n">include_weak_coupling_targets</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </code></pre></div>
 <h3 id="update-default-input-values">Update default input values<a class="headerlink" href="#update-default-input-values" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>from gemseo.utils.discipline import update_default_input_values
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">gemseo.utils.discipline</span> <span class="kn">import</span> <span class="n">update_default_input_values</span>
 
-update_default_input_values(disciplines, {input_name: input_value, ...})
+<span class="n">update_default_input_values</span><span class="p">(</span><span class="n">disciplines</span><span class="p">,</span> <span class="p">{</span><span class="n">input_name</span><span class="p">:</span> <span class="n">input_value</span><span class="p">,</span> <span class="o">...</span><span class="p">})</span>
 </code></pre></div>
 
 
