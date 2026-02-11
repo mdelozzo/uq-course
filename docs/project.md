@@ -110,3 +110,21 @@ and analyze the sensitivity of the outputs of interest, namely objective and con
 
     1. starting from the initial value $x^{(0)}$,
     2. starting from the initial value $x^*$, which is the optimum found with the MDO problem without uncertainties.
+
+### Tips
+
+### IDF
+
+```python
+from gemseo.settings.formulations import IDF_Settings
+
+IDF_Settings(include_weak_coupling_targets=True)
+```
+
+### Update default input values
+
+```python
+from gemseo.utils.discipline import update_default_input_values
+
+update_default_input_values(disciplines, {input_name: input_value, ...})
+```
