@@ -43,11 +43,11 @@ These uncertain parameters are modelled as random variables defined by probabili
 | `vi`     | T(0.755, 0.800, 0805) |
 | `aef`    | T(0.99, 1., 1.03)     |
 | `cef`    | T(0.99, 1., 1.03)     |
-| `aef`    | T(0.99, 1., 1.03)     |
+| `sef`    | T(0.99, 1., 1.03)     |
 
 where `T(minimum, mode, maximum)` represents the [triangular distribution](https://en.wikipedia.org/wiki/Triangular_distribution).
 
-The parameters `aef`, `cef` and `aef` are related
+The parameters `aef`, `cef` and `sef` are related
 to the three main technical areas involved in aircraft design,
 namely aerodynamics, propulsion and structure.
 The lower, the better.
@@ -113,7 +113,7 @@ and analyze the sensitivity of the outputs of interest, namely objective and con
 
 ### Tips
 
-### IDF
+#### IDF
 
 ```python
 from gemseo.settings.formulations import IDF_Settings
@@ -121,7 +121,7 @@ from gemseo.settings.formulations import IDF_Settings
 IDF_Settings(include_weak_coupling_targets=True)
 ```
 
-### Update default input values
+#### Update default input values
 
 ```python
 from gemseo.utils.discipline import update_default_input_values
