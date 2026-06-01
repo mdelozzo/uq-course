@@ -27,7 +27,6 @@ nav:
 - 6. Sensitivity analysis: lectures/sensitivity_analysis.md
 - 7. Surrogate models: lectures/surrogate_models.md
 - 8. Robust optimization: lectures/robust_optimization.md
-- Project: project.md
 
 plugins:
   - bibtex:
