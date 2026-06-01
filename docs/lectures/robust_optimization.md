@@ -96,7 +96,7 @@ $$
 $$
 
 with $a=6$, $b=2$, $c=12$ and $d=4$.
-The following figure represents the objective function, the objective function, the feasibility domain and the optimum:
+The following figure represents the objective function, the feasibility domain and the optimum:
 
 ![Optimization under uncertainty](../images/optimization_under_uncertainty.png)
 
@@ -156,7 +156,7 @@ the sign of $\kappa$ depends on the function type:
 - $\kappa$ must be negative for an objective to maximize,
 - $\kappa$ must be positive for a negativity constraint,
 - $\kappa$ must be negative for a positivity constraint,
-- $\kappa$ can be either positive of negative for an observable.
+- $\kappa$ can be either positive or negative for an observable.
 
 In practice,
 the statistics $\mathbb{K}_f[f(x,U)]$, $\mathbb{K}_g[g(x,U)]$ and $\mathbb{K}_h[h(x,U)]$ are unknown
@@ -207,11 +207,11 @@ many types of estimators can be used to estimate the statistics:
   can be used to approximate the expectations and variances composing many statistics in optimization under uncertainty; 
   if the models provide the gradients for cheap, 
   it is really advantageous;
-  provided that the objective and constraint functions are sensitively linear with respect to the uncertain variables;
+  provided that the objective and constraint functions are approximately linear with respect to the uncertain variables;
 - surrogate models built over either the uncertain space or both the uncertain and design spaces;
 - variance reduction techniques, 
   such as control variates and importance sampling, 
   preserve this unbiasedness property but are more complicated to set up 
-  and can still require too much samples for costly disciplines; 
+  and can still require too many samples for costly disciplines; 
   e.g. $\mathbb{E}[f(x,U)]\approx E_{MC,N}[f(x,U)]-\frac{C_{MC,N}(f,\tilde{f})}{V_{MC,N}}(E_{MC,N}[\tilde{f}(x,U)]-\mathbb{E}[\tilde{f}(x,U)])$
   where $\hat{f}$ is a cheap approximation of $f$ and $\mathbb{E}[\tilde{f}(x,U)]$ is known or can be estimated for free.

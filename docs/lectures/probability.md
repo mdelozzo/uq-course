@@ -4,7 +4,7 @@
 
 ### Variable
 
-A variable is the property of an object resulting of an experiment. 
+A variable is the property of an object resulting from an experiment. 
 e.g. the size of a person where the object is the medical check-up and the experiment is the patient consultation
 (the patient's shoes are not a variable but a parameter).
 
@@ -54,7 +54,7 @@ A random experiment can be modelled by a probability space $(\Omega,\mathcal{F},
 ## Sampling
 
 A sample is an observation of the random variable $X$ over the population $\Omega$. 
-The rest of the population remain unknown.
+The rest of the population remains unknown.
 
 Notations:
 
@@ -65,7 +65,7 @@ Notations:
 
 !!! warning
 
-    An observation is a random variable contrary to an observed value.
+    An observation is a random variable, unlike an observed value.
 
 ## Probability distribution
 

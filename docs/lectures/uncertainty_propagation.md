@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Propagating uncertainties from inputs to outputs means sampling the model in two-step:
+Propagating uncertainties from inputs to outputs means sampling the model in two steps:
 
 1. sampling the inputs to get $N$ values $x^{(1)},\ldots,x^{(N)}$,
 2. evaluate the model $f$ at these input values: $f(x^{(1)}),\ldots,f(x^{(N)})$
@@ -72,7 +72,7 @@ we often
 
 1. apply a DOE technique to sample uniformly and sparingly the unit hypercube $[0,1]^d$
    and get $u^{(1)},\ldots,u^{(N)}$,
-2. apply the cumulative distribution function $F_X^{-1} to $u^{(1)},\ldots,u^{(N)}$
+2. apply the cumulative distribution function $F_X^{-1}$ to $u^{(1)},\ldots,u^{(N)}$
    and get $x^{(1)},\ldots,x^{(N)}$,
 3. evaluate the model $f$
    and get $f(x^{(1)}),\ldots,f(x^{(N)})$
@@ -143,7 +143,7 @@ Box-Behnken DOE with $d=3$ and $n=13$:
     - at specified levels,
       e.g.
       $\alpha_1,\alpha_2,\ldots,\alpha_{n_{\text{levels}}}$
-      \item symmetrically with respect to the center\\
+    - symmetrically with respect to the center,
       e.g.
       $-\alpha_{n_{\text{levels}}},\ldots,-\alpha_2,-\alpha_1,0,+\alpha_1,+\alpha_2,\ldots,+\alpha_{n_{\text{levels}}}$.
 
@@ -165,7 +165,7 @@ Factorial DOE when $d=3$, $n_{\text{levels}}=5$ and $n=41$:
     - at specified levels,
       e.g.
       $\alpha_1,\alpha_2,\ldots,\alpha_{n_{\text{levels}}}$
-      \item symmetrically with respect to the center\\
+    - symmetrically with respect to the center,
       e.g.
       $-\alpha_{n_{\text{levels}}},\ldots,-\alpha_2,-\alpha_1,0,+\alpha_1,+\alpha_2,\ldots,+\alpha_{n_{\text{levels}}}$.
 
@@ -208,7 +208,7 @@ such as
 
 - random sampling / Monte Carlo sampling,
 - low-discrepancy sequences,
-- latin Hypercube Sampling.
+- Latin hypercube sampling.
 
 ## Random sampling
 
@@ -276,7 +276,7 @@ Can you guess which one is based on a low-discrepancy sequence and which on Mont
 ### Haselgrove sequence
 
 <img src="../images/haselgrove.gif"/>
-}
+
 ### Sobol' sequence
 
 <img src="../images/sobol.gif"/>
@@ -291,7 +291,7 @@ Can you guess which one is based on a low-discrepancy sequence and which on Mont
 
 ### Which sequence?
    
-The performance of the low discrepancy sequences decreases fastly with the problem dimension:
+The performance of the low discrepancy sequences decreases rapidly with the problem dimension:
 
 - whatever the sequence,
 - with a deterioration speed which depends on the sequence.
@@ -318,7 +318,7 @@ Based on dividing the range of each parameter into several intervals of equal pr
 2. Select a cell uniformly among all the available cells.
 3. Select either the center of the cell or a point randomly in this cell.
 4. Invert the Cumulative Density Function at the selected point.
-5. Remove all the cells having a common strate with the previous cell from the list of available cells.
+5. Remove all the cells having a common stratum with the previous cell from the list of available cells.
 6. Go to 2. until the list is empty. 
 
 With 2 variables:

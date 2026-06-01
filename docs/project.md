@@ -15,7 +15,7 @@ the OAD problem is
 
 ## The design parameters
 
-The **design parameters** are :
+The **design parameters** are:
 
 - the maximum sea level static thrust  (100 kN ≤ slst ≤ 200 kN, default: 150 kN),
 - the number of passengers  (120 ≤ n_pax ≤ 180, default: 150),
@@ -24,7 +24,7 @@ The **design parameters** are :
 
 ## The operational constraints
 
-The **operational constraints** are :
+The **operational constraints** are:
 
 - the take-off field length (tofl ≤ 1900 m),
 - the approach speed (vapp ≤ 135 kt),
@@ -37,13 +37,13 @@ The **operational constraints** are :
 
 These uncertain parameters are modelled as random variables defined by probability distributions:
 
-| Variable | Distribution          |
-|----------|-----------------------|
-| `gi`     | T(0.35, 0.4, 0.405)   |
-| `vi`     | T(0.755, 0.800, 0805) |
-| `aef`    | T(0.99, 1., 1.03)     |
-| `cef`    | T(0.99, 1., 1.03)     |
-| `sef`    | T(0.99, 1., 1.03)     |
+| Variable | Distribution           |
+|----------|------------------------|
+| `gi`     | T(0.35, 0.4, 0.405)    |
+| `vi`     | T(0.755, 0.800, 0.805) |
+| `aef`    | T(0.99, 1., 1.03)      |
+| `cef`    | T(0.99, 1., 1.03)      |
+| `sef`    | T(0.99, 1., 1.03)      |
 
 where `T(minimum, mode, maximum)` represents the [triangular distribution](https://en.wikipedia.org/wiki/Triangular_distribution).
 
@@ -51,7 +51,7 @@ The parameters `aef`, `cef` and `sef` are related
 to the three main technical areas involved in aircraft design,
 namely aerodynamics, propulsion and structure.
 The lower, the better.
-These factors are representing the unknown
+These factors represent the unknowns
 included in any creative activity.
 Their probability distributions are not symmetrical
 as it is always easier to make something less efficient than expected...

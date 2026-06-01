@@ -4,7 +4,7 @@
 
 ### Discrete probability distribution
 
-#### Bernouilli
+#### Bernoulli
 
 - $\mathcal{X}=\{0,1\}$ or $\mathcal{X}=\{\text{failure},\text{success}\}$
 - $\mathbb{P}[X=1]=p$ and $\mathbb{P}[X=0]=1-p$
@@ -93,7 +93,7 @@ Uniform distribution over $[a,b]$ with minimum $a$ and maximum $b$:
 
 !!! tip "Inverse transform sampling"
  
-    If $U$ has an uniform distribution on $[0,1]$ and if $X$ as a cumulative distribution function $F_X$, then the random variable $F_X^{-1}(U)$ has the same distribution as $U$. Thus, if $F_X^{-1}$ is easy to obtain and evaluate, the following sampling method works:
+    If $U$ has a uniform distribution on $[0,1]$ and if $X$ as a cumulative distribution function $F_X$, then the random variable $F_X^{-1}(U)$ has the same distribution as $U$. Thus, if $F_X^{-1}$ is easy to obtain and evaluate, the following sampling method works:
 
     - Generate $u$, an instance of the standard uniform random variable $U$.
     - Find the inverse distribution $F_X^{-1}$.
@@ -133,8 +133,6 @@ Normal distribution over $\mathbb{R}$ with mean $\mu$ and standard deviation $\s
 
     ![ ](../images/continuous_distributions/poids_imc_filles.jpg)
     ![ ](../images/continuous_distributions/poids_imc_garcons.jpg)
-
-Extract from the French child health record. Note that in this new edition, the weight is no longer normally distributed.
 
 #### Chi-squared
 
@@ -247,7 +245,7 @@ Beta distribution over $[0,1]$ with shape parameters $\alpha$ (number of success
 
 Without any observation of the random variable $X$, 
 whether it is direct or indirect,
-expert advices are required to associate a probability distribution to $X$.
+expert advice is required to associate a probability distribution to $X$.
 
 ??? example "Examples of expert opinion"
 
@@ -346,7 +344,7 @@ based on the observations $x^{(1)},\ldots,x^{(n)}$.
 
     $$L\left(a,b;x^{(1)},\ldots,x^{(n)}\right)=\frac{1}{(b-a)^n}\mathrm{1}_{x^{(1)}\in[a,b]}\ldots\mathrm{1}_{x^{(n)}\in[a,b]}$$
 
-    and it maximized at
+    and it is maximized at
 
     $$\hat{a}=\min_{1\leq i \leq n}x^{(i)} \quad \text{ and }\quad \hat{b}=\min_{1\leq i \leq n}x^{(i)}$$
 

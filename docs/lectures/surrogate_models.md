@@ -62,7 +62,7 @@ A classical approach consists of reducing the output dimension:
 1. Decompose the multiple output on an orthogonal basis,
    e.g. principal component analysis (PCA): 
    $f(x)=\sum_{i=1}^{\text{dim}(y)}\alpha_i(x)\varphi_i$ with $\varphi_i\in\mathcal{Y}$.
-2. Keep the more significant modes of the basis: $f_{\text{PCA}}(x)=\sum_{i=1}^{p\ll\text{dim}(y)}\alpha_i(x)\varphi_i$.
+2. Keep the most significant modes of the basis: $f_{\text{PCA}}(x)=\sum_{i=1}^{p\ll\text{dim}(y)}\alpha_i(x)\varphi_i$.
 3. For each significant mode, create a surrogate model $\hat{\alpha}_i$ of $\alpha_i$ (see how in the following sections).
 4. Provide a cheap but accurate approximation of $f$ by combining the
    previous approximations: $\hat{f}_{\text{PCA}}(x)=\sum_{i=1}^{p}\hat{\alpha}_i(x)\varphi_i$.
@@ -91,7 +91,7 @@ $$\hat{y}\equiv\hat{f}_{\hat{\alpha}}\left(x\right)$$
 
 Training dataset:
 
-1. Create a design of experiments (DOE)}: $x^{(1)},\ldots,y^{(n)}$.
+1. Create a design of experiments (DOE): $x^{(1)},\ldots,y^{(n)}$.
 2. Evaluate the simulator $f$: $y^{(1)},\ldots,y^{(N)}$ where $y^{(i)}=f(x^{(i)})$.
 3. Create the learning dataset: $\mathcal{L}_N=\left\{(x^{(1)},y^{(1)}),\ldots,(x^{(N)},y^{(N)})\right\}$
 
@@ -219,7 +219,7 @@ with $\alpha\in\mathbb{R}^p$ and $p=1+d$.
 Pros:
 
 - The training is easy as it is based on fundamentals of linear algebra,
-- The explainability is easy: if $\alpha_i>0$ (resp. $<0$), the surrogate model increases (resp. decreases) monotically with $x_i$.
+- The explainability is easy: if $\alpha_i>0$ (resp. $<0$), the surrogate model increases (resp. decreases) monotonically with $x_i$.
 
 Cons:
 
@@ -261,11 +261,11 @@ Pros:
 
 - The training is easy as it is based on fundamentals of linear algebra,
 - The explainability is medium: 
-  weighted sum of learned outputs with weight $w_i(x)$ all the closer to zero than $x$ is far from $x^{(i)}$.
+  weighted sum of learned outputs, the weights tending to zero as $x$ moves away from $x^{(i)}$.
 
 Cons:
 
-- This structure of this model is dependent on the learning dataset size.
+- The structure of this model is dependent on the learning dataset size.
 
 !!! example "Toy model - RBF model"
     
@@ -283,7 +283,7 @@ Cons:
 
 ### Gaussian process (GP) regressors
 
-GP models are also called Kriging modles.
+GP models are also called Kriging models.
 
 Expression:
 
@@ -389,7 +389,7 @@ Classical methods dedicated to the learning of a PCE surrogate model.
 
     $$\hat{\alpha}=\text{argmin}_{\alpha\in\mathcal{A}}\text{MSE}(\mathcal{L}_N;\hat{f}_\alpha)$$
 
-!!! note "optimum"
+!!! note "Optimum"
 
     $$\hat{\alpha}=\left(\mathbf{\Psi}^T\mathbf{\Psi}\right)^{-1}\mathbf{\Psi}^T\mathbf{Y}$$
     
@@ -440,7 +440,7 @@ Pros:
 
 - The training is medium, as it relies on fundamentals of linear algebra or quadrature
   but may require advanced techniques when the number of learning samples is too small.
-- The model only requires that $f$ has a finite variance, *i.e* $\mathbb{E}[f(\mathbf{X})^2]<\infty$.
+- The model only requires that $f$ has a finite variance, *i.e.* $\mathbb{E}[f(\mathbf{X})^2]<\infty$.
 - The PCE can provide analytical expressions for mean, variance and Sobol' indices
 - The explainability is not so easy as a PCE is polynomial regressor with many interactions between input parameters.
 
@@ -448,7 +448,7 @@ Cons:
 
 - Structure: the number of parameters to be estimated $p$ increases exponentially with $d$.
 - When your software library does not provide default settings,
-  you have to chose training, truncation and enumerating strategies, as well as PCE degree,
+  you have to choose training, truncation and enumerating strategies, as well as PCE degree,
   which can be a bit complicated.
 
 !!! example "PCE"

@@ -44,14 +44,14 @@ where $x$ and $y$ are deterministic variables.
 How does $Y$ vary over the uncertain input space $(\Omega, \mathcal{X} , \mathbb{P})$?
 
 - Based on probabilistic distributions of $X$;
-  given a dataset, we compare output statistics and compare these statistics.
+  given a dataset, we compute output statistics and compare them.
 - Conclusions depend on the choice of the distribution of $X$ (distributions of $X_1,\ldots,X_d$, and eventually their joint distribution).
 
 !!! example
 
     $Y=f(X)=\exp(X_1)+\exp(X_2)$ with $X_1,X_2\sim_{\text{i.i.d.}}\mathcal{U}([0,1])$.
 
-    A GSA would conclude that $X_1$ and $X_2$ have the same effect on $Y$ while a LSA would conclude that $x_1$ is more influent if $x_1>x_2$ and conversely.
+    A GSA would conclude that $X_1$ and $X_2$ have the same effect on $Y$ while a LSA would conclude that $x_1$ is more influential if $x_1>x_2$ and conversely.
 
 ## LSA
 
@@ -165,7 +165,7 @@ and $\sigma_i\geq 0$ measures the degree of non-linearity of $f$ with respect to
 Pros and cons:
 
 - Easy to understand and analyze.
-- Not adapted for non-monotonous models.
+- Not adapted for non-monotone models.
 
 #### Standardized regression coefficients
 
@@ -284,7 +284,7 @@ due to $X_i$ and all its joint effects.
   and inputs with non-significant Sobol' indices can be set at nominal values.
 - These indices of a polynomial chaos expansion (PCE),
   which is a surrogate model widely used in the UQ field,
-  can be expressed from its coefficients,
+  can be expressed in terms of its coefficients,
   so their estimation can be straightforward, 
   not requiring Monte-Carlo sampling.
 

@@ -93,7 +93,7 @@ Subject to these uncertainties,
 
 !!! example
 
-    Let us consider a model $f$ calculating the temperature difference between today and the day after tomorrow). 
+    Let us consider a model $f$ calculating the temperature difference between today and the day after tomorrow. 
     Its input variable $x_1$ defining the temperature now can be considered as correct as measured with a thermometer,
     but the input variable $x_2$ defining the temperature at the same time the day after tomorrow is uncertain,
     because it comes from a weather forecast. Then, the output $y:=f(x_1,x_2)$ is uncertain.
@@ -203,7 +203,7 @@ Let's consider a model $f$:
 
 In the deterministic world, $y$ is a **variable of interest**.
 
-In a uncertain world, 
+In an uncertain world, 
 when the value of $x$ is uncertain, 
 we can
 
@@ -246,7 +246,7 @@ There is a question in particular:
     - Is the variance of $Y$ small or not?
     - Is the variation coefficient of $Y$ small or not?
     - Is the probability that $Y$ exceeds a threshold small or not?
-    - Is green or red?
+    - Is it green or red?
 
     If you have a lot of observations of $Y$:
 
@@ -294,8 +294,8 @@ We want to
 
 - quantify the uncertainty present in the output of a model,
 - link this uncertainty to the uncertain input sources (if too much output uncertainty),
-- identify the more significant uncertain input sources (if too much output uncertainty),,
-- reduce some uncertainty sources if possible (if too much output uncertainty),.
+- identify the most significant uncertain input sources (if too much output uncertainty),
+- reduce some uncertainty sources if possible (if too much output uncertainty).
 
 A solution to this problem is called *uncertainty quantification & management* (UQ&M),
 often abbreviated to UQ.
@@ -308,7 +308,7 @@ to classify the objectives of any quantitative risk/uncertainty assessment:
  
 ??? info "U (Understand)"
 
-    Understand the influence or rank of importance of uncertainties helps to 
+    Understanding the influence or ranking the importance of uncertainties helps to 
     guide the new measurements or the computer modeling and the R&D efforts.
 
 ??? info "A (Accredit)"
@@ -322,10 +322,10 @@ to classify the objectives of any quantitative risk/uncertainty assessment:
 
 ??? info "S (Select)"
 
-    The consideration of uncertainties allows to compare different system performances 
+    The consideration of uncertainties allows comparing different system performances 
     and optimize the choice of the objective policy, operation or design of the system.
 
-??? info "C (Comply))"
+??? info "C (Comply)"
 
     Defining an adequate criterion or regulatory threshold (e.g. licensing, certification, ...) 
     taking into account the uncertainties allows to demonstrate compliance of the system.
@@ -337,11 +337,11 @@ to summarize a UQ&M study from a number of generic tasks:
 
 ## Surrogate models as UQ&M enablers
 
-UQ&M techniques tools often require an important number of model evaluations 
+UQ&M techniques often require a large number of model evaluations 
 to estimate quantities of interest such as quantiles or probabilities.
 
 But in many cases,
-model evaluation are expensive or time-consuming
+model evaluations are expensive or time-consuming
 and in these cases,
 precise estimation of these quantities is impossible.
 

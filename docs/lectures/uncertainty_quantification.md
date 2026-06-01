@@ -14,7 +14,7 @@ $\forall (a,b)\in\mathbb{R}^2,~\mathbb{E}[aX+b]=a\mathbb{E}[X]+b$.
 
 ### Variance
 
-The variance if the second central moment.
+The variance is the second central moment.
 
 The variance is the mean squared dispersion of $X$ w.r.t. its central tendency:
 
@@ -64,7 +64,7 @@ Expectation and variance are the most popular moments.
 
 ### Introduction
 
-Statistics are integral of quantify of interest.
+Statistics are integrals of quantities of interest.
 For example, the expectation of the model output can be written as  
 
 $$I=\mathbb{E}[f(X)]=\int_{\mathcal{X}}f(x)f_X(x)dx$$
@@ -116,7 +116,7 @@ $$\mathbb{P}[X\in\mathcal{D}]=\mathbb{E}[\mathrm{1}_{X\in\mathcal{D}}]\approx\fr
     requiring $N=10^{r+2m}$ evaluations for a probability of $10^{-r}$ with a CoV of $10^{-m}$,
     e.g. $N=10^5$ evaluations for a probability of 99.9% with a CoV of 10%.
 
-## Visualizing one 1D variable
+## Visualizing a 1D variable
 
 Example with 1000 instances of a Gaussian variable with 0 mean and 0.5 standard deviation.
 
