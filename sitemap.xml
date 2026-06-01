@@ -2,57 +2,46 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://mdelozzo.github.io/uq-course/index.html</loc>
-         <lastmod>2026-02-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2026-06-01</lastmod>
     </url>
     <url>
          <loc>https://mdelozzo.github.io/uq-course/project.html</loc>
-         <lastmod>2026-02-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2026-06-01</lastmod>
     </url>
     <url>
          <loc>https://mdelozzo.github.io/uq-course/exercises/index.html</loc>
-         <lastmod>2026-02-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2026-06-01</lastmod>
     </url>
     <url>
          <loc>https://mdelozzo.github.io/uq-course/lectures/index.html</loc>
-         <lastmod>2026-02-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2026-06-01</lastmod>
     </url>
     <url>
          <loc>https://mdelozzo.github.io/uq-course/lectures/probability.html</loc>
-         <lastmod>2026-02-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2026-06-01</lastmod>
     </url>
     <url>
          <loc>https://mdelozzo.github.io/uq-course/lectures/robust_optimization.html</loc>
-         <lastmod>2026-02-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2026-06-01</lastmod>
     </url>
     <url>
          <loc>https://mdelozzo.github.io/uq-course/lectures/sensitivity_analysis.html</loc>
-         <lastmod>2026-02-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2026-06-01</lastmod>
     </url>
     <url>
          <loc>https://mdelozzo.github.io/uq-course/lectures/surrogate_models.html</loc>
-         <lastmod>2026-02-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2026-06-01</lastmod>
     </url>
     <url>
          <loc>https://mdelozzo.github.io/uq-course/lectures/uncertainty_characterization.html</loc>
-         <lastmod>2026-02-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2026-06-01</lastmod>
     </url>
     <url>
          <loc>https://mdelozzo.github.io/uq-course/lectures/uncertainty_propagation.html</loc>
-         <lastmod>2026-02-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2026-06-01</lastmod>
     </url>
     <url>
          <loc>https://mdelozzo.github.io/uq-course/lectures/uncertainty_quantification.html</loc>
-         <lastmod>2026-02-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2026-06-01</lastmod>
     </url>
 </urlset>
